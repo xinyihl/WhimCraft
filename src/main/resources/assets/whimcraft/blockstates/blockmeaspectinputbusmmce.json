@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "model": "whimcraft:blockmeaspectinputbus"
+  },
+  "variants": {
+    "inventory": {
+      "model": "whimcraft:blockmeaspectinputbus"
+    },
+    "normal": {
+      "model": "whimcraft:blockmeaspectinputbus"
+    }
+  }
+}

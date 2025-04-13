@@ -1,0 +1,255 @@
+//file:noinspection DependencyNotationArgument
+import org.jetbrains.gradle.ext.Gradle
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.7'
+    id 'com.gtnewhorizons.retrofuturagradle' version '1.3.27'
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+}
+
+version = project.mod_version
+group = project.maven_group
+archivesBaseName = project.mod_name
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+        vendor.set(JvmVendorSpec.AZUL)
+    }
+    withSourcesJar()
+    // withJavadocJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+configurations {
+    embed
+    implementation.extendsFrom(embed)
+}
+
+minecraft {
+    mcVersion = '1.12.2'
+
+    mcpMappingChannel = 'stable'
+    mcpMappingVersion = '39'
+
+    username = 'Developer'
+
+    extraTweakClasses.add('org.spongepowered.asm.launch.MixinTweaker')
+
+    def args = ["-ea:${project.group}"]
+    if (project.use_mixins.toBoolean()) {
+        args << "-Dmixin.hotSwap=true"
+        args << "-Dmixin.checks.interfaces=true"
+        args << "-Dmixin.debug.export=true"
+    }
+    extraRunJvmArguments.addAll(args)
+
+    useDependencyAccessTransformers = true
+
+    injectedTags.put('MOD_ID', project.archives_base_name)
+    injectedTags.put('MOD_NAME', project.mod_name)
+    injectedTags.put('VERSION', project.version)
+}
+
+tasks.runClient.configure {
+    args = ['--width', '1920', '--height', '1080']
+}
+
+if (project.use_coremod.toBoolean()) {
+    for (runTask in ['runClient', 'runServer']) {
+        tasks.named(runTask).configure {
+            extraJvmArgs.add('-Dfml.coreMods.load=' + coremod_plugin_class_name)
+        }
+    }
+}
+
+tasks.injectTags.configure {
+    outputClassName.set("${project.group}.${project.archives_base_name}.Tags")
+}
+
+repositories {
+    maven {
+        name = 'blamejared'
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        name = 'CleanroomMC Maven'
+        url = 'https://maven.cleanroommc.com'
+    }
+    maven {
+        name = 'SpongePowered Maven'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+    maven {
+        name = "GeckoLib"
+        url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+    }
+    maven {
+        name = 'CurseMaven'
+        url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    mavenLocal()
+}
+
+dependencies {
+    if (project.use_assetmover.toBoolean()) {
+        implementation 'com.cleanroommc:assetmover:2.5'
+    }
+    if (project.use_mixins.toBoolean()) {
+        implementation 'zone.rong:mixinbooter:9.3'
+    }
+    if (project.use_mixins.toBoolean()) {
+        String mixin = modUtils.enableMixins('zone.rong:mixinbooter:9.3', "mixins.whimcraft.refmap.json")
+        api (mixin) {
+            transitive = false
+        }
+        annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+        annotationProcessor 'com.google.guava:guava:24.1.1-jre'
+        annotationProcessor 'com.google.code.gson:gson:2.8.6'
+        annotationProcessor (mixin) {
+            transitive = false
+        }
+    }
+
+    implementation("software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31")
+
+    implementation "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.698"
+
+    implementation rfg.deobf("curse.maven:theoneprobe-245211:2667280")
+    implementation rfg.deobf("curse.maven:baubles-227083:2518667")
+
+    implementation rfg.deobf("curse.maven:ae2extendedlife-570458:5411078")
+
+    implementation rfg.deobf("curse.maven:mmce-817377:5952626")
+
+    implementation rfg.deobf("curse.maven:thaumcraft-223628:2629023")
+    implementation rfg.deobf("curse.maven:teelf-983976:5423183")
+
+    implementation rfg.deobf("curse.maven:guguutils-530919:3652765")
+    implementation rfg.deobf("curse.maven:codechickenlib-242818:2779848")
+    implementation rfg.deobf("curse.maven:mcjtylib-233105:2745846")
+}
+
+if (project.use_access_transformer.toBoolean()) {
+    for (File at : sourceSets.getByName("main").resources.files) {
+        if (at.name.toLowerCase().endsWith("_at.cfg")) {
+            tasks.deobfuscateMergedJarToSrg.accessTransformerFiles.from(at)
+            tasks.srgifyBinpatchedJar.accessTransformerFiles.from(at)
+        }
+    }
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
+
+    filesMatching(['mcmod.info', 'pack.mcmeta']) { fcd ->
+        fcd.expand (
+                'version': project.version,
+                'mcversion': project.minecraft.version
+        )
+    }
+    
+    if (project.use_access_transformer.toBoolean()) {
+        rename '(.+_at.cfg)', 'META-INF/$1'
+    }
+}
+
+jar {
+    manifest {
+        def attribute_map = [:]
+        attribute_map['Implementation-Title'] = project.name
+        attribute_map['Implementation-Version'] = project.version
+        if(project.use_mixins.toBoolean()) {
+            attribute_map['TweakClass'] = "org.spongepowered.asm.launch.MixinTweaker"
+        }
+        if (project.use_coremod.toBoolean()) {
+            attribute_map['FMLCorePlugin'] = project.coremod_plugin_class_name
+            if (project.include_mod.toBoolean()) {
+                attribute_map['FMLCorePluginContainsFMLMod'] = true
+                attribute_map['ForceLoadAsMod'] = project.gradle.startParameter.taskNames[0] == "build"
+            }
+        }
+        if (project.use_access_transformer.toBoolean()) {
+            attribute_map['FMLAT'] = 'whimcraft_at.cfg'
+        }
+        attributes(attribute_map)
+    }
+    from(provider{ configurations.embed.collect {it.isDirectory() ? it : zipTree(it)} })
+}
+
+tasks.register('signJar') {
+    def keystorePath = file("C:/Users/xinyihl/.gradle/keystore.jks")
+    def keystoreAlias = "xinyihl"
+
+    def unsignedJar = file("$buildDir/libs/${jar.archiveBaseName.get()}-${jar.archiveVersion.get()}.jar")
+    def signedJar = file("$buildDir/libs/${jar.archiveBaseName.get()}-${jar.archiveVersion.get()}-signed.jar")
+
+    def keystorePassword = System.getenv("KEYSTORE_PASSWORD")
+    def keyPassword = System.getenv("KEY_PASSWORD")
+
+    doLast {
+        if (keystorePassword.isEmpty() || keyPassword.isEmpty()) {
+            throw new GradleException("Keystore passwords are not set in environment variables!")
+        }
+        ant.signjar(
+                jar: unsignedJar,
+                alias: keystoreAlias,
+                keystore: keystorePath,
+                storepass: keystorePassword,
+                keypass: keyPassword,
+                signedjar: signedJar
+        )
+    }
+}
+
+build.dependsOn signJar
+
+tasks.named("processIdeaSettings").configure {
+    dependsOn("injectTags")
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+    project {
+        settings {
+            runConfigurations {
+                "1. Run Client"(Gradle) {
+                    taskNames = ["runClient"]
+                }
+                "2. Run Server"(Gradle) {
+                    taskNames = ["runServer"]
+                }
+                "3. Run Obfuscated Client"(Gradle) {
+                    taskNames = ["runObfClient"]
+                }
+                "4. Run Obfuscated Server"(Gradle) {
+                    taskNames = ["runObfServer"]
+                }
+            }
+            compiler.javac {
+                afterEvaluate {
+                    javacAdditionalOptions = "-encoding utf8"
+                    moduleJavacAdditionalOptions = [
+                            (project.name + ".main"): tasks.compileJava.options.compilerArgs.collect { '"' + it + '"' }.join(' ')
+                    ]
+                }
+            }
+        }
+    }
+}

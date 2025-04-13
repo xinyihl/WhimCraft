@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "whimcraft",
+    "name": "WhimCraft",
+    "description": "超级前瞻特供版本",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "authorList": [
+      "xinyihl"
+    ]
+  }
+]
