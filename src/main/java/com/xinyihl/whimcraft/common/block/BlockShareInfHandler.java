@@ -1,6 +1,7 @@
 package com.xinyihl.whimcraft.common.block;
 
 import com.xinyihl.whimcraft.Tags;
+import com.xinyihl.whimcraft.common.title.TitleShareInfHandler;
 import github.kasuminova.mmce.common.block.appeng.BlockMEMachineComponent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
