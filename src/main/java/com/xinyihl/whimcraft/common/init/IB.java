@@ -5,7 +5,7 @@ import com.xinyihl.whimcraft.common.block.BlockMEAspectInputBus;
 import com.xinyihl.whimcraft.common.block.BlockMEAspectInputBusMMCE;
 import com.xinyihl.whimcraft.common.block.BlockMEAspectOutputBus;
 import com.xinyihl.whimcraft.common.block.BlockMEAspectOutputBusMMCE;
-import com.xinyihl.whimcraft.common.item.MyItemBlock;
+import com.xinyihl.whimcraft.common.items.MyItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

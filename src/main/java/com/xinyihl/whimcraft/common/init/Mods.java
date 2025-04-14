@@ -4,7 +4,11 @@ import net.minecraftforge.fml.common.Loader;
 
 public enum Mods {
     MMCE("modularmachinery", true),
-    GUGU("gugu-utils", true);
+    GUGU("gugu-utils", true),
+    TC6("thaumcraft", false),
+    IE("immersiveengineering", false),
+    TCO("tconstruct", false),
+    FORESTRY("forestry", false);
 
     public final String modid;
     private final boolean mixin;

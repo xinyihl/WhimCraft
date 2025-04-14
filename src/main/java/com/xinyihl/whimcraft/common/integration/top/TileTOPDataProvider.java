@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.init;
+package com.xinyihl.whimcraft.common.integration.top;
 
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.api.IHasProbeInfo;

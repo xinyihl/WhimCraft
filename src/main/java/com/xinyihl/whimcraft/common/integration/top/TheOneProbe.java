@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.init;
+package com.xinyihl.whimcraft.common.integration.top;
 
 import mcjty.theoneprobe.api.ITheOneProbe;
 

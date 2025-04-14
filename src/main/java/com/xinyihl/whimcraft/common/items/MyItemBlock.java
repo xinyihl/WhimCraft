@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.item;
+package com.xinyihl.whimcraft.common.items;
 
 import com.xinyihl.whimcraft.common.init.IB;
 import net.minecraft.block.Block;
