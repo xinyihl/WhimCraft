@@ -14,5 +14,7 @@ public class Configurations {
         public int smelterTime = 100;
         @Config.Comment("适配器是否使用 gugu 的源质处理系统（ gugu 不支持并行）")
         public boolean useGuguAspect = false;
+        @Config.Comment("电路板前缀（eg: contenttweaker:programming_circuit_[0-?]）")
+        public String pcb = "contenttweaker:programming_circuit_";
     }
 }

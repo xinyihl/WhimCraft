@@ -69,9 +69,9 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                     .collect(Collectors.toList());
             if (!inputMainList.isEmpty()) {
                 int i = items.getOrDefault(inputMain[0].toString(), 0);
-                Item item = Item.getByNameOrId("contenttweaker:programming_circuit_" + i);
+                Item item = Item.getByNameOrId(OTHER_CONFIG.pcb + i);
                 if (item == null) {
-                    log.fatal(inputMain[0].toString() + " - no qdlb with id: contenttweaker:programming_circuit_" + i);
+                    log.fatal("未找到编程电路: " + OTHER_CONFIG.pcb + i);
                 } else {
                     RequirementItem reqdlb = new RequirementItem(IOType.INPUT, new ItemStack(item));
                     reqdlb.setParallelizeUnaffected(true);
