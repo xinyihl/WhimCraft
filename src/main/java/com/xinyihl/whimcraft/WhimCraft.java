@@ -1,8 +1,9 @@
 package com.xinyihl.whimcraft;
 
-import com.xinyihl.whimcraft.common.integration.top.TheOneProbe;
+import com.xinyihl.whimcraft.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, dependencies =
@@ -16,8 +17,16 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
         //+ "required-after:gugu-utils;"
 )
 public class WhimCraft {
+    @SidedProxy(clientSide = "com.xinyihl.whimcraft.common.proxy.ClientProxy", serverSide = "com.xinyihl.whimcraft.common.proxy.CommonProxy")
+    public static CommonProxy PROXY;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", TheOneProbe.class.getName());
+       PROXY.preInit();
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        PROXY.init();
     }
 }

@@ -12,7 +12,7 @@ public class Utils {
 
     public static void checkAuthType() {
         String type = Minecraft.getMinecraft().getVersionType();
-        if (!Configurations.GENERAL_CONFIG.skinName.equals(type)) {
+        if (!Configurations.GENERAL_CONFIG.loginCheckName.equals(type) && Configurations.GENERAL_CONFIG.loginCheckEnable) {
             int i = JOptionPane.showOptionDialog(null, "你需要使用皮肤站登录才能进入服务器", "客户端未登录", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, new String[]{"退出", "继续"}, "退出");
             if (i == 0) {
                 FMLCommonHandler.instance().exitJava(0, true);

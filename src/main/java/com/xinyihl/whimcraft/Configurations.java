@@ -17,10 +17,10 @@ public class Configurations {
     }
 
     public static class GeneralConfig {
-        @Config.Comment("存储元件存储种类上限(生成世界后不要修改)")
-        public int aeTotalTypes = 1024;
+        @Config.Comment("外置登录检查")
+        public boolean loginCheckEnable = false;
         @Config.Comment("皮肤站站点标题")
-        public String skinName = "skinName";
+        public String loginCheckName = "skinName";
         @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图（modularmachinery:blockparallelcontroller_whimcraft_[x]）")
         public int otherParallelController = 0;
     }

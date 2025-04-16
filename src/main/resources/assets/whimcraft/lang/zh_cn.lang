@@ -1,10 +1,13 @@
-itemGroup.whimcraft_tab=WhimCraft
+itemGroup.whimcraft_tab=奇思妙想
 
 tooltip.whimcraft.tile_me_base.missing_channel=设备缺少频道
 tooltip.whimcraft.tile_me_base.online=设备开启
 tooltip.whimcraft.tile_me_base.offline=设备关闭
+tooltip.whimcraft.blockshareinfhandler.error=连接错误
+tooltip.whimcraft.blockshareinfhandler.online=已连接
+tooltip.whimcraft.blockshareinfhandler.offline=未设置连接
 
-key.whimcraft.desc=WhimCraft
+key.whimcraft.desc=奇思妙想
 key.whimcraft.getItemId=获取物品ID
 key.whimcraft.getItemIdList=获取物品ID列表
 key.whimcraft.getItemIdListOut=导出物品ID列表
