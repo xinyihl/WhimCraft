@@ -124,6 +124,8 @@ dependencies {
         }
     }
 
+    implementation 'com.cleanroommc:configanytime:2.0'
+
     compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
     implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
 

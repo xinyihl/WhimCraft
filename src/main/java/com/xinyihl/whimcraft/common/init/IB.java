@@ -1,11 +1,8 @@
 package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.block.BlockMEAspectInputBus;
-import com.xinyihl.whimcraft.common.block.BlockMEAspectInputBusMMCE;
-import com.xinyihl.whimcraft.common.block.BlockMEAspectOutputBus;
-import com.xinyihl.whimcraft.common.block.BlockMEAspectOutputBusMMCE;
-import com.xinyihl.whimcraft.common.items.MyItemBlock;
+import com.xinyihl.whimcraft.common.block.*;
+import com.xinyihl.whimcraft.common.items.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -29,6 +26,11 @@ public class IB {
     };
     public static Map<Class<? extends TileEntity>, Block> blocks = new HashMap<>();
     public static List<Item> items = new ArrayList<>();
+
+    public static LinkCard linkCard;
+
+    public static BlockShareInfHandler blockShareInfHandler;
+    public static Item itemShareInfHandler;
 
     public static BlockMEAspectInputBus blockMEAspectInputBus;
     public static BlockMEAspectOutputBus blockMEAspectOutputBus;
@@ -59,6 +61,9 @@ public class IB {
 
     @Optional.Method(modid = "modularmachinery")
     public static void initMmce() {
+        linkCard = new LinkCard();
+        blockShareInfHandler  = new BlockShareInfHandler();
+        itemShareInfHandler = new MyItemBlock(blockShareInfHandler);
         blockMEAspectInputBusMMCE = new BlockMEAspectInputBusMMCE();
         blockMEAspectOutputBusMMCE = new BlockMEAspectOutputBusMMCE();
         itemMEAspectInputBus = new MyItemBlock(blockMEAspectInputBusMMCE);

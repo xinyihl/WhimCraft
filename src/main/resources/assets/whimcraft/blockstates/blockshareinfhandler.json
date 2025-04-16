@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "model": "whimcraft:blockshareinfhandler"
+  },
+  "variants": {
+    "inventory": {
+      "model": "whimcraft:blockshareinfhandler"
+    },
+    "normal": {
+      "model": "whimcraft:blockshareinfhandler"
+    }
+  }
+}

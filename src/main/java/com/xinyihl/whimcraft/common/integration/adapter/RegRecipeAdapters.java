@@ -10,7 +10,7 @@ import static hellfirepvp.modularmachinery.common.registry.RegistryRecipeAdapter
 
 public class RegRecipeAdapters {
     public static void initialize() {
-        if (Mods.TC6.isLoaded()) {
+        if (Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
             registerAdapter(new AdapterTC6Crucible());
             registerAdapter(new AdapterTC6InfusionMatrix());
             registerAdapter(new AdapterTC6Smelter());

@@ -11,8 +11,7 @@ import javax.annotation.Nullable;
 
 public class BlockMEAspectOutputBusMMCE extends BlockMEBase {
     public BlockMEAspectOutputBusMMCE() {
-        super("blockmeaspectoutputbusmmce");
-        IB.blocks.put(TitleMEAspectOutputBusMMCE.class, this);
+        super(TitleMEAspectOutputBusMMCE.class, "blockmeaspectoutputbusmmce");
     }
 
     @Nullable

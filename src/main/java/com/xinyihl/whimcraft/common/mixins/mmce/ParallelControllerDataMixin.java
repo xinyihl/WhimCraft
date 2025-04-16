@@ -1,5 +1,6 @@
 package com.xinyihl.whimcraft.common.mixins.mmce;
 
+import com.xinyihl.whimcraft.Configurations;
 import hellfirepvp.modularmachinery.common.block.prop.ParallelControllerData;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -17,13 +18,6 @@ public abstract class ParallelControllerDataMixin {
     @Final
     @Mutable
     private static ParallelControllerData[] $VALUES;
-    @Final
-    @Shadow
-    public static ParallelControllerData ULTIMATE = invokeNew("ULTIMATE", $VALUES.length - 1, 1024);
-    @Unique
-    private static ParallelControllerData WHIMCRAFT_A;
-    @Unique
-    private static ParallelControllerData WHIMCRAFT_B;
 
     @Invoker(value = "<init>", remap = false)
     private static ParallelControllerData invokeNew(String name, int ordinal, int defaultMaxParallelism) {
@@ -36,17 +30,11 @@ public abstract class ParallelControllerDataMixin {
             remap = false
     )
     private static void injectNewEnum(CallbackInfo ci) {
-        int nextOrdinal = $VALUES.length;
-
-        WHIMCRAFT_A = invokeNew("WHIMCRAFT_A", nextOrdinal, 4096);
-        WHIMCRAFT_B = invokeNew("WHIMCRAFT_B", ++nextOrdinal, 16384);
-
+        int nextOrdinal = $VALUES.length - 1;
         List<ParallelControllerData> newValues = new ArrayList<>(Arrays.asList($VALUES));
-
-        newValues.set(4, ULTIMATE);
-        newValues.add(WHIMCRAFT_A);
-        newValues.add(WHIMCRAFT_B);
-
+        for (int i = 0; i < Configurations.GENERAL_CONFIG.otherParallelController; ++i) {
+            newValues.add(invokeNew("WHIMCRAFT_" + i, ++nextOrdinal, 0));
+        }
         $VALUES = newValues.toArray(new ParallelControllerData[0]);
     }
 }

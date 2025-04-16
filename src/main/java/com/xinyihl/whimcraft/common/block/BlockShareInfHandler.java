@@ -1,8 +1,7 @@
 package com.xinyihl.whimcraft.common.block;
 
-import com.xinyihl.whimcraft.Tags;
+import com.xinyihl.whimcraft.common.block.base.BlockTitleBase;
 import com.xinyihl.whimcraft.common.title.TitleShareInfHandler;
-import github.kasuminova.mmce.common.block.appeng.BlockMEMachineComponent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -14,14 +13,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;
-
-public class BlockShareInfHandler extends BlockMEMachineComponent {
+public class BlockShareInfHandler extends BlockTitleBase {
     public BlockShareInfHandler() {
-        super();
-        this.setCreativeTab(CREATIVE_TAB);
-        this.setRegistryName(Tags.MOD_ID, "blockshareinfhandler");
-        this.setTranslationKey(Tags.MOD_ID + ".blockshareinfhandler");
+        super(TitleShareInfHandler.class, "blockshareinfhandler");
     }
 
     @Override

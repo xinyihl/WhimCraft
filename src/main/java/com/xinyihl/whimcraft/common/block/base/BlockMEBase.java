@@ -1,9 +1,7 @@
 package com.xinyihl.whimcraft.common.block.base;
 
-import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBus;
 import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBusMMCE;
-import github.kasuminova.mmce.common.block.appeng.BlockMEMachineComponent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,14 +14,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;
+public abstract class BlockMEBase extends BlockTitleBase {
 
-public abstract class BlockMEBase extends BlockMEMachineComponent {
-    public BlockMEBase(String name) {
-        super();
-        this.setCreativeTab(CREATIVE_TAB);
-        this.setRegistryName(Tags.MOD_ID, name);
-        this.setTranslationKey(Tags.MOD_ID + "." + name);
+    public BlockMEBase(Class<? extends TileEntity> clzz, String name) {
+        super(clzz, name);
     }
 
     @Override
