@@ -3,8 +3,13 @@ package com.xinyihl.whimcraft.common.init;
 import net.minecraftforge.fml.common.Loader;
 
 public enum Mods {
-    MMCE("modularmachinery", true),
+    AE2FC("ae2fc", true),
+    AE2("appliedenergistics2", true),
+    AST("astralsorcery", true),
     GUGU("gugu-utils", true),
+    MMCE("modularmachinery", true),
+    NAE2("nae2", true),
+    NATURE("naturesaura", true),
     TC6("thaumcraft", false),
     IE("immersiveengineering", false),
     TCO("tconstruct", false),

@@ -1,0 +1,11 @@
+{
+  "package": "com.xinyihl.whimcraft.common.mixins.ae2fc",
+  "refmap": "mixins.yudreamaddons.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ContainerFluidPatternTerminalMixin",
+    "ItemEncodedPatternMixin"
+  ]
+}

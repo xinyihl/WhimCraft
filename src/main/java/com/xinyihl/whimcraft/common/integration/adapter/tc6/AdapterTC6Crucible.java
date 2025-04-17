@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.xinyihl.whimcraft.Configurations.OTHER_CONFIG;
+import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
 
 public class AdapterTC6Crucible extends RecipeAdapter {
     private static final Logger log = LogManager.getLogger(AdapterTC6Crucible.class);
@@ -59,7 +59,7 @@ public class AdapterTC6Crucible extends RecipeAdapter {
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("thaumcraft", "whimcraft_auto_crucible" + incId),
                     owningMachineName,
-                    OTHER_CONFIG.crucibleTime,
+                    ADAPTER_CONFIG.crucibleTime,
                     incId, false);
             // Item Input
             ItemStack[] inputMain = recipe.getCatalyst().getMatchingStacks();
@@ -69,9 +69,9 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                     .collect(Collectors.toList());
             if (!inputMainList.isEmpty()) {
                 int i = items.getOrDefault(inputMain[0].toString(), 0);
-                Item item = Item.getByNameOrId(OTHER_CONFIG.pcb + i);
+                Item item = Item.getByNameOrId(ADAPTER_CONFIG.pcb + i);
                 if (item == null) {
-                    log.fatal("未找到编程电路: " + OTHER_CONFIG.pcb + i);
+                    log.fatal("未找到编程电路: " + ADAPTER_CONFIG.pcb + i);
                 } else {
                     RequirementItem reqdlb = new RequirementItem(IOType.INPUT, new ItemStack(item));
                     reqdlb.setParallelizeUnaffected(true);
@@ -88,7 +88,7 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                 if (inAmounta <= 0) {
                     return;
                 }
-                machineRecipe.addRequirement(OTHER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
+                machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
             });
             // Output
             ItemStack output = recipe.getRecipeOutput();

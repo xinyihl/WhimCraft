@@ -136,7 +136,8 @@ dependencies {
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
     implementation rfg.deobf("curse.maven:codechickenlib-242818:2779848")
     implementation rfg.deobf("curse.maven:mcjtylib-233105:2745846")
-    compileOnly rfg.deobf("curse.maven:mantle-74924:2713386")
+    implementation rfg.deobf("curse.maven:mantle-74924:2713386")
+    implementation rfg.deobf("curse.maven:patchouli-306770:3162874")
 
     //主要功能需求
     implementation rfg.deobf("curse.maven:hadenoughitems-557549:5229422")
@@ -149,10 +150,15 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:guguutils-530919:3652765")
 
     //适配器
-    compileOnly rfg.deobf("curse.maven:forestry-59751:6104316")
-    compileOnly rfg.deobf("curse.maven:immersiveengineering-231951:2974106")
-    compileOnly rfg.deobf("curse.maven:tinkersconstruct-74072:2902483")
+    implementation rfg.deobf("curse.maven:forestry-59751:6104316")
+    implementation rfg.deobf("curse.maven:immersiveengineering-231951:2974106")
+    implementation rfg.deobf("curse.maven:tinkersconstruct-74072:2902483")
 
+    //mixins
+    implementation rfg.deobf("curse.maven:nae2-884359:5317480")
+    implementation rfg.deobf("curse.maven:ae2fluidcraftingrework-623955:5405482")
+    implementation rfg.deobf("curse.maven:astralsorcery-241721:3044416")
+    implementation rfg.deobf("curse.maven:naturesaura-306626:2882138")
 
 
 }

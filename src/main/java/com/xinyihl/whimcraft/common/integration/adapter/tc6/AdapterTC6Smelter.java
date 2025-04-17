@@ -29,7 +29,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-import static com.xinyihl.whimcraft.Configurations.OTHER_CONFIG;
+import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
 import static com.xinyihl.whimcraft.common.integration.adapter.jei.WhimcraftJeiPlugin.ASPECT_PATH;
 
 public class AdapterTC6Smelter extends RecipeAdapter {
@@ -55,7 +55,7 @@ public class AdapterTC6Smelter extends RecipeAdapter {
                 MachineRecipe machineRecipe = createRecipeShell(
                         new ResourceLocation("thaumcraft", "whimcraft_auto_smelter" + incId),
                         owningMachineName,
-                        OTHER_CONFIG.smelterTime,
+                        ADAPTER_CONFIG.smelterTime,
                         incId, false);
 
                 int inAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.INPUT, itemStack.getCount(), false));
@@ -70,7 +70,7 @@ public class AdapterTC6Smelter extends RecipeAdapter {
                     if (outAmount <= 0) {
                         return;
                     }
-                    machineRecipe.addRequirement(OTHER_CONFIG.useGuguAspect ? new  RequirementAspectOutput(outAmount, aspect) : new RequirementAspect(IOType.OUTPUT, outAmount, aspect));
+                    machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? new  RequirementAspectOutput(outAmount, aspect) : new RequirementAspect(IOType.OUTPUT, outAmount, aspect));
                 });
                 machineRecipeList.add(machineRecipe);
                 incId++;

@@ -32,7 +32,7 @@ public abstract class ParallelControllerDataMixin {
     private static void injectNewEnum(CallbackInfo ci) {
         int nextOrdinal = $VALUES.length - 1;
         List<ParallelControllerData> newValues = new ArrayList<>(Arrays.asList($VALUES));
-        for (int i = 0; i < Configurations.GENERAL_CONFIG.otherParallelController; ++i) {
+        for (int i = 0; i < Configurations.MMCE_CONFIG.otherParallelController; ++i) {
             newValues.add(invokeNew("WHIMCRAFT_" + i, ++nextOrdinal, 0));
         }
         $VALUES = newValues.toArray(new ParallelControllerData[0]);

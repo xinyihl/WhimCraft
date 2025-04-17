@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.xinyihl.whimcraft.Configurations.OTHER_CONFIG;
+import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
 
 public class AdapterTC6InfusionMatrix extends RecipeAdapter {
     public static final int BASE_WORK_TIME = 300;
@@ -85,7 +85,7 @@ public class AdapterTC6InfusionMatrix extends RecipeAdapter {
                 if (inAmounta <= 0) {
                     return;
                 }
-                machineRecipe.addRequirement(OTHER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
+                machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
             });
 
             // Outputs
