@@ -1,12 +1,11 @@
 {
-  "package": "com.xinyihl.whimcraft.common.mixins.minecraft",
+  "package": "com.xinyihl.whimcraft.common.mixins.botania",
   "refmap": "mixins.whimcraft.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "FMLClientHandlerMixin",
-    "MinecraftMixin",
-    "ServerListEntryNormalMixin"
+    "ManaPoolRecipeWrapperMixin",
+    "RuneAltarPoolRecipeWrapperMixin"
   ]
 }

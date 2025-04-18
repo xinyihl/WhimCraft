@@ -24,6 +24,12 @@ public class Configurations {
     @Config.Comment("自然灵气设置")
     public static final NatureModConfig NATURE_CONFIG = new NatureModConfig();
 
+    @Config.Comment("更多实用设备设置")
+    public static final ExtraUtils2ModConfig EXTRA_CONFIG = new ExtraUtils2ModConfig();
+
+    @Config.Comment("植物魔法设置")
+    public static final BotaniaConfig BOTANIA_CONFIG = new BotaniaConfig();
+
     static {
         ConfigAnytime.register(Configurations.class);
     }
@@ -70,6 +76,16 @@ public class Configurations {
         public boolean auraChunkUpdateEnable = true;
     }
 
+    public static class ExtraUtils2ModConfig {
+        @Config.Comment("彩虹发电机发电量")
+        public int rainbowGeneratorEnergy = 2500000;
+    }
+
+    public static class BotaniaConfig {
+        @Config.Comment("jei配方是否显示具体魔力消耗")
+        public boolean showMana = false;
+    }
+
     public static class AECellConfig {
         public int cell1K = 63;
         public int cell4K = 63;
@@ -87,5 +103,9 @@ public class Configurations {
         public int fluidCell1024K = 5;
         public int fluidCell4096K = 5;
         public int fluidCell16384K = 5;
+        public int gasCell1K = 15;
+        public int gasCell4K = 15;
+        public int gasCell16K = 15;
+        public int gasCell64K = 15;
     }
 }
