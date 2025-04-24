@@ -5,8 +5,7 @@ import com.xinyihl.whimcraft.common.operators.WorldChunkUnloader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class HandlerWorldTick {
 
@@ -16,7 +15,7 @@ public class HandlerWorldTick {
     public void onWorldTick(TickEvent.WorldTickEvent event) {
         if (Configurations.CHUNCK_CONFIG.enabled) {
             int dimension = event.world.provider.getDimension();
-            if (Configurations.CHUNCK_CONFIG.dimlist.contains(dimension)) {
+            if (Arrays.asList(Configurations.CHUNCK_CONFIG.dimlist).contains(dimension)) {
                 if (dimMap.containsKey(dimension)) {
                     int tick = dimMap.get(dimension) + 1;
                     if (tick >= Configurations.CHUNCK_CONFIG.chunkUnloadDelay * 2) {

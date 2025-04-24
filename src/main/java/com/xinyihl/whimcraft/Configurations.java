@@ -86,7 +86,7 @@ public class Configurations {
         @Config.Comment("由于生物生成行为而加载的区块周围忽略区块卸载的半径")
         public int sradius = 3;
         @Config.Comment("进行检查的维度id")
-        public List<Integer> dimlist = Collections.singletonList(0);
+        public Integer[] dimlist = {0};
     }
 
     public static class ASModConfig {
