@@ -84,6 +84,9 @@ public class Configurations {
     public static class BotaniaConfig {
         @Config.Comment("jei配方是否显示具体魔力消耗")
         public boolean showMana = false;
+
+        @Config.Comment("是否允许将产能花直接连接到魔力池")
+        public boolean linkFlowerToPool = false;
     }
 
     public static class AECellConfig {

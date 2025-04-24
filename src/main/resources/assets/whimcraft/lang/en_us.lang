@@ -1,5 +1,6 @@
 itemGroup.whimcraft_tab=奇思妙想
 
+tooltip.whimcraft.pattern_encoder.name=由 %s 编码
 tooltip.whimcraft.tile_me_base.missing_channel=设备缺少频道
 tooltip.whimcraft.tile_me_base.online=设备开启
 tooltip.whimcraft.tile_me_base.offline=设备关闭

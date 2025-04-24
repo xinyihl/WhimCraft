@@ -12,6 +12,10 @@ public class LateMixinLoader implements ILateMixinLoader {
 
     @Override
     public List<String> getMixinConfigs() {
-        return Arrays.stream(Mods.values()).filter(Mods::isMixin).filter(Mods::isLoaded).map(value -> "mixins.whimcraft." + value.modid + ".json").collect(Collectors.toList());
+        List<String> mixinConfigs = Arrays.stream(Mods.values()).filter(Mods::isMixin).filter(Mods::isLoaded).map(value -> "mixins.whimcraft." + value.modid + ".json").collect(Collectors.toList());
+        if(Mods.BOTANIA.isLoaded() && Configurations.BOTANIA_CONFIG.linkFlowerToPool){
+            mixinConfigs.add("mixins.whimcraft.botania_pool.json");
+        }
+        return mixinConfigs;
     }
 }

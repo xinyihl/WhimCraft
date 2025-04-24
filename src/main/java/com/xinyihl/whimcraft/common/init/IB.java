@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IB {
+
     public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
         @Override
         @Nonnull
@@ -24,21 +25,22 @@ public class IB {
             return new ItemStack(items.get(0));
         }
     };
+
     public static Map<Class<? extends TileEntity>, Block> blocks = new HashMap<>();
     public static List<Item> items = new ArrayList<>();
 
-    public static LinkCard linkCard;
+    public static Item linkCard;
 
-    public static BlockShareInfHandler blockShareInfHandler;
+    public static Block blockShareInfHandler;
     public static Item itemShareInfHandler;
 
-    public static BlockMEAspectInputBus blockMEAspectInputBus;
-    public static BlockMEAspectOutputBus blockMEAspectOutputBus;
+    public static Block blockMEAspectInputBus;
+    public static Block blockMEAspectOutputBus;
     public static Item itemMEAspectInputBus;
     public static Item itemMEAspectOutputBus;
 
-    public static BlockMEAspectInputBusMMCE blockMEAspectInputBusMMCE;
-    public static BlockMEAspectOutputBusMMCE blockMEAspectOutputBusMMCE;
+    public static Block blockMEAspectInputBusMMCE;
+    public static Block blockMEAspectOutputBusMMCE;
     public static Item itemMEAspectInputBusMMCE;
     public static Item itemMEAspectOutputBusMMCE;
 

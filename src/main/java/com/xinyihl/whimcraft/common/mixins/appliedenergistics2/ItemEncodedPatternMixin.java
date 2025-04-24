@@ -25,7 +25,7 @@ public abstract class ItemEncodedPatternMixin {
         if (Configurations.AEMOD_CONFIG.patternEncoder) {
             NBTTagCompound tag = stack.getTagCompound();
             if (tag != null && tag.hasKey("encoderName")) {
-                lines.add(I18n.format("yudreamaddons.tooltip.pattern_encoder.name", tag.getString("encoderName")));
+                lines.add(I18n.format("tooltip.whimcraft.pattern_encoder.name", tag.getString("encoderName")));
             }
         }
     }
