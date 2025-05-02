@@ -61,6 +61,9 @@ public class WhimCraftUtils {
         for (ItemStack item : drops){
             if(outMap.containsKey(item.getItem())){
                 ItemStack stack = outMap.get(item.getItem());
+                if (stack.getCount() >= 16) {
+                    continue;
+                }
                 stack.setCount(stack.getCount() + 1);
             } else {
                 outMap.put(item.getItem(), item);
