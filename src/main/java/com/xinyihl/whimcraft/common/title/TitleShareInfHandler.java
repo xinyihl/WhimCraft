@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -57,9 +57,9 @@ public class TitleShareInfHandler extends TileColorableMachineComponent implemen
 
     public void setBlockPos(EntityPlayer player, BlockPos blockPos){
         if (!(this.world.getTileEntity(blockPos) instanceof MEPatternProvider)){
-            player.sendStatusMessage(new TextComponentString("§c设置失败，闪存卡保存坐标不是样板总线！"), true);
+            player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.titleshareinfhandler.error.noShare"), true);
         } else {
-            player.sendStatusMessage(new TextComponentString("§a设置成功！"), true);
+            player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.titleshareinfhandler.suc"), true);
             this.bp = blockPos;
         }
     }
@@ -73,7 +73,7 @@ public class TitleShareInfHandler extends TileColorableMachineComponent implemen
                 consumer.accept(loc.apply("blockshareinfhandler.error"));
             }else {
                 consumer.accept(loc.apply("blockshareinfhandler.online"));
-                consumer.accept("连接至: " + bp.toString());
+                consumer.accept("Bop: " + bp.toString());
             }
         }
     }

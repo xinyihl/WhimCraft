@@ -4,6 +4,7 @@ import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.TitleShareInfHandler;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -45,20 +46,20 @@ public class LinkCard extends Item {
         if(player.isSneaking()){
             if (!(tileEntity instanceof MEPatternProvider)){
                 itemStack.setTagCompound(null);
-                player.sendStatusMessage(new TextComponentString("§a清除坐标成功！"), true);
+                player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.clear"), true);
             } else {
                 NBTTagCompound nbtpos = new NBTTagCompound();
                 nbtpos.setLong("link_card_pos", pos.toLong());
                 itemStack.setTagCompound(nbtpos);
-                player.sendStatusMessage(new TextComponentString("§a保存坐标成功！"), true);
+                player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.save"), true);
             }
         }else {
             if (!(tileEntity instanceof TitleShareInfHandler)){
-                player.sendStatusMessage(new TextComponentString("§c设置失败，目标不是库存共享总线！"), true);
+                player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.error.noShare"), true);
             } else {
                 NBTTagCompound nbtpos = itemStack.getTagCompound();
                 if (nbtpos == null) {
-                    player.sendStatusMessage(new TextComponentString("§c设置失败，未保存坐标！"), true);
+                    player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.error.noPos"), true);
                 } else {
                     BlockPos blockPos = BlockPos.fromLong(nbtpos.getLong("link_card_pos"));
                     ((TitleShareInfHandler) tileEntity).setBlockPos(player, blockPos);
@@ -81,6 +82,6 @@ public class LinkCard extends Item {
                 return;
             }
         }
-        tooltip.add("Pos: 未保存坐标");
+        tooltip.add("Pos: " + I18n.format("tooltip.whimcraft.linkgard.noPos"));
     }
 }

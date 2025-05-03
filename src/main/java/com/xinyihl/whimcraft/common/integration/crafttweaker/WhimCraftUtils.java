@@ -27,6 +27,13 @@ import java.util.*;
 public class WhimCraftUtils {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.fromString("7E1D8024-D2EF-4077-AD6F-636F16F43BB6"), "[WhimCraft]");
 
+    /**
+     * 获取实体掉落物
+     *
+     * @param ientity     目标实体
+     * @param isPlayer    是否玩家击杀
+     * @param luck        幸运
+     */
     @ZenMethod
     public static IItemStack[] getDrops(IEntity ientity, boolean isPlayer, int luck) {
         Entity entity = CraftTweakerMC.getEntity(ientity);
