@@ -11,6 +11,7 @@ public enum Mods {
     GUGU("gugu-utils", true),
     MEKENG("mekeng", true),
     MMCE("modularmachinery", true),
+    MOBUTILS("mob_grinding_utils", true),
     NAE2("nae2", true),
     NATURE("naturesaura", true),
     TC6("thaumcraft", false),

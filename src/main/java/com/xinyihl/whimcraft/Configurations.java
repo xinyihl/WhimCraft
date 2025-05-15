@@ -3,9 +3,6 @@ package com.xinyihl.whimcraft;
 import com.cleanroommc.configanytime.ConfigAnytime;
 import net.minecraftforge.common.config.Config;
 
-import java.util.Collections;
-import java.util.List;
-
 @Config(modid = Tags.MOD_ID, name = Tags.MOD_NAME)
 public class Configurations {
 
@@ -36,6 +33,8 @@ public class Configurations {
     @Config.Comment("区块清除配置")
     public static final ChunkPurgeConfig CHUNCK_CONFIG = new ChunkPurgeConfig();
 
+    @Config.Comment("刷怪塔实用设备设置")
+    public static final MobUtilsConfig MOBUTILS_CONFIG = new MobUtilsConfig();
     static {
         ConfigAnytime.register(Configurations.class);
     }
@@ -50,6 +49,8 @@ public class Configurations {
     public static class MmceConfig {
         @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])")
         public int otherParallelController = 0;
+        @Config.Comment("启用自动搭建物品AE支持")
+        public boolean assemblyAESupport = false;
     }
 
     public static class AdapterConfig {
@@ -110,6 +111,11 @@ public class Configurations {
 
         @Config.Comment("是否允许将产能花直接连接到魔力池")
         public boolean linkFlowerToPool = false;
+    }
+
+    public static class MobUtilsConfig {
+        @Config.Comment("为XP水龙头添加其他XP流体支持")
+        public boolean otherXpSupport = false;
     }
 
     public static class AECellConfig {
