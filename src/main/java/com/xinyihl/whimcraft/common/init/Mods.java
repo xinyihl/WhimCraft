@@ -15,6 +15,8 @@ public enum Mods {
     MOBUTILS("mob_grinding_utils", true),
     NAE2("nae2", true),
     NATURE("naturesaura", true),
+    TCOM("tcomplement", true),
+    TMF("tinymobfarm", true),
     TC6("thaumcraft", false),
     IE("immersiveengineering", false),
     TCO("tconstruct", false),

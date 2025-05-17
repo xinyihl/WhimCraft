@@ -126,8 +126,8 @@ dependencies {
 
     implementation 'com.cleanroommc:configanytime:2.0'
 
-    compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
-    implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
+//    compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
+//    implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
 
     //库
     implementation("software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31")
@@ -163,6 +163,9 @@ dependencies {
     implementation rfg.deobf("curse.maven:botania-225643:3330934")
     compileOnly rfg.deobf("curse.maven:mekanismenergistics-1027681:5393252")
     compileOnly rfg.deobf("curse.maven:mobgrindingutils-254241:2656683")
+    compileOnly rfg.deobf("curse.maven:industrialcraft-242638:3838713")
+    compileOnly rfg.deobf("curse.maven:tinymobfarm-311880:2681454")
+    compileOnly rfg.deobf("curse.maven:tinkerscomplement-272671:2843439")
 
 }
 

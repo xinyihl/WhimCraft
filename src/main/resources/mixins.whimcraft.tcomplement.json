@@ -1,10 +1,10 @@
 {
-  "package": "com.xinyihl.whimcraft.common.mixins.ic2",
+  "package": "com.xinyihl.whimcraft.common.mixins.tcomplement",
   "refmap": "mixins.whimcraft.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "TileEntityIronFurnaceMixin"
+    "TileMelterMixin"
   ]
 }
