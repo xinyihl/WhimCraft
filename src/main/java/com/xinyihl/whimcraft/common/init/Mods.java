@@ -9,6 +9,7 @@ public enum Mods {
     BOTANIA("botania", true),
     EXU2("extrautils2", true),
     GUGU("gugu-utils", true),
+    IC2("ic2", true),
     MEKENG("mekeng", true),
     MMCE("modularmachinery", true),
     MOBUTILS("mob_grinding_utils", true),

@@ -126,8 +126,8 @@ dependencies {
 
     implementation 'com.cleanroommc:configanytime:2.0'
 
-//    compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
-//    implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
+    compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
+    implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
 
     //库
     implementation("software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31")

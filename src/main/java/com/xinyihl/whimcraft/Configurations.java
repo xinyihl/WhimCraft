@@ -35,6 +35,10 @@ public class Configurations {
 
     @Config.Comment("刷怪塔实用设备设置")
     public static final MobUtilsConfig MOBUTILS_CONFIG = new MobUtilsConfig();
+
+    @Config.Comment("工业2设置")
+    public static final IC2Config IC2_CONFIG = new IC2Config();
+
     static {
         ConfigAnytime.register(Configurations.class);
     }
@@ -116,6 +120,11 @@ public class Configurations {
     public static class MobUtilsConfig {
         @Config.Comment("为XP水龙头添加其他XP流体支持")
         public boolean otherXpSupport = false;
+    }
+
+    public static class IC2Config {
+        @Config.Comment("修改电炉经验为直接给予玩家，不再掉落为经验球")
+        public boolean changeXPOrb = false;
     }
 
     public static class AECellConfig {
