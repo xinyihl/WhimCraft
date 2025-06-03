@@ -51,7 +51,7 @@ public class Configurations {
     }
 
     public static class MmceConfig {
-        @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])")
+        @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])\n添加格式可打开jar文件查看assets/modularmachinery")
         public int otherParallelController = 0;
         @Config.Comment("启用自动搭建物品AE支持")
         public boolean assemblyAESupport = false;
@@ -91,7 +91,7 @@ public class Configurations {
         @Config.Comment("由于生物生成行为而加载的区块周围忽略区块卸载的半径")
         public int sradius = 3;
         @Config.Comment("进行检查的维度id")
-        public Integer[] dimlist = {0};
+        public Integer[] dimlist = {-1, 0, 1};
     }
 
     public static class ASModConfig {
