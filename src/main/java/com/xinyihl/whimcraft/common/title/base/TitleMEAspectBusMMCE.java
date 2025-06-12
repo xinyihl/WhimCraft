@@ -205,7 +205,7 @@ public abstract class TitleMEAspectBusMMCE extends TileJarFillable implements Ma
         return AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class);
     }
 
-    public int addAspectToME(Aspect aspect, int i, boolean b) {
+    public synchronized int addAspectToME(Aspect aspect, int i, boolean b) {
         EssentiaStack inContainer = new EssentiaStack(aspect, i);
         AEEssentiaStack toInsert = AEEssentiaStack.fromEssentiaStack(inContainer);
         try {
@@ -230,7 +230,7 @@ public abstract class TitleMEAspectBusMMCE extends TileJarFillable implements Ma
         return 0;
     }
 
-    public int takeAspectFromME(Aspect aspect, int i, boolean b) {
+    public synchronized int takeAspectFromME(Aspect aspect, int i, boolean b) {
         try {
             IStorageGrid storage = GridUtil.getStorageGrid(this);
             IMEMonitor<IAEEssentiaStack> monitor = storage.getInventory(this.getChannel());
@@ -324,12 +324,12 @@ public abstract class TitleMEAspectBusMMCE extends TileJarFillable implements Ma
         }
 
         @Override
-        public int addToContainer(final Aspect tt, final int am) {
+        public synchronized int addToContainer(final Aspect tt, final int am) {
             return ((TitleMEAspectBusMMCE) this.getOriginal()).addAspectToME(tt, am, false);
         }
 
         @Override
-        public boolean takeFromContainer(final Aspect tt, final int am) {
+        public synchronized boolean takeFromContainer(final Aspect tt, final int am) {
             return ((TitleMEAspectBusMMCE) this.getOriginal()).takeAspectFromME(tt, am, false) == am;
         }
     }

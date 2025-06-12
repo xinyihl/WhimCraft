@@ -25,7 +25,7 @@ public abstract class TitleMEAspectBus extends TitleMeBase implements MachineCom
         return AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class);
     }
 
-    public int addAspectToME(Aspect aspect, int i, boolean b) {
+    public synchronized int addAspectToME(Aspect aspect, int i, boolean b) {
         EssentiaStack inContainer = new EssentiaStack(aspect, i);
         AEEssentiaStack toInsert = AEEssentiaStack.fromEssentiaStack(inContainer);
         try {
@@ -48,7 +48,7 @@ public abstract class TitleMEAspectBus extends TitleMeBase implements MachineCom
         return 0;
     }
 
-    public int takeAspectFromME(Aspect aspect, int i, boolean b) {
+    public synchronized int takeAspectFromME(Aspect aspect, int i, boolean b) {
         try {
             IStorageGrid storage = GridUtil.getStorageGrid(this);
             IMEMonitor<IAEEssentiaStack> monitor = storage.getInventory(this.getChannel());
