@@ -16,6 +16,10 @@ public class LateMixinLoader implements ILateMixinLoader {
         if(Mods.BOTANIA.isLoaded() && Configurations.BOTANIA_CONFIG.linkFlowerToPool){
             mixinConfigs.add("mixins.whimcraft.botania_pool.json");
         }
+        if(Mods.AE2.isLoaded() && Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.isIgnoreParallel) {
+            mixinConfigs.add("mixins.whimcraft.appliedenergistics2_ignoreparallel.json");
+            mixinConfigs.add("mixins.whimcraft.modularmachinery_ignoreparallel.json");
+        }
         return mixinConfigs;
     }
 }

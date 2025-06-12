@@ -55,6 +55,8 @@ public class Configurations {
         public int otherParallelController = 0;
         @Config.Comment("启用自动搭建物品AE支持")
         public boolean assemblyAESupport = false;
+        @Config.Comment("样板供应器允许忽略并行处理单元")
+        public boolean isIgnoreParallel = false;
     }
 
     public static class AdapterConfig {
