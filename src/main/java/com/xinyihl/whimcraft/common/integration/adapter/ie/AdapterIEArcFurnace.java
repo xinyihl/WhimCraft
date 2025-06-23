@@ -16,6 +16,7 @@ import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -89,7 +90,12 @@ public class AdapterIEArcFurnace extends RecipeAdapter {
             ItemStack output = recipe.output;
             int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, output.getCount(), false));
             if (outAmount > 0) {
-                machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, ItemUtils.copyStackWithSize(output, outAmount)));
+                int[] ids = OreDictionary.getOreIDs(output);
+                if (ids.length > 0) {
+                    machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, OreDictionary.getOreName(ids[0]), outAmount));
+                } else {
+                    machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, ItemUtils.copyStackWithSize(output, outAmount)));
+                }
             }
 
             machineRecipeList.add(machineRecipe);
