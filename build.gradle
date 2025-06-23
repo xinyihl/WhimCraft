@@ -199,9 +199,6 @@ jar {
         def attribute_map = [:]
         attribute_map['Implementation-Title'] = project.name
         attribute_map['Implementation-Version'] = project.version
-        if(project.use_mixins.toBoolean()) {
-            attribute_map['TweakClass'] = "org.spongepowered.asm.launch.MixinTweaker"
-        }
         if (project.use_coremod.toBoolean()) {
             attribute_map['FMLCorePlugin'] = project.coremod_plugin_class_name
             if (project.include_mod.toBoolean()) {
