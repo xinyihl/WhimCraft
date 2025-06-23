@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, dependencies =
         "required-after:mixinbooter;"
         + "required-after:configanytime;"
-        + "required-after:jei;"
-        + "required-after:modularmachinery;"
-        + "required-after:thaumcraft;"
-        + "required-after:thaumicenergistics;"
-        + "required-after:appliedenergistics2;"
+//        + "required-after:jei;"
+//        + "required-after:modularmachinery;"
+//        + "required-after:thaumcraft;"
+//        + "required-after:thaumicenergistics;"
+//        + "required-after:appliedenergistics2;"
         //+ "required-after:gugu-utils;"
 )
 public class WhimCraft {

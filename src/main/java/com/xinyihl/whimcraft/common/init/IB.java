@@ -18,13 +18,7 @@ import java.util.Map;
 
 public class IB {
 
-    public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
-        @Override
-        @Nonnull
-        public ItemStack createIcon() {
-            return new ItemStack(items.get(0));
-        }
-    };
+    public static CreativeTabs CREATIVE_TAB;
 
     public static Map<Class<? extends TileEntity>, Block> blocks = new HashMap<>();
     public static List<Item> items = new ArrayList<>();
@@ -47,9 +41,19 @@ public class IB {
     static {
         if (Mods.MMCE.isLoaded()) {
             initMmce();
+            if(Mods.TC6.isLoaded()) {
+                initTc();
+            }
         }
         if (Mods.GUGU.isLoaded()) {
             initGugu();
+        }
+        if (!items.isEmpty()) {
+            CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
+                public ItemStack createIcon() {
+                    return new ItemStack(items.get(0));
+                }
+            };
         }
     }
 
@@ -66,9 +70,13 @@ public class IB {
         linkCard = new LinkCard();
         blockShareInfHandler  = new BlockShareInfHandler();
         itemShareInfHandler = new MyItemBlock(blockShareInfHandler);
+    }
+
+    @Optional.Method(modid = "thaumcraft")
+    public static void initTc() {
         blockMEAspectInputBusMMCE = new BlockMEAspectInputBusMMCE();
         blockMEAspectOutputBusMMCE = new BlockMEAspectOutputBusMMCE();
-        itemMEAspectInputBus = new MyItemBlock(blockMEAspectInputBusMMCE);
-        itemMEAspectOutputBus = new MyItemBlock(blockMEAspectOutputBusMMCE);
+        itemMEAspectInputBusMMCE = new MyItemBlock(blockMEAspectInputBusMMCE);
+        itemMEAspectOutputBusMMCE = new MyItemBlock(blockMEAspectOutputBusMMCE);
     }
 }
