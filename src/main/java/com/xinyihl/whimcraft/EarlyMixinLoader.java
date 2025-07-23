@@ -5,7 +5,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,12 @@ import java.util.Map;
 public class EarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
-        return Collections.singletonList("mixins.whimcraft.minecraft.json");
+        List<String> mixinConfigs = new ArrayList<>();
+        mixinConfigs.add("mixins.whimcraft.minecraft.json");
+        if (Configurations.GENERAL_CONFIG.serverListEnable){
+            mixinConfigs.add("mixins.whimcraft.minecraft_serverlist.json");
+        }
+        return mixinConfigs;
     }
 
     @Override

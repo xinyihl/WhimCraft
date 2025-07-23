@@ -48,13 +48,14 @@ public class Configurations {
         public boolean loginCheckEnable = false;
         @Config.Comment("站点标题")
         public String loginCheckName = "skinName";
+        @Config.Comment("多人页面优化")
+        public boolean serverListEnable = false;
+
     }
 
     public static class MmceConfig {
         @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])\n添加格式可打开jar文件查看assets/modularmachinery")
         public int otherParallelController = 0;
-        @Config.Comment("启用自动搭建物品AE支持")
-        public boolean assemblyAESupport = false;
         @Config.Comment("样板供应器允许忽略并行处理单元")
         public boolean isIgnoreParallel = false;
     }
