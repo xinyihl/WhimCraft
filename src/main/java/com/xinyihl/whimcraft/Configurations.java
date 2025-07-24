@@ -58,6 +58,8 @@ public class Configurations {
         public int otherParallelController = 0;
         @Config.Comment("样板供应器允许忽略并行处理单元")
         public boolean isIgnoreParallel = false;
+        @Config.Comment("是否启用 ME 机械样板供应器库存共享总线")
+        public boolean useShareInfHandler = false;
     }
 
     public static class AdapterConfig {
