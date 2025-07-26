@@ -2,7 +2,6 @@ package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
 import com.google.gson.Gson;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.MMRequirements;
-import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspectOutput;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.types.RequirementTypeAspect;
 import crafttweaker.util.IEventHandler;
 import github.kasuminova.mmce.common.event.recipe.RecipeEvent;
@@ -13,7 +12,6 @@ import hellfirepvp.modularmachinery.common.crafting.requirement.RequirementItem;
 import hellfirepvp.modularmachinery.common.lib.RequirementTypesMM;
 import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
-import kport.modularmagic.common.crafting.requirement.RequirementAspect;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -52,10 +50,14 @@ public class AdapterTC6Smelter extends RecipeAdapter {
                 if (itemStack.isEmpty()) {
                     return;
                 }
+                int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, ADAPTER_CONFIG.smelterTime, false));
+                if (inDuration <= 0) {
+                    return;
+                }
                 MachineRecipe machineRecipe = createRecipeShell(
                         new ResourceLocation("thaumcraft", "whimcraft_auto_smelter" + incId),
                         owningMachineName,
-                        ADAPTER_CONFIG.smelterTime,
+                        inDuration,
                         incId, false);
 
                 int inAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.INPUT, itemStack.getCount(), false));
@@ -70,7 +72,7 @@ public class AdapterTC6Smelter extends RecipeAdapter {
                     if (outAmount <= 0) {
                         return;
                     }
-                    machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? new  RequirementAspectOutput(outAmount, aspect) : new RequirementAspect(IOType.OUTPUT, outAmount, aspect));
+                    machineRecipe.addRequirement(AspectRequirementUtil.getRequirement(IOType.OUTPUT, outAmount, aspect));
                 });
                 machineRecipeList.add(machineRecipe);
                 incId++;

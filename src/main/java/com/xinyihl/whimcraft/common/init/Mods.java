@@ -20,7 +20,9 @@ public enum Mods {
     TC6("thaumcraft", false),
     IE("immersiveengineering", false),
     TCO("tconstruct", false),
-    FORESTRY("forestry", false);
+    FORESTRY("forestry", false),
+    MMADDONS("modularmachineryaddons", false),
+    ;
 
     public final String modid;
     private final boolean mixin;

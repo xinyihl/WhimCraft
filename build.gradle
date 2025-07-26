@@ -166,6 +166,7 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:industrialcraft-242638:3838713")
     compileOnly rfg.deobf("curse.maven:tinymobfarm-311880:2681454")
     compileOnly rfg.deobf("curse.maven:tinkerscomplement-272671:2843439")
+    compileOnly rfg.deobf("curse.maven:mmce-ad-1236022:6806329")
 
 }
 

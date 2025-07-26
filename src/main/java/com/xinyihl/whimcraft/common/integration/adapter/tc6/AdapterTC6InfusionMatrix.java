@@ -14,7 +14,6 @@ import hellfirepvp.modularmachinery.common.lib.RequirementTypesMM;
 import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
-import kport.modularmagic.common.crafting.requirement.RequirementAspect;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.ResourceLocation;
@@ -24,8 +23,6 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
 
 public class AdapterTC6InfusionMatrix extends RecipeAdapter {
     public static final int BASE_WORK_TIME = 300;
@@ -55,10 +52,15 @@ public class AdapterTC6InfusionMatrix extends RecipeAdapter {
                 return;
             }
 
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.instability == 0 ? BASE_WORK_TIME : recipe.instability * 1000, false));
+            if (inDuration <= 0) {
+                return;
+            }
+
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("thaumcraft", "whimcraft_auto_infusion" + incId),
                     owningMachineName,
-                    recipe.instability == 0 ? BASE_WORK_TIME : recipe.instability * 1000,
+                    inDuration,
                     incId, false);
 
             // Item Input
@@ -85,7 +87,7 @@ public class AdapterTC6InfusionMatrix extends RecipeAdapter {
                 if (inAmounta <= 0) {
                     return;
                 }
-                machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
+                machineRecipe.addRequirement(AspectRequirementUtil.getRequirement(IOType.INPUT, inAmounta, aspect));
             });
 
             // Outputs

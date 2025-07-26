@@ -14,7 +14,6 @@ import hellfirepvp.modularmachinery.common.lib.RequirementTypesMM;
 import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
-import kport.modularmagic.common.crafting.requirement.RequirementAspect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -56,10 +55,14 @@ public class AdapterTC6Crucible extends RecipeAdapter {
             if (inAmount <= 0) {
                 return;
             }
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, ADAPTER_CONFIG.crucibleTime, false));
+            if (inDuration <= 0) {
+                return;
+            }
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("thaumcraft", "whimcraft_auto_crucible" + incId),
                     owningMachineName,
-                    ADAPTER_CONFIG.crucibleTime,
+                    inDuration,
                     incId, false);
             // Item Input
             ItemStack[] inputMain = recipe.getCatalyst().getMatchingStacks();
@@ -88,7 +91,7 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                 if (inAmounta <= 0) {
                     return;
                 }
-                machineRecipe.addRequirement(ADAPTER_CONFIG.useGuguAspect ? com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(inAmounta, aspect) : new RequirementAspect(IOType.INPUT, inAmounta, aspect));
+                machineRecipe.addRequirement(AspectRequirementUtil.getRequirement(IOType.INPUT, inAmounta, aspect));
             });
             // Output
             ItemStack output = recipe.getRecipeOutput();
