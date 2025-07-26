@@ -33,13 +33,13 @@ public class AspectRequirementUtil {
 
     @Optional.Method(modid = "gugu-utils")
     private static ComponentRequirement<?, ?> getRequirementGUGU(IOType actionType, int amount, Aspect aspect) {
-        switch (actionType) {
-            case INPUT:
-                return com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(amount, aspect);
-            case OUTPUT:
-                return new com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspectOutput(amount, aspect);
+        if (actionType == IOType.INPUT) {
+            return com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect.createInput(amount, aspect);
         }
-        return null;
+        if (actionType == IOType.OUTPUT) {
+            return new com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspectOutput(amount, aspect);
+        }
+        throw new RuntimeException("Unknown IOType: " + actionType);
     }
 
     @Optional.Method(modid = "modularmachineryaddons")
