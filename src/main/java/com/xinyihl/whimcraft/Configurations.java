@@ -65,15 +65,15 @@ public class Configurations {
     }
 
     public static class AdapterConfig {
-        @Config.Comment("坩埚配方耗时")
+        @Config.Comment("神秘坩埚配方耗时")
         public int crucibleTime = 100;
-        @Config.Comment("源质配方耗时")
+        @Config.Comment("源质冶炼厂配方耗时")
         public int smelterTime = 100;
-        @Config.Comment("合成配方耗时")
+        @Config.Comment("奥术合成配方耗时")
         public int arcaneTime = 100;
-        @Config.Comment("符文祭坛配方耗时(没有不稳定度的配方使用该耗时)")
+        @Config.Comment("注魔祭坛配方耗时(没有稳定性的配方使用该耗时)")
         public int infusionMatrixTime = 100;
-        @Config.Comment("符文祭坛配方耗时乘数( 不稳定度 * infusionMatrixTimeMul )")
+        @Config.Comment("注魔祭坛配方耗时乘数( 稳定性 * infusionMatrixTimeMul )")
         public int infusionMatrixTimeMul = 1000;
         @Config.Comment("电路板前缀(eg: contenttweaker:programming_circuit_[x])")
         public String pcb = "contenttweaker:programming_circuit_";
