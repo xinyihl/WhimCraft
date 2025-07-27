@@ -113,6 +113,8 @@ public class Configurations {
         public boolean loadCompleteMixinEnable = false;
         @Config.Comment("加载阶段, 可选:[preinit, init, postinit]")
         public String loadComplete = "init";
+        @Config.Comment("需要修改加载阶段的处理类(需要填写对应处理类的全类名)")
+        public String[] classList = { };
     }
 
     public static class NatureModConfig {
