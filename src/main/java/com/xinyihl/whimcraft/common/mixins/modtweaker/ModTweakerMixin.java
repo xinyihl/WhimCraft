@@ -2,6 +2,7 @@ package com.xinyihl.whimcraft.common.mixins.modtweaker;
 
 import com.blamejared.ModTweaker;
 import com.xinyihl.whimcraft.Configurations;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -64,17 +65,21 @@ public abstract class ModTweakerMixin {
         List<String> needChange = Arrays.asList(Configurations.MODTWMOD_CONFIG.classList);
         List<IAction> A = new ArrayList<>();
         List<IAction> R = new ArrayList<>();
-        for (IAction action : LATE_REMOVALS) {
-            if(needChange.contains(action.getClass().getName())) {
-                action.apply();
-                A.add(action);
+        try {
+            for (IAction action : LATE_REMOVALS) {
+                if(needChange.contains(action.getClass().getName())) {
+                    action.apply();
+                    A.add(action);
+                }
             }
-        }
-        for (IAction action : LATE_ADDITIONS) {
-            if(needChange.contains(action.getClass().getName())) {
-                action.apply();
-                R.add(action);
+            for (IAction action : LATE_ADDITIONS) {
+                if(needChange.contains(action.getClass().getName())) {
+                    action.apply();
+                    R.add(action);
+                }
             }
+        } catch (Exception e) {
+            CraftTweakerAPI.logError("Error while applying actions", e);
         }
         LATE_REMOVALS.removeAll(A);
         LATE_ADDITIONS.removeAll(R);
