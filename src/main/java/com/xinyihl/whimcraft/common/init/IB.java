@@ -59,11 +59,11 @@ public class IB {
             new LinkCard();
             new BlockShareInfHandler();
         }
-        if (Mods.MMCE.isLoaded() && Mods.TC6.isLoaded()) {
+        if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {
             new BlockMEAspectInputBusMMCE();
             new BlockMEAspectOutputBusMMCE();
         }
-        if (Mods.MMCE.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
+        if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
             new BlockMEAspectInputBus();
             new BlockMEAspectOutputBus();
         }

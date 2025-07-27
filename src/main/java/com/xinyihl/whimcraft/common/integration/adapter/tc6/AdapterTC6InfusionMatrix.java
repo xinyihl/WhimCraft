@@ -1,7 +1,5 @@
 package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
-import com.warmthdawn.mod.gugu_utils.modularmachenary.MMRequirements;
-import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.types.RequirementTypeAspect;
 import crafttweaker.util.IEventHandler;
 import github.kasuminova.mmce.common.event.recipe.RecipeEvent;
 import github.kasuminova.mmce.common.itemtype.ChancedIngredientStack;
@@ -83,7 +81,7 @@ public class AdapterTC6InfusionMatrix extends RecipeAdapter {
 
             // Aspect Inputs
             recipe.getAspects().aspects.forEach((aspect, amount) -> {
-                int inAmounta = Math.round(RecipeModifier.applyModifiers(modifiers, (RequirementTypeAspect) MMRequirements.REQUIREMENT_TYPE_ASPECT, IOType.INPUT, amount, false));
+                int inAmounta = Math.round(RecipeModifier.applyModifiers(modifiers, AspectRequirementUtil.getRequirementType(), IOType.INPUT, amount, false));
                 if (inAmounta <= 0) {
                     return;
                 }

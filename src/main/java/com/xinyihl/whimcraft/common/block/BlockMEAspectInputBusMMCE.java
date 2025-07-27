@@ -1,7 +1,6 @@
 package com.xinyihl.whimcraft.common.block;
 
 import com.xinyihl.whimcraft.common.block.base.BlockMEBase;
-import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.TitleMEAspectInputBusMMCE;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

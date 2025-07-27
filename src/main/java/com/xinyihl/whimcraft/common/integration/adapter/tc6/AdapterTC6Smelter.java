@@ -1,8 +1,6 @@
 package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
 import com.google.gson.Gson;
-import com.warmthdawn.mod.gugu_utils.modularmachenary.MMRequirements;
-import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.types.RequirementTypeAspect;
 import crafttweaker.util.IEventHandler;
 import github.kasuminova.mmce.common.event.recipe.RecipeEvent;
 import hellfirepvp.modularmachinery.common.crafting.MachineRecipe;
@@ -68,7 +66,7 @@ public class AdapterTC6Smelter extends RecipeAdapter {
                 machineRecipe.addRequirement(new RequirementItem(IOType.INPUT, itemStack));
 
                 aspectList.aspects.forEach((aspect, integer) -> {
-                    int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, (RequirementTypeAspect) MMRequirements.REQUIREMENT_TYPE_ASPECT, IOType.OUTPUT, integer, false));
+                    int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, AspectRequirementUtil.getRequirementType(), IOType.OUTPUT, integer, false));
                     if (outAmount <= 0) {
                         return;
                     }
