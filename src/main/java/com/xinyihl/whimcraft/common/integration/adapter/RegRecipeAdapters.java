@@ -14,6 +14,8 @@ public class RegRecipeAdapters {
             registerAdapter(new AdapterTC6Crucible());
             registerAdapter(new AdapterTC6InfusionMatrix());
             registerAdapter(new AdapterTC6Smelter());
+            registerAdapter(new AdapterTC6Arcane(true));
+            registerAdapter(new AdapterTC6Arcane(false));
         }
         if (Mods.IE.isLoaded()) {
             registerAdapter(new AdapterIEArcFurnace());

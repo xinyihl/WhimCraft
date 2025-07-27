@@ -67,6 +67,8 @@ public class Configurations {
         public int crucibleTime = 100;
         @Config.Comment("神秘源质配方耗时")
         public int smelterTime = 100;
+        @Config.Comment("神秘合成配方耗时")
+        public int arcaneTime = 100;
         @Config.Comment("电路板前缀(eg: contenttweaker:programming_circuit_[x])")
         public String pcb = "contenttweaker:programming_circuit_";
         @Config.Comment("适配器使用的源质处理系统(mmce, gugu, mmce-addons)")
