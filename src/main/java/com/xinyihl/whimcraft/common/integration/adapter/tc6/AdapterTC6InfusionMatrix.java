@@ -1,5 +1,6 @@
 package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
+import com.xinyihl.whimcraft.Configurations;
 import crafttweaker.util.IEventHandler;
 import github.kasuminova.mmce.common.event.recipe.RecipeEvent;
 import github.kasuminova.mmce.common.itemtype.ChancedIngredientStack;
@@ -23,7 +24,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AdapterTC6InfusionMatrix extends RecipeAdapter {
-    public static final int BASE_WORK_TIME = 300;
 
     public AdapterTC6InfusionMatrix() {
         super(new ResourceLocation("thaumcraft", "whimcraft_infusion_matrix"));
@@ -50,7 +50,7 @@ public class AdapterTC6InfusionMatrix extends RecipeAdapter {
                 return;
             }
 
-            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.instability == 0 ? BASE_WORK_TIME : recipe.instability * 1000, false));
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.instability == 0 ? Configurations.ADAPTER_CONFIG.infusionMatrixTime : recipe.instability * Configurations.ADAPTER_CONFIG.infusionMatrixTimeMul, false));
             if (inDuration <= 0) {
                 return;
             }

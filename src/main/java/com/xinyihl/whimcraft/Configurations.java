@@ -65,12 +65,16 @@ public class Configurations {
     }
 
     public static class AdapterConfig {
-        @Config.Comment("神秘坩埚配方耗时")
+        @Config.Comment("坩埚配方耗时")
         public int crucibleTime = 100;
-        @Config.Comment("神秘源质配方耗时")
+        @Config.Comment("源质配方耗时")
         public int smelterTime = 100;
-        @Config.Comment("神秘合成配方耗时")
+        @Config.Comment("合成配方耗时")
         public int arcaneTime = 100;
+        @Config.Comment("符文祭坛配方耗时(没有不稳定度的配方使用该耗时)")
+        public int infusionMatrixTime = 100;
+        @Config.Comment("符文祭坛配方耗时乘数( 不稳定度 * infusionMatrixTimeMul )")
+        public int infusionMatrixTimeMul = 1000;
         @Config.Comment("电路板前缀(eg: contenttweaker:programming_circuit_[x])")
         public String pcb = "contenttweaker:programming_circuit_";
         @Config.Comment("适配器使用的源质处理系统, 可选:[mmce, gugu, mmce-addons]")
