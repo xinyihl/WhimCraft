@@ -39,18 +39,20 @@ public class Configurations {
     @Config.Comment("工业2设置")
     public static final IC2Config IC2_CONFIG = new IC2Config();
 
+    @Config.Comment("ModTweaker设置")
+    public static final ModTwModConfig MODTWMOD_CONFIG = new ModTwModConfig();
+
     static {
         ConfigAnytime.register(Configurations.class);
     }
 
     public static class GeneralConfig {
-        @Config.Comment("外置登录检查")
+        @Config.Comment("外置登录检查(未登录会有弹窗提醒)")
         public boolean loginCheckEnable = false;
-        @Config.Comment("站点标题")
+        @Config.Comment("站点标题(Yggdrasil API 返回的 serverName)")
         public String loginCheckName = "skinName";
         @Config.Comment("多人页面优化")
         public boolean serverListEnable = false;
-
     }
 
     public static class MmceConfig {
@@ -71,7 +73,7 @@ public class Configurations {
         public int arcaneTime = 100;
         @Config.Comment("电路板前缀(eg: contenttweaker:programming_circuit_[x])")
         public String pcb = "contenttweaker:programming_circuit_";
-        @Config.Comment("适配器使用的源质处理系统(mmce, gugu, mmce-addons)")
+        @Config.Comment("适配器使用的源质处理系统, 可选:[mmce, gugu, mmce-addons]")
         public String aspectType = "mmce";
     }
 
@@ -104,6 +106,13 @@ public class Configurations {
     public static class ASModConfig {
         @Config.Comment("星辉等级(覆盖星辉原版配置文件的设置)")
         public int asLevelCap = 30;
+    }
+
+    public static class ModTwModConfig {
+        @Config.Comment("是否启用魔改加载阶段修改(未测试可能会导致出现问题)")
+        public boolean loadCompleteMixinEnable = false;
+        @Config.Comment("加载阶段, 可选:[preinit, init, postinit]")
+        public String loadComplete = "init";
     }
 
     public static class NatureModConfig {

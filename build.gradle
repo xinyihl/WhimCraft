@@ -153,6 +153,7 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:forestry-59751:6104316")
     compileOnly rfg.deobf("curse.maven:immersiveengineering-231951:2974106")
     compileOnly rfg.deobf("curse.maven:tinkersconstruct-74072:2902483")
+    compileOnly rfg.deobf("curse.maven:mmce-ad-1236022:6806329")
 
     //mixins
     compileOnly rfg.deobf("curse.maven:nae2-884359:5317480")
@@ -166,7 +167,7 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:industrialcraft-242638:3838713")
     compileOnly rfg.deobf("curse.maven:tinymobfarm-311880:2681454")
     compileOnly rfg.deobf("curse.maven:tinkerscomplement-272671:2843439")
-    compileOnly rfg.deobf("curse.maven:mmce-ad-1236022:6806329")
+    compileOnly rfg.deobf("curse.maven:modtweaker-220954:3840577")
 
 }
 

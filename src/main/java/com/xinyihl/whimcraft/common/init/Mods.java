@@ -22,6 +22,7 @@ public enum Mods {
     TCO("tconstruct", false),
     FORESTRY("forestry", false),
     MMADDONS("modularmachineryaddons", false),
+    MODTW("modtweaker", false),
     ;
 
     public final String modid;

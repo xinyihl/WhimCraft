@@ -20,6 +20,9 @@ public class LateMixinLoader implements ILateMixinLoader {
             mixinConfigs.add("mixins.whimcraft.appliedenergistics2_ignoreparallel.json");
             mixinConfigs.add("mixins.whimcraft.modularmachinery_ignoreparallel.json");
         }
+        if(Mods.MODTW.isLoaded() && Configurations.MODTWMOD_CONFIG.loadCompleteMixinEnable) {
+            mixinConfigs.add("mixins.whimcraft.modtweaker.json");
+        }
         return mixinConfigs;
     }
 }
