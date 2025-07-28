@@ -8,7 +8,6 @@ import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.basic.ICraftN
 import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBus;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
@@ -68,7 +67,6 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
 
             if (this.existTime % 20 == 0) {
                 this.sync();
-                this.markDirty();
             }
         }
     }
@@ -81,11 +79,6 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
             AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
         }
         this.essentia.aspects.clear();
-    }
-
-    public void sync() {
-        IBlockState state = this.world.getBlockState(this.pos);
-        this.world.notifyBlockUpdate(this.pos, state, state, 3);
     }
 
     @Override
@@ -109,7 +102,6 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
         }
         this.recipeEssentia.aspects.clear();
         sync();
-        markDirty();
     }
 
     @Override
@@ -127,25 +119,25 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
         return true;
     }
 
-    @Override
     public int addToContainer(Aspect aspect, int i) {
         int ce = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
         if (ce <= 0) {
             return i;
+        } else {
+            int add = Math.min(ce, i);
+            this.essentia.add(aspect, add);
+            this.sync();
+            this.markDirty();
+            return i - add;
         }
-        int add = Math.min(ce, i);
-        this.essentia.add(aspect, add);
-        this.sync();
-        this.markDirty();
-        return i - add;
     }
 
-    @Override
     public boolean takeFromContainer(Aspect aspect, int i) {
         return false;
     }
 
     @Override
+    @Deprecated
     public boolean takeFromContainer(AspectList aspectList) {
         return false;
     }
@@ -156,13 +148,14 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     @Override
+    @Deprecated
     public boolean doesContainerContain(AspectList aspectList) {
         return false;
     }
 
     @Override
     public int containerContains(Aspect aspect) {
-        return 0;
+        return this.essentia.getAmount(aspect);
     }
 
     @Override

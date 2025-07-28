@@ -1,5 +1,6 @@
 package com.xinyihl.whimcraft.common.title;
 
+import com.warmthdawn.mod.gugu_utils.config.HatchesConfig;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.MMCompoments;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.components.GenericMachineCompoment;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect;
@@ -8,10 +9,20 @@ import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBus;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectSource;
+import thaumcraft.api.aura.AuraHelper;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IGeneratable<RequirementAspect.RT> {
+public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectSource, ITickable, IGeneratable<RequirementAspect.RT> {
+
+    public AspectList essentia = new AspectList();
+    private int existTime;
 
     @Override
     public ItemStack getVisualItemStack() {
@@ -24,14 +35,113 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IGenerat
         return new GenericMachineCompoment<>(this, (ComponentType) MMCompoments.COMPONENT_ASPECT);
     }
 
+    public void readFromNBT(@Nonnull NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.essentia.readFromNBT(compound);
+    }
+
+    @Nonnull
+    @Override
+    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        this.essentia.writeToNBT(compound);
+        return compound;
+    }
+
+    @Override
+    public void update() {
+        if (!this.world.isRemote) {
+            this.existTime++;
+            if (this.essentia.size() > 0) {
+                if (this.getProxy().isPowered() && this.getProxy().isActive()) {
+                    for (Aspect aspect : this.essentia.getAspects()) {
+                        int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), false);
+                        this.essentia.remove(aspect, canInsert);
+                        int more = addAspectToME(aspect, this.essentia.getAmount(aspect), true);
+                        this.essentia.add(aspect, more);
+                    }
+                }
+            }
+
+            if (this.existTime % 20 == 0) {
+                this.sync();
+            }
+        }
+    }
+
+    public void spillAll() {
+        int vs = this.essentia.visSize();
+        AuraHelper.polluteAura(this.world, this.getPos(), (float) vs * 0.25F, true);
+        int f = this.essentia.getAmount(Aspect.FLUX);
+        if (f > 0) {
+            AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
+        }
+        this.essentia.aspects.clear();
+    }
+
     @Override
     public boolean generate(RequirementAspect.RT rt, boolean b) {
-        if (!this.getProxy().isPowered() && !this.getProxy().isActive()) {
-            rt.setError("ME机械源质输出总线未连接ME网络");
+        int generated = Math.min(rt.getAmount(), HatchesConfig.ASPECT_OUTPUT_HATCH_MAX_STORAGE - this.essentia.visSize());
+        rt.setAmount(rt.getAmount() - generated);
+        if (b && generated > 0) {
+            this.essentia.add(rt.getAspect(), generated);
+        }
+        return generated > 0;
+    }
+
+    public int addToContainer(Aspect aspect, int i) {
+        return i;
+    }
+
+    public boolean takeFromContainer(Aspect aspect, int i) {
+        if (this.essentia.getAmount(aspect) >= i) {
+            this.essentia.remove(aspect, i);
+            this.sync();
+            this.markDirty();
+            return true;
+        } else {
             return false;
         }
-        int canAdd = addAspectToME(rt.getAspect(), rt.getAmount(), b);
-        rt.setAmount(rt.getAmount() - canAdd);
-        return true;
+    }
+
+    @Deprecated
+    public boolean takeFromContainer(AspectList aspectList) {
+        return false;
+    }
+
+    @Override
+    public AspectList getAspects() {
+        return this.essentia;
+    }
+
+    @Override
+    public void setAspects(AspectList aspectList) {
+        this.essentia = aspectList;
+    }
+
+    @Override
+    public boolean doesContainerAccept(Aspect aspect) {
+        return false;
+    }
+
+    @Override
+    public boolean doesContainerContainAmount(Aspect aspect, int i) {
+        return this.essentia.getAmount(aspect) >= i;
+    }
+
+    @Override
+    @Deprecated
+    public boolean doesContainerContain(AspectList aspectList) {
+        return false;
+    }
+
+    @Override
+    public int containerContains(Aspect aspect) {
+        return this.essentia.getAmount(aspect);
+    }
+
+    @Override
+    public boolean isBlocked() {
+        return false;
     }
 }
