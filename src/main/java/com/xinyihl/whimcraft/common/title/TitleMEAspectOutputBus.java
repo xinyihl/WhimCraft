@@ -80,7 +80,7 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     }
 
     @Override
-    public boolean generate(RequirementAspect.RT rt, boolean b) {
+    public synchronized boolean generate(RequirementAspect.RT rt, boolean b) {
         int generated = Math.min(rt.getAmount(), HatchesConfig.ASPECT_OUTPUT_HATCH_MAX_STORAGE - this.essentia.visSize());
         rt.setAmount(rt.getAmount() - generated);
         if (b && generated > 0) {

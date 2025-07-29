@@ -82,7 +82,7 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     @Override
-    public boolean consume(RequirementAspect.RT rt, boolean b) {
+    public synchronized boolean consume(RequirementAspect.RT rt, boolean b) {
         if (this.recipeEssentia.getAmount(rt.getAspect()) <= 0) {
             this.recipeEssentia.add(rt.getAspect(), rt.getAmount());
         }
@@ -92,15 +92,15 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     @Override
-    public void startCrafting(RequirementAspect.RT outputToken) {
+    public synchronized void startCrafting(RequirementAspect.RT outputToken) {
         this.recipeEssentia.add(outputToken.getAspect(), outputToken.getAmount());
     }
 
-    public void finishCrafting(RequirementAspect.RT outputToken) {
-        for (Aspect aspect : this.recipeEssentia.aspects.keySet()) {
-            this.essentia.remove(aspect);
-        }
-        this.recipeEssentia.aspects.clear();
+    public synchronized void finishCrafting(RequirementAspect.RT outputToken) {
+        Aspect aspect = outputToken.getAspect();
+        int amount = outputToken.getAmount();
+        this.recipeEssentia.remove(aspect, amount);
+        this.essentia.remove(aspect, amount);
         sync();
     }
 
