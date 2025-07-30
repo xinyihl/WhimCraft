@@ -23,7 +23,7 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
 
     private final AspectList recipeEssentia = new AspectList();
     public AspectList essentia = new AspectList();
-    private int existTime;
+    private int tickCounter = 0;
 
     @Override
     public ItemStack getVisualItemStack() {
@@ -52,20 +52,19 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     @Override
     public void update() {
         if (!this.world.isRemote) {
-            this.existTime++;
-            if (this.recipeEssentia.size() > 0) {
-                if (this.getProxy().isPowered() && this.getProxy().isActive()) {
-                    for (Aspect aspect : this.recipeEssentia.getAspectsSortedByName()) {
-                        int a = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
-                        if (a > 0) {
-                            int canTake = takeAspectFromME(aspect, a, true);
-                            this.essentia.add(aspect, canTake);
+            this.tickCounter = (this.tickCounter + 1) % 20;
+            if (this.tickCounter % 20 == 0) {
+                if (this.recipeEssentia.size() > 0) {
+                    if (this.getProxy().isPowered() && this.getProxy().isActive()) {
+                        for (Aspect aspect : this.recipeEssentia.getAspectsSortedByName()) {
+                            int a = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
+                            if (a > 0) {
+                                int canTake = takeAspectFromME(aspect, a, true);
+                                this.essentia.add(aspect, canTake);
+                            }
                         }
                     }
                 }
-            }
-
-            if (this.existTime % 20 == 0) {
                 this.sync();
             }
         }

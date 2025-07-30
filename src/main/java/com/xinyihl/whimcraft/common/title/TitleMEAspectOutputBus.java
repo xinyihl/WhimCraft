@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectSource, ITickable, IGeneratable<RequirementAspect.RT> {
 
     public AspectList essentia = new AspectList();
-    private int existTime;
+    private int tickCounter = 0;
 
     @Override
     public ItemStack getVisualItemStack() {
@@ -51,19 +51,16 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     @Override
     public void update() {
         if (!this.world.isRemote) {
-            this.existTime++;
-            if (this.essentia.size() > 0) {
-                if (this.getProxy().isPowered() && this.getProxy().isActive()) {
-                    for (Aspect aspect : this.essentia.getAspects()) {
-                        int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), false);
-                        this.essentia.remove(aspect, canInsert);
-                        int more = addAspectToME(aspect, canInsert, true);
-                        this.essentia.add(aspect, more);
+            this.tickCounter = (this.tickCounter + 1) % 20;
+            if (this.tickCounter % 20 == 0) {
+                if (this.essentia.size() > 0) {
+                    if (this.getProxy().isPowered() && this.getProxy().isActive()) {
+                        for (Aspect aspect : this.essentia.getAspects()) {
+                            int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), true);
+                            this.essentia.remove(aspect, canInsert);
+                        }
                     }
                 }
-            }
-
-            if (this.existTime % 20 == 0) {
                 this.sync();
             }
         }
