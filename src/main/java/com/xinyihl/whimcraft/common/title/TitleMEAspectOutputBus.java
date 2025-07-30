@@ -57,7 +57,7 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
                     for (Aspect aspect : this.essentia.getAspects()) {
                         int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), false);
                         this.essentia.remove(aspect, canInsert);
-                        int more = addAspectToME(aspect, this.essentia.getAmount(aspect), true);
+                        int more = addAspectToME(aspect, canInsert, true);
                         this.essentia.add(aspect, more);
                     }
                 }

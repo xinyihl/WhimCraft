@@ -2,7 +2,6 @@ package com.xinyihl.whimcraft.common.integration.adapter.jei;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.xinyihl.whimcraft.common.integration.adapter.tc6.AspectCache;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -45,8 +44,6 @@ public class WhimcraftJeiPlugin implements IModPlugin{
     }
 
     public void createAspectsFile(Collection<ItemStack> items) {
-        int cachedAmount = 0;
-        long lastTimeChecked = System.currentTimeMillis();
         List<AspectCache> aspectCaches = Lists.newArrayList();
 
         for(ItemStack stack : items) {
@@ -55,11 +52,6 @@ public class WhimcraftJeiPlugin implements IModPlugin{
                 NBTTagCompound tag = new NBTTagCompound();
                 list.writeToNBT(tag);
                 aspectCaches.add(new AspectCache(stack.serializeNBT().toString(), tag.toString()));
-            }
-            ++cachedAmount;
-            if (lastTimeChecked + 5000L < System.currentTimeMillis()) {
-                lastTimeChecked = System.currentTimeMillis();
-                log.info("ItemStack Aspect checking at " + 100 * cachedAmount / items.size() + "%");
             }
         }
 
