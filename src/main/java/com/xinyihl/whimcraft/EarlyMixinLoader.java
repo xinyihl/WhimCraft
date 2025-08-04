@@ -16,9 +16,9 @@ public class EarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
         List<String> mixinConfigs = new ArrayList<>();
-        mixinConfigs.add("mixins.whimcraft.minecraft.json");
+        mixinConfigs.add("mixins/mixins.whimcraft.minecraft.json");
         if (Configurations.GENERAL_CONFIG.serverListEnable){
-            mixinConfigs.add("mixins.whimcraft.minecraft_serverlist.json");
+            mixinConfigs.add("mixins/mixins.whimcraft.minecraft_serverlist.json");
         }
         return mixinConfigs;
     }
