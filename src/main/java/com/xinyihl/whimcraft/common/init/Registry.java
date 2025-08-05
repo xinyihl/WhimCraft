@@ -1,8 +1,13 @@
 package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Tags;
+import hellfirepvp.modularmachinery.common.block.BlockDynamicColor;
+import hellfirepvp.modularmachinery.common.item.ItemDynamicColor;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -38,6 +43,23 @@ public class Registry {
     public static void registerModel(ModelRegistryEvent event) {
         for (Item item : items) {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory"));
+        }
+    }
+
+    public static void initDynamicColor(){
+        BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
+        for (Block block : blocks.values()) {
+            if (block instanceof BlockDynamicColor) {
+                BlockDynamicColor blockDynamicColor = (BlockDynamicColor) block;
+                blockColors.registerBlockColorHandler(blockDynamicColor::getColorMultiplier, block);
+            }
+        }
+        ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
+        for (Item item : items) {
+            if (item instanceof ItemDynamicColor) {
+                ItemDynamicColor itemDynamicColor = (ItemDynamicColor) item;
+                itemColors.registerItemColorHandler(itemDynamicColor::getColorFromItemstack, item);
+            }
         }
     }
 }

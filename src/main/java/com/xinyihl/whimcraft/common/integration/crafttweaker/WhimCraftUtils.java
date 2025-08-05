@@ -17,15 +17,19 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 @ZenRegister
 @ZenClass("mods.whimcraft.WhimCraftUtils")
 public class WhimCraftUtils {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.fromString("7E1D8024-D2EF-4077-AD6F-636F16F43BB6"), "[WhimCraft]");
+    private static Method getLootTable;
 
     /**
      * 获取实体掉落物
@@ -42,7 +46,16 @@ public class WhimCraftUtils {
         }
         EntityLiving entityliving = (EntityLiving) entity;
         WorldServer worldServer = (WorldServer) entityliving.world;
-        ResourceLocation lootTableLocation = LootTableReflector.getLootTable(entityliving);
+        if (getLootTable == null) {
+            getLootTable = ReflectionHelper.findMethod(EntityLiving.class, "getLootTable", "func_184647_J");
+        }
+        ResourceLocation lootTableLocation;
+        try {
+            lootTableLocation = (ResourceLocation) getLootTable.invoke(entityliving);
+        } catch (IllegalAccessException | InvocationTargetException e){
+            throw new RuntimeException(e);
+        }
+
         LootTableManager lootTableManager = worldServer.getLootTableManager();
         if (lootTableLocation == null) {
             return null;

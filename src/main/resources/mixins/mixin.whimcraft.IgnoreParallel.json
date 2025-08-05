@@ -1,0 +1,12 @@
+{
+  "package": "com.xinyihl.whimcraft.common.mixins",
+  "refmap": "mixins.whimcraft.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "appliedenergistics2.CraftingCPUClusterTwoMixin",
+    "appliedenergistics2.CraftingCPUClusterTwoMixin$AccessorTaskProgress",
+    "mmce.MEPatternProviderMixin"
+  ]
+}
