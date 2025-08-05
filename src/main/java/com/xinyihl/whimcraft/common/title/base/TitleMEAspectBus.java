@@ -6,7 +6,13 @@ import appeng.api.networking.GridFlags;
 import appeng.api.networking.storage.IStorageGrid;
 import appeng.api.storage.IMEMonitor;
 import appeng.me.GridAccessException;
+import github.kasuminova.mmce.common.util.Sides;
+import hellfirepvp.modularmachinery.client.ClientProxy;
+import hellfirepvp.modularmachinery.common.data.Config;
+import hellfirepvp.modularmachinery.common.tiles.base.ColorableMachineTile;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.api.EssentiaStack;
 import thaumicenergistics.api.storage.IAEEssentiaStack;
@@ -15,14 +21,54 @@ import thaumicenergistics.integration.appeng.AEEssentiaStack;
 import thaumicenergistics.integration.appeng.grid.GridUtil;
 import thaumicenergistics.util.AEUtil;
 
-public abstract class TitleMEAspectBus extends TitleMeBase implements MachineComponentTile {
+import javax.annotation.Nonnull;
+
+public abstract class TitleMEAspectBus extends TitleMeBase implements MachineComponentTile, ColorableMachineTile {
+
+    private int definedColor;
 
     public TitleMEAspectBus() {
         this.proxy.setFlags(GridFlags.REQUIRE_CHANNEL);
     }
 
+    public int getMachineColor() {
+        return this.definedColor;
+    }
+
+    public void setMachineColor(int newColor) {
+        if (this.definedColor != newColor) {
+            this.definedColor = newColor;
+            this.sync();
+        }
+    }
+
     protected IEssentiaStorageChannel getChannel() {
         return AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class);
+    }
+
+    @Override
+    public void readFromNBT(@Nonnull NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        if (!tag.hasKey("casingColor")) {
+            this.definedColor = Config.machineColor;
+        } else {
+            int newColor = tag.getInteger("casingColor");
+            if (this.definedColor != newColor) {
+                this.definedColor = newColor;
+                Sides.CLIENT.runIfPresent(() -> ClientProxy.clientScheduler.addRunnable(() -> {
+                    World world = this.getWorld();
+                    world.addBlockEvent(this.pos, world.getBlockState(this.pos).getBlock(), 1, 1);
+                }, 0));
+            }
+        }
+    }
+
+    @Nonnull
+    @Override
+    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound tag) {
+        super.writeToNBT(tag);
+        tag.setInteger("casingColor", this.definedColor);
+        return tag;
     }
 
     public synchronized int addAspectToME(Aspect aspect, int i, boolean b) {
