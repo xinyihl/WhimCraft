@@ -47,10 +47,14 @@ public class AdapterIEArcFurnace extends RecipeAdapter {
             if (recipe.output == null) {
                 return;
             }
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.getTotalProcessTime(), false));
+            if (inDuration <= 0) {
+                return;
+            }
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("immersiveengineering", "whimcraft_auto_arcfurnace" + incId),
                     owningMachineName,
-                    recipe.getTotalProcessTime(),
+                    inDuration,
                     incId, false);
 
             // Item Input

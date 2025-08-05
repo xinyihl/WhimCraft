@@ -46,11 +46,14 @@ public class AdapterSmelteryBasinCasting extends RecipeAdapter {
             if (recipe.getResult() == null) {
                 return;
             }
-
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.getTime(), false));
+            if (inDuration <= 0) {
+                return;
+            }
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("mctsmelteryio", "whimcraft_auto_smeltery_basin_casting" + incId),
                     owningMachineName,
-                    recipe.getTime(),
+                    inDuration,
                     incId, false);
 
             // Item Input

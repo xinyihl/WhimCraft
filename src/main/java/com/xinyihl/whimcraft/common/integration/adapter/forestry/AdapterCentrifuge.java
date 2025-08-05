@@ -33,10 +33,14 @@ public class AdapterCentrifuge extends RecipeAdapter {
             if(recipe.getInput().isEmpty()) {
                 return;
             }
+            int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.getProcessingTime(), false));
+            if (inDuration <= 0) {
+                return;
+            }
             MachineRecipe machineRecipe = createRecipeShell(
                     new ResourceLocation("forestry", "whimcraft_auto_centrifuge" + incId),
                     owningMachineName,
-                    recipe.getProcessingTime(),
+                    inDuration,
                     incId, false);
             ItemStack input = recipe.getInput();
             int inAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.INPUT, input.getCount(), false));
