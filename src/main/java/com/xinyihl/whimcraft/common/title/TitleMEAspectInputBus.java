@@ -56,11 +56,13 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
             if (this.tickCounter % 20 == 0) {
                 if (this.recipeEssentia.size() > 0) {
                     if (this.getProxy().isPowered() && this.getProxy().isActive()) {
-                        for (Aspect aspect : this.recipeEssentia.getAspectsSortedByName()) {
-                            int a = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
-                            if (a > 0) {
-                                int canTake = takeAspectFromME(aspect, a, true);
-                                this.essentia.add(aspect, canTake);
+                        synchronized (this) {
+                            for (Aspect aspect : this.recipeEssentia.getAspectsSortedByName()) {
+                                int a = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
+                                if (a > 0) {
+                                    int canTake = takeAspectFromME(aspect, a, true);
+                                    this.essentia.add(aspect, canTake);
+                                }
                             }
                         }
                     }
@@ -81,26 +83,33 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     @Override
-    public synchronized boolean consume(RequirementAspect.RT rt, boolean b) {
-        if (this.recipeEssentia.getAmount(rt.getAspect()) <= 0) {
-            this.recipeEssentia.add(rt.getAspect(), rt.getAmount());
+    public boolean consume(RequirementAspect.RT rt, boolean b) {
+        synchronized (this) {
+            if (this.recipeEssentia.getAmount(rt.getAspect()) <= 0) {
+                this.recipeEssentia.add(rt.getAspect(), rt.getAmount());
+            }
+            int consume = Math.min(rt.getAmount(), this.essentia.getAmount(rt.getAspect()));
+            rt.setAmount(rt.getAmount() - consume);
+
+            return consume > 0;
         }
-        int consume = Math.min(rt.getAmount(), this.essentia.getAmount(rt.getAspect()));
-        rt.setAmount(rt.getAmount() - consume);
-        return consume > 0;
     }
 
     @Override
-    public synchronized void startCrafting(RequirementAspect.RT outputToken) {
-        this.recipeEssentia.add(outputToken.getAspect(), outputToken.getAmount());
+    public void startCrafting(RequirementAspect.RT outputToken) {
+        synchronized (this) {
+            this.recipeEssentia.add(outputToken.getAspect(), outputToken.getAmount());
+        }
     }
 
-    public synchronized void finishCrafting(RequirementAspect.RT outputToken) {
-        Aspect aspect = outputToken.getAspect();
-        int amount = outputToken.getAmount();
-        this.recipeEssentia.remove(aspect, amount);
-        this.essentia.remove(aspect, amount);
-        sync();
+    public void finishCrafting(RequirementAspect.RT outputToken) {
+        synchronized (this) {
+            Aspect aspect = outputToken.getAspect();
+            int amount = outputToken.getAmount();
+            this.recipeEssentia.remove(aspect, amount);
+            this.essentia.remove(aspect, amount);
+            sync();
+        }
     }
 
     @Override

@@ -53,15 +53,17 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
         if (!this.world.isRemote) {
             this.tickCounter = (this.tickCounter + 1) % 20;
             if (this.tickCounter % 20 == 0) {
-                if (this.essentia.size() > 0) {
-                    if (this.getProxy().isPowered() && this.getProxy().isActive()) {
-                        for (Aspect aspect : this.essentia.getAspects()) {
-                            int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), true);
-                            this.essentia.remove(aspect, canInsert);
+                synchronized (this) {
+                    if (this.essentia.size() > 0) {
+                        if (this.getProxy().isPowered() && this.getProxy().isActive()) {
+                            for (Aspect aspect : this.essentia.getAspects()) {
+                                int canInsert = addAspectToME(aspect, this.essentia.getAmount(aspect), true);
+                                this.essentia.remove(aspect, canInsert);
+                            }
                         }
                     }
+                    this.sync();
                 }
-                this.sync();
             }
         }
     }
@@ -77,13 +79,15 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     }
 
     @Override
-    public synchronized boolean generate(RequirementAspect.RT rt, boolean b) {
-        int generated = Math.min(rt.getAmount(), HatchesConfig.ASPECT_OUTPUT_HATCH_MAX_STORAGE - this.essentia.visSize());
-        rt.setAmount(rt.getAmount() - generated);
-        if (b && generated > 0) {
-            this.essentia.add(rt.getAspect(), generated);
+    public boolean generate(RequirementAspect.RT rt, boolean b) {
+        synchronized (this) {
+            int generated = Math.min(rt.getAmount(), HatchesConfig.ASPECT_OUTPUT_HATCH_MAX_STORAGE - this.essentia.visSize());
+            rt.setAmount(rt.getAmount() - generated);
+            if (b && generated > 0) {
+                this.essentia.add(rt.getAspect(), generated);
+            }
+            return generated > 0;
         }
-        return generated > 0;
     }
 
     public int addToContainer(Aspect aspect, int i) {
