@@ -28,6 +28,7 @@ public abstract class TitleMEAspectBus extends TitleMeBase implements MachineCom
     private int definedColor;
 
     public TitleMEAspectBus() {
+        this.definedColor = Config.machineColor;
         this.proxy.setFlags(GridFlags.REQUIRE_CHANNEL);
     }
 
