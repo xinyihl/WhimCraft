@@ -5,12 +5,12 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntity;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.world.IWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
@@ -36,7 +36,7 @@ public class WhimCraftUtils {
      *
      * @param ientity     目标实体
      * @param isPlayer    是否玩家击杀
-     * @param luck        幸运
+     * @param luck        幸运(不是抢夺)
      */
     @ZenMethod
     public static IItemStack[] getDrops(IEntity ientity, boolean isPlayer, int luck) {
@@ -55,41 +55,49 @@ public class WhimCraftUtils {
         } catch (IllegalAccessException | InvocationTargetException e){
             throw new RuntimeException(e);
         }
-
-        LootTableManager lootTableManager = worldServer.getLootTableManager();
         if (lootTableLocation == null) {
             return null;
         }
+        LootTableManager lootTableManager = worldServer.getLootTableManager();
         LootTable lootTable = lootTableManager.getLootTableFromLocation(lootTableLocation);
-        LootContext.Builder contextBuilder = new LootContext.Builder(worldServer)
-                .withLootedEntity(entityliving)
-                .withLuck(luck);
-        DamageSource damageSource = DamageSource.GENERIC;
+        LootContext.Builder contextBuilder = new LootContext.Builder(worldServer).withLuck(luck);
         if (isPlayer) {
             EntityPlayer killer = FakePlayerFactory.get(worldServer, GAME_PROFILE);
             if (killer != null) {
                 contextBuilder.withPlayer(killer);
-                damageSource = DamageSource.causePlayerDamage(killer);
             }
         }
-        contextBuilder.withDamageSource(damageSource);
         LootContext context = contextBuilder.build();
-
-        Map<Item, ItemStack> outMap = new HashMap<>();
         List<ItemStack> drops = lootTable.generateLootForPools(entityliving.getRNG(), context);
+        return CraftTweakerMC.getIItemStacks(drops.toArray(new ItemStack[0]));
+    }
 
-        for (ItemStack item : drops){
-            if(outMap.containsKey(item.getItem())){
-                ItemStack stack = outMap.get(item.getItem());
-                if (stack.getCount() >= 16) {
-                    continue;
-                }
-                stack.setCount(stack.getCount() + 1);
-            } else {
-                outMap.put(item.getItem(), item);
-            }
+
+    /**
+     * 获取实体掉落物
+     *
+     * @param iworld      世界
+     * @param location    目标实体战利品表id
+     * @param isPlayer    是否玩家击杀
+     * @param luck        幸运(不是抢夺)
+     */
+    @ZenMethod
+    public static IItemStack[] getDrops(IWorld iworld, String location, boolean isPlayer, int luck) {
+        World world = CraftTweakerMC.getWorld(iworld);
+        if (world.isRemote || !(world instanceof WorldServer)){
+            return null;
         }
-
-        return CraftTweakerMC.getIItemStacks(outMap.values().toArray(new ItemStack[0]));
+        WorldServer worldServer = (WorldServer) world;
+        ResourceLocation lootTableLocation = new ResourceLocation(location);
+        LootTableManager lootTableManager = worldServer.getLootTableManager();
+        LootTable lootTable = lootTableManager.getLootTableFromLocation(lootTableLocation);
+        LootContext.Builder contextBuilder = new LootContext.Builder(worldServer).withLuck(luck);
+        if (isPlayer) {
+            EntityPlayer killer = FakePlayerFactory.get(worldServer, GAME_PROFILE);
+            contextBuilder.withPlayer(killer);
+        }
+        LootContext context = contextBuilder.build();
+        List<ItemStack> drops = lootTable.generateLootForPools(worldServer.rand, context);
+        return CraftTweakerMC.getIItemStacks(drops.toArray(new ItemStack[0]));
     }
 }
