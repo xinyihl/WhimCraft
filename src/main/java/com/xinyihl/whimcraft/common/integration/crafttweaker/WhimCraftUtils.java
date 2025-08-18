@@ -17,7 +17,7 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -47,7 +47,7 @@ public class WhimCraftUtils {
         EntityLiving entityliving = (EntityLiving) entity;
         WorldServer worldServer = (WorldServer) entityliving.world;
         if (getLootTable == null) {
-            getLootTable = ReflectionHelper.findMethod(EntityLiving.class, "getLootTable", "func_184647_J");
+            getLootTable = ObfuscationReflectionHelper.findMethod(EntityLiving.class, "getLootTable", ResourceLocation.class);
         }
         ResourceLocation lootTableLocation;
         try {
