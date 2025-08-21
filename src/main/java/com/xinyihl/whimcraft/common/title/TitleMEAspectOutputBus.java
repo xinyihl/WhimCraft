@@ -1,10 +1,10 @@
 package com.xinyihl.whimcraft.common.title;
 
-import com.warmthdawn.mod.gugu_utils.config.HatchesConfig;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.MMCompoments;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.components.GenericMachineCompoment;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.RequirementAspect;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.requirements.basic.IGeneratable;
+import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBus;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
@@ -81,7 +81,7 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     @Override
     public boolean generate(RequirementAspect.RT rt, boolean b) {
         synchronized (this) {
-            int generated = Math.min(rt.getAmount(), HatchesConfig.ASPECT_OUTPUT_HATCH_MAX_STORAGE - this.essentia.visSize());
+            int generated = Math.min(rt.getAmount(), Configurations.GENERAL_CONFIG.aspectOutputHatchMaxStorage - this.essentia.visSize());
             rt.setAmount(rt.getAmount() - generated);
             if (b && generated > 0) {
                 this.essentia.add(rt.getAspect(), generated);

@@ -53,6 +53,8 @@ public class Configurations {
         public String loginCheckName = "skinName";
         @Config.Comment("多人页面优化")
         public boolean serverListEnable = false;
+        @Config.Comment("ME源质输出最大缓存源质数量")
+        public int aspectOutputHatchMaxStorage = 500;
     }
 
     public static class MmceConfig {
