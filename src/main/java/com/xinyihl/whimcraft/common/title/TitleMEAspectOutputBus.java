@@ -69,13 +69,15 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     }
 
     public void spillAll() {
-        int vs = this.essentia.visSize();
-        AuraHelper.polluteAura(this.world, this.getPos(), (float) vs * 0.25F, true);
-        int f = this.essentia.getAmount(Aspect.FLUX);
-        if (f > 0) {
-            AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
+        synchronized (this) {
+            int vs = this.essentia.visSize();
+            AuraHelper.polluteAura(this.world, this.getPos(), (float) vs * 0.25F, true);
+            int f = this.essentia.getAmount(Aspect.FLUX);
+            if (f > 0) {
+                AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
+            }
+            this.essentia.aspects.clear();
         }
-        this.essentia.aspects.clear();
     }
 
     @Override
@@ -95,13 +97,15 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
     }
 
     public boolean takeFromContainer(Aspect aspect, int i) {
-        if (this.essentia.getAmount(aspect) >= i) {
-            this.essentia.remove(aspect, i);
-            this.sync();
-            this.markDirty();
-            return true;
-        } else {
-            return false;
+        synchronized (this) {
+            if (this.essentia.getAmount(aspect) >= i) {
+                this.essentia.remove(aspect, i);
+                this.sync();
+                this.markDirty();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -112,12 +116,16 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
 
     @Override
     public AspectList getAspects() {
-        return this.essentia;
+        synchronized (this) {
+            return this.essentia;
+        }
     }
 
     @Override
     public void setAspects(AspectList aspectList) {
-        this.essentia = aspectList;
+        synchronized (this) {
+            this.essentia = aspectList;
+        }
     }
 
     @Override
@@ -127,7 +135,9 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
 
     @Override
     public boolean doesContainerContainAmount(Aspect aspect, int i) {
-        return this.essentia.getAmount(aspect) >= i;
+        synchronized (this) {
+            return this.essentia.getAmount(aspect) >= i;
+        }
     }
 
     @Override
@@ -138,7 +148,9 @@ public class TitleMEAspectOutputBus extends TitleMEAspectBus implements IAspectS
 
     @Override
     public int containerContains(Aspect aspect) {
-        return this.essentia.getAmount(aspect);
+        synchronized (this) {
+            return this.essentia.getAmount(aspect);
+        }
     }
 
     @Override

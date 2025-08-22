@@ -54,9 +54,9 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
         if (!this.world.isRemote) {
             this.tickCounter = (this.tickCounter + 1) % 20;
             if (this.tickCounter % 20 == 0) {
-                if (this.recipeEssentia.size() > 0) {
-                    if (this.getProxy().isPowered() && this.getProxy().isActive()) {
-                        synchronized (this) {
+                synchronized (this) {
+                    if (this.recipeEssentia.size() > 0) {
+                        if (this.getProxy().isPowered() && this.getProxy().isActive()) {
                             for (Aspect aspect : this.recipeEssentia.getAspectsSortedByName()) {
                                 int a = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
                                 if (a > 0) {
@@ -73,13 +73,15 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     public void spillAll() {
-        int vs = this.essentia.visSize();
-        AuraHelper.polluteAura(this.world, this.getPos(), (float) vs * 0.25F, true);
-        int f = this.essentia.getAmount(Aspect.FLUX);
-        if (f > 0) {
-            AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
+        synchronized (this) {
+            int vs = this.essentia.visSize();
+            AuraHelper.polluteAura(this.world, this.getPos(), (float) vs * 0.25F, true);
+            int f = this.essentia.getAmount(Aspect.FLUX);
+            if (f > 0) {
+                AuraHelper.polluteAura(this.world, this.getPos(), (float) f * 0.75F, false);
+            }
+            this.essentia.aspects.clear();
         }
-        this.essentia.aspects.clear();
     }
 
     @Override
@@ -114,12 +116,16 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
 
     @Override
     public AspectList getAspects() {
-        return this.essentia;
+        synchronized (this) {
+            return this.essentia;
+        }
     }
 
     @Override
     public void setAspects(AspectList aspectList) {
-        this.essentia = aspectList;
+        synchronized (this) {
+            this.essentia = aspectList;
+        }
     }
 
     @Override
@@ -128,15 +134,17 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
     }
 
     public int addToContainer(Aspect aspect, int i) {
-        int ce = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
-        if (ce <= 0) {
-            return i;
-        } else {
-            int add = Math.min(ce, i);
-            this.essentia.add(aspect, add);
-            this.sync();
-            this.markDirty();
-            return i - add;
+        synchronized (this) {
+            int ce = this.recipeEssentia.getAmount(aspect) - this.essentia.getAmount(aspect);
+            if (ce <= 0) {
+                return i;
+            } else {
+                int add = Math.min(ce, i);
+                this.essentia.add(aspect, add);
+                this.sync();
+                this.markDirty();
+                return i - add;
+            }
         }
     }
 
@@ -152,7 +160,9 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
 
     @Override
     public boolean doesContainerContainAmount(Aspect aspect, int i) {
-        return this.essentia.getAmount(aspect) >= i;
+        synchronized (this) {
+            return this.essentia.getAmount(aspect) >= i;
+        }
     }
 
     @Override
@@ -163,7 +173,9 @@ public class TitleMEAspectInputBus extends TitleMEAspectBus implements IAspectSo
 
     @Override
     public int containerContains(Aspect aspect) {
-        return this.essentia.getAmount(aspect);
+        synchronized (this) {
+            return this.essentia.getAmount(aspect);
+        }
     }
 
     @Override
