@@ -66,9 +66,8 @@ public class AdapterIEArcFurnace extends RecipeAdapter {
                     .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, inAmount1)))
                     .collect(Collectors.toList());
 
-            if (!inputMainList1.isEmpty()) {
-                machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
-            }
+            if (inputMainList1.isEmpty()) return;
+            machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
 
             for (IngredientStack ingredientStack : recipe.additives) {
                 int inAmount2 = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.INPUT, ingredientStack.inputSize, false));
@@ -92,6 +91,7 @@ public class AdapterIEArcFurnace extends RecipeAdapter {
 
             // Output
             ItemStack output = recipe.output;
+            if (output.isEmpty()) return;
             int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, output.getCount(), false));
             if (outAmount > 0) {
                 int[] ids = OreDictionary.getOreIDs(output);

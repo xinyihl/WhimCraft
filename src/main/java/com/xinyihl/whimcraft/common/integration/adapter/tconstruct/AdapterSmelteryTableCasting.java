@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICast;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -65,19 +66,17 @@ public class AdapterSmelteryTableCasting extends RecipeAdapter {
                     List<ChancedIngredientStack> inputMainList1 = recipe.cast.getInputs().stream()
                             .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, inAmount1)))
                             .collect(Collectors.toList());
-                    if (!inputMainList1.isEmpty()) {
-                        machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
-                    }
+                    if (inputMainList1.isEmpty()) return;
+                    machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
                 } else {
                     List<ChancedIngredientStack> inputMainList1 = recipe.cast.getInputs().stream()
                             .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, 1)))
                             .collect(Collectors.toList());
-                    if (!inputMainList1.isEmpty()) {
-                        RequirementIngredientArray requirementIngredientArray = new RequirementIngredientArray(inputMainList1);
-                        requirementIngredientArray.setChance(0);
-                        requirementIngredientArray.setParallelizeUnaffected(true);
-                        machineRecipe.addRequirement(requirementIngredientArray);
-                    }
+                    if (inputMainList1.isEmpty()) return;
+                    RequirementIngredientArray requirementIngredientArray = new RequirementIngredientArray(inputMainList1);
+                    requirementIngredientArray.setChance(0);
+                    requirementIngredientArray.setParallelizeUnaffected(true);
+                    machineRecipe.addRequirement(requirementIngredientArray);
                 }
             }
 
@@ -91,6 +90,8 @@ public class AdapterSmelteryTableCasting extends RecipeAdapter {
 
             // Item Output
             ItemStack output = recipe.getResult();
+            if (output.getItem() instanceof ICast) return;
+            if (output.isEmpty()) return;
             int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, output.getCount(), false));
             if (outAmount > 0) {
                 machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, ItemUtils.copyStackWithSize(output, outAmount)));
