@@ -63,18 +63,18 @@ public class AdapterSmelteryBasinCasting extends RecipeAdapter {
                     List<ChancedIngredientStack> inputMainList1 = recipe.cast.getInputs().stream()
                             .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, inAmount1)))
                             .collect(Collectors.toList());
-                    if (!inputMainList1.isEmpty()) {
-                        machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
-                    }
+                    if (inputMainList1.isEmpty()) return;
+                    machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList1));
+
                 } else {
                     List<ChancedIngredientStack> inputMainList1 = recipe.cast.getInputs().stream()
                             .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, 1)))
                             .collect(Collectors.toList());
-                    if (!inputMainList1.isEmpty()) {
-                        RequirementIngredientArray requirementIngredientArray = new RequirementIngredientArray(inputMainList1);
-                        requirementIngredientArray.setChance(0);
-                        machineRecipe.addRequirement(requirementIngredientArray);
-                    }
+                    if (inputMainList1.isEmpty()) return;
+                    RequirementIngredientArray requirementIngredientArray = new RequirementIngredientArray(inputMainList1);
+                    requirementIngredientArray.setChance(0);
+                    machineRecipe.addRequirement(requirementIngredientArray);
+
                 }
             }
 
@@ -88,6 +88,7 @@ public class AdapterSmelteryBasinCasting extends RecipeAdapter {
 
             // Item Output
             ItemStack output = recipe.getResult();
+            if (output.isEmpty()) return;
             int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, output.getCount(), false));
             if (outAmount > 0) {
                 machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, ItemUtils.copyStackWithSize(output, outAmount)));
