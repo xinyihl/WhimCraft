@@ -12,6 +12,7 @@ key.whimcraft.desc=奇思妙想
 key.whimcraft.getItemId=获取物品ID
 key.whimcraft.getItemIdList=获取物品ID列表
 key.whimcraft.getItemIdListOut=导出物品ID列表
+key.whimcraft.foundItemAe=在AE中搜索物品
 
 item.whimcraft.link_card.name=闪存卡
 

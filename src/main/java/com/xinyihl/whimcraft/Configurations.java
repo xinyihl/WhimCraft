@@ -90,6 +90,8 @@ public class Configurations {
         public boolean patternEncoder = false;
         @Config.Comment("存储种类(设置值应小于等于 aeTotalTypes)")
         public AECellConfig AECellConfig = new AECellConfig();
+        @Config.Comment("在Gui中按键搜索物品")
+        public boolean searchInGui = false;
     }
 
     public static class ChunkPurgeConfig{

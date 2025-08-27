@@ -26,7 +26,8 @@ public enum Mixins {
     ModTweakerApplyAction("ModTweakerApplyAction", true, () -> Configurations.MODTWMOD_CONFIG.loadCompleteMixinEnable, "modtweaker"),
     AuraChunkUpdate("AuraChunkUpdate", true, () -> !Configurations.NATURE_CONFIG.auraChunkUpdateEnable, "naturesaura"),
     FixTileMelterCrash("FixTileMelterCrash", true, null, "tcomplement"),
-    EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm")
+    EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm"),
+    PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2")
     ;
 
     final String mixinName;
