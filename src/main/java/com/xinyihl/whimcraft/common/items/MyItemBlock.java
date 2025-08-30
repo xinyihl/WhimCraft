@@ -1,6 +1,5 @@
 package com.xinyihl.whimcraft.common.items;
 
-import com.xinyihl.whimcraft.common.init.IB;
 import hellfirepvp.modularmachinery.common.data.Config;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import net.minecraft.block.Block;
@@ -13,7 +12,6 @@ public class MyItemBlock extends ItemBlockMachineComponent {
         super(block);
         this.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
         this.setTranslationKey(block.getTranslationKey());
-        IB.items.add(this);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.xinyihl.whimcraft.common.items;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.init.IB;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,7 +21,6 @@ public class Elgoog extends Item {
         this.setCreativeTab(CREATIVE_TAB);
         this.setRegistryName(new ResourceLocation(Tags.MOD_ID,"elgoog"));
         this.setTranslationKey(Tags.MOD_ID + ".elgoog");
-        IB.items.add(this);
     }
 
     @Override

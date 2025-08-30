@@ -113,7 +113,7 @@ public class ClientEventHandler {
                 if (keyCode == KEY_GET_ITEM_ID_LIST.getKeyCode()) {
                     keyDown2 = true;
                 }
-                if (keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
+                if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
                     keyDown3 = true;
                 }
                 if (keyCode == KEY_GET_ITEM_ID_LIST_OUT.getKeyCode()) {
@@ -132,7 +132,7 @@ public class ClientEventHandler {
                 if (keyCode == KEY_GET_ITEM_ID_LIST.getKeyCode()) {
                     keyDown2 = false;
                 }
-                if (keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
+                if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
                     keyDown3 = false;
                 }
             }

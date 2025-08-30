@@ -16,8 +16,8 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockMEBase extends BlockTitleBase {
 
-    public BlockMEBase(Class<? extends TileEntity> clzz, String name) {
-        super(clzz, name);
+    public BlockMEBase(String name) {
+        super(name);
     }
 
     @Override

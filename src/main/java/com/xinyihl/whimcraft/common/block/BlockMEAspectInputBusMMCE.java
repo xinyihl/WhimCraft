@@ -10,12 +10,17 @@ import javax.annotation.Nullable;
 
 public class BlockMEAspectInputBusMMCE extends BlockMEBase {
     public BlockMEAspectInputBusMMCE() {
-        super(TitleMEAspectInputBusMMCE.class, "blockmeaspectinputbusmmce");
+        super("blockmeaspectinputbusmmce");
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState iBlockState) {
         return new TitleMEAspectInputBusMMCE();
+    }
+
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TitleMEAspectInputBusMMCE.class;
     }
 }

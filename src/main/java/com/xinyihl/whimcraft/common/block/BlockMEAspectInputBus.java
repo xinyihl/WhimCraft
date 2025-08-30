@@ -1,7 +1,6 @@
 package com.xinyihl.whimcraft.common.block;
 
 import com.xinyihl.whimcraft.common.block.base.BlockMEBase;
-import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.TitleMEAspectInputBus;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +19,7 @@ import javax.annotation.Nullable;
 public class BlockMEAspectInputBus extends BlockMEBase {
 
     public BlockMEAspectInputBus() {
-        super(TitleMEAspectInputBus.class, "blockmeaspectinputbus");
+        super("blockmeaspectinputbus");
     }
 
     @Nullable
@@ -42,5 +41,10 @@ public class BlockMEAspectInputBus extends BlockMEBase {
             return true;
         }
         return super.onBlockActivated(world, blockPos, iBlockState, entityPlayer, enumHand, enumFacing, v, v1, v2);
+    }
+
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TitleMEAspectInputBus.class;
     }
 }

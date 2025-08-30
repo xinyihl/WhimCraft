@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public class BlockMEAspectOutputBus extends BlockMEBase {
 
     public BlockMEAspectOutputBus() {
-        super(TitleMEAspectOutputBus.class, "blockmeaspectoutputbus");
+        super("blockmeaspectoutputbus");
     }
 
     @Nullable
@@ -41,5 +41,10 @@ public class BlockMEAspectOutputBus extends BlockMEBase {
             return true;
         }
         return super.onBlockActivated(world, blockPos, iBlockState, entityPlayer, enumHand, enumFacing, v, v1, v2);
+    }
+
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TitleMEAspectOutputBus.class;
     }
 }

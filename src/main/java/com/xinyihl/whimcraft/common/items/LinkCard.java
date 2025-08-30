@@ -1,7 +1,6 @@
 package com.xinyihl.whimcraft.common.items;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.title.TitleShareInfHandler;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
 import net.minecraft.client.resources.I18n;
@@ -33,7 +32,6 @@ public class LinkCard extends Item {
         this.setCreativeTab(CREATIVE_TAB);
         this.setRegistryName(new ResourceLocation(Tags.MOD_ID,"link_card"));
         this.setTranslationKey(Tags.MOD_ID + ".link_card");
-        IB.items.add(this);
     }
 
     @Override

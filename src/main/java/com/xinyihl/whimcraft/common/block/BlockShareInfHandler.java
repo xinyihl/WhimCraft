@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 public class BlockShareInfHandler extends BlockTitleBase {
     public BlockShareInfHandler() {
-        super(TitleShareInfHandler.class, "blockshareinfhandler");
+        super("blockshareinfhandler");
     }
 
     @Override
@@ -27,5 +27,10 @@ public class BlockShareInfHandler extends BlockTitleBase {
     @Override
     public TileEntity createTileEntity(World world, IBlockState iBlockState) {
         return new TitleShareInfHandler();
+    }
+
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TitleShareInfHandler.class;
     }
 }

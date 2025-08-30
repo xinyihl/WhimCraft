@@ -4,24 +4,21 @@ import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.block.*;
 import com.xinyihl.whimcraft.common.items.LinkCard;
+import com.xinyihl.whimcraft.common.items.MyItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class IB {
 
     public static CreativeTabs CREATIVE_TAB;
 
-    public static Map<Class<? extends TileEntity>, Block> blocks = new HashMap<>();
+    public static List<Block> blocks = new ArrayList<>();
     public static List<Item> items = new ArrayList<>();
 
     @GameRegistry.ObjectHolder(Tags.MOD_ID + ":link_card")
@@ -48,24 +45,33 @@ public class IB {
     public static Item itemMEAspectOutputBusMMCE;
 
     static {
-        if (Mods.MMCE.isLoaded() && (Configurations.MMCE_CONFIG.useShareInfHandler || Mods.TC6.isLoaded())) {
+        if (Mods.MMCE.isLoaded() && (Configurations.MMCE_CONFIG.useShareInfHandler || (Mods.TC6.isLoaded() && Mods.AE2.isLoaded()))) {
             CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
                 public ItemStack createIcon() {
-                    return new ItemStack(Items.APPLE);
+                    return new ItemStack(items.get(0));
                 }
             };
         }
         if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) {
-            new LinkCard();
-            new BlockShareInfHandler();
+            registerItem(new LinkCard());
+            registerBlock(new BlockShareInfHandler());
         }
         if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {
-            new BlockMEAspectInputBusMMCE();
-            new BlockMEAspectOutputBusMMCE();
+            registerBlock(new BlockMEAspectInputBusMMCE());
+            registerBlock(new BlockMEAspectOutputBusMMCE());
         }
         if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
-            new BlockMEAspectInputBus();
-            new BlockMEAspectOutputBus();
+            registerBlock(new BlockMEAspectInputBus());
+            registerBlock(new BlockMEAspectOutputBus());
         }
+    }
+
+    public static void registerBlock(Block block) {
+        IB.blocks.add(block);
+        registerItem(new MyItemBlock(block));
+    }
+
+    public static void registerItem(Item item) {
+        IB.items.add(item);
     }
 }
