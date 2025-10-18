@@ -3,8 +3,7 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.block.*;
-import com.xinyihl.whimcraft.common.items.LinkCard;
-import com.xinyihl.whimcraft.common.items.MyItemBlock;
+import com.xinyihl.whimcraft.common.items.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -43,15 +42,16 @@ public class IB {
     public static Block blockMEAspectOutputBusMMCE;
     @GameRegistry.ObjectHolder(Tags.MOD_ID + ":blockmeaspectoutputbusmmce")
     public static Item itemMEAspectOutputBusMMCE;
+    @GameRegistry.ObjectHolder(Tags.MOD_ID + ":order")
+    public static Item ORDER_ITEM;
 
     static {
-        if (Mods.MMCE.isLoaded() && (Configurations.MMCE_CONFIG.useShareInfHandler || (Mods.TC6.isLoaded() && Mods.AE2.isLoaded()))) {
-            CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
-                public ItemStack createIcon() {
-                    return new ItemStack(items.get(0));
-                }
-            };
-        }
+        CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
+            public ItemStack createIcon() {
+                return new ItemStack(items.get(0));
+            }
+        };
+        registerItem(new Order());
         if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) {
             registerItem(new LinkCard());
             registerBlock(new BlockShareInfHandler());

@@ -2,6 +2,7 @@ package com.xinyihl.whimcraft.common.integration.adapter.jei;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.adapter.tc6.AspectCache;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -30,6 +31,7 @@ public class WhimcraftJeiPlugin implements IModPlugin{
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
+        if (!Mods.TC6.isLoaded()) return;
         File aspectFile = new File(ASPECT_PATH);
         if (aspectCacheThread == null && (!aspectFile.exists())) {
             aspectCacheThread = new Thread(() -> {
@@ -43,7 +45,7 @@ public class WhimcraftJeiPlugin implements IModPlugin{
         }
     }
 
-    public void createAspectsFile(Collection<ItemStack> items) {
+    public void createAspectsFile(List<ItemStack> items) {
         List<AspectCache> aspectCaches = Lists.newArrayList();
 
         for(ItemStack stack : items) {
