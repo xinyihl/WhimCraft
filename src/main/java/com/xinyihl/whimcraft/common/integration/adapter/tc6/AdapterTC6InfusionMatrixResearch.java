@@ -19,12 +19,15 @@ import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import hellfirepvp.modularmachinery.common.tiles.base.TileMultiblockMachineController;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.items.ItemsTC;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -127,7 +130,7 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+            Item primordialPearlItem = ItemsTC.primordialPearl;
             if (primordialPearlItem != null) {
                 int totalPrimordialPearls = 0;
     
@@ -139,10 +142,9 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                     }
                 }
     
-                for (Object component : recipe.getComponents()) {
+                for (Ingredient component : recipe.getComponents()) {
                     if (component instanceof net.minecraft.item.crafting.Ingredient) {
-                        net.minecraft.item.crafting.Ingredient ingredient = (net.minecraft.item.crafting.Ingredient) component;
-                        for (ItemStack componentStack : ingredient.getMatchingStacks()) {
+                        for (ItemStack componentStack : component.getMatchingStacks()) {
                             if (componentStack != null && !componentStack.isEmpty() && 
                                 componentStack.getItem() == primordialPearlItem && componentStack.getMetadata() == 0) {
                                 totalPrimordialPearls += componentStack.getCount();
@@ -175,36 +177,33 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 machineRecipe.addTooltip(research);
 
                 // Runtime check via RecipeCheckEvent
-                machineRecipe.addRecipeEventHandler(RecipeCheckEvent.class, new IEventHandler<RecipeEvent>() {
-                    @Override
-                    public void handle(RecipeEvent event) {
-                        if (!(event instanceof RecipeCheckEvent)) return;
-                        RecipeCheckEvent checkEvent = (RecipeCheckEvent) event;
-                        if (checkEvent.phase != Phase.START) return;
+                machineRecipe.addRecipeEventHandler(RecipeCheckEvent.class, event -> {
+                    if (!(event instanceof RecipeCheckEvent)) return;
+                    RecipeCheckEvent checkEvent = (RecipeCheckEvent) event;
+                    if (checkEvent.phase != Phase.START) return;
 
-                        TileMultiblockMachineController controller = checkEvent.getContext().getMachineController();
-                        if (controller == null) {
-                            checkEvent.setFailed("tooltip.whimcraft.need_research");
-                            return;
-                        }
+                    TileMultiblockMachineController controller = checkEvent.getContext().getMachineController();
+                    if (controller == null) {
+                        checkEvent.setFailed("tooltip.whimcraft.need_research");
+                        return;
+                    }
 
-                        IPlayer ownerCT = controller.getOwnerIPlayer();
-                        if (ownerCT == null) {
-                            // 无所有者 -> 阻止
-                            checkEvent.setFailed("tooltip.whimcraft.need_research");
-                            return;
-                        }
+                    IPlayer ownerCT = controller.getOwnerIPlayer();
+                    if (ownerCT == null) {
+                        // 无所有者 -> 阻止
+                        checkEvent.setFailed("tooltip.whimcraft.need_research");
+                        return;
+                    }
 
-                        EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(ownerCT);
-                        if (mcPlayer == null) {
-                            // 不在线 -> 阻止
-                            checkEvent.setFailed("tooltip.whimcraft.need_research");
-                            return;
-                        }
+                    EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(ownerCT);
+                    if (mcPlayer == null) {
+                        // 不在线 -> 阻止
+                        checkEvent.setFailed("tooltip.whimcraft.need_research");
+                        return;
+                    }
 
-                        if (!ThaumcraftCapabilities.knowsResearch(mcPlayer, research)) {
-                            checkEvent.setFailed("tooltip.whimcraft.need_research");
-                        }
+                    if (!ThaumcraftCapabilities.knowsResearch(mcPlayer, research)) {
+                        checkEvent.setFailed("tooltip.whimcraft.need_research");
                     }
                 });
             }
