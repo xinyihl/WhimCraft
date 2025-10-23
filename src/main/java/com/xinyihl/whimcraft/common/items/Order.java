@@ -2,7 +2,13 @@ package com.xinyihl.whimcraft.common.items;
 
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.WhimCraft;
+import com.xinyihl.whimcraft.common.api.IItemDrawable;
 import com.xinyihl.whimcraft.common.event.GuiHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,12 +21,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;
 
-public class Order extends Item {
+public class Order extends Item implements IItemDrawable {
 
     public Order(){
         this.setMaxDamage(0);
@@ -54,8 +61,9 @@ public class Order extends Item {
         }
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote) {
             player.openGui(WhimCraft.instance, GuiHandler.ORDER_GUI, world,
@@ -66,12 +74,30 @@ public class Order extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flag) {
         ItemStack markedItem = getMarkedItem(stack);
         if (!markedItem.isEmpty()) {
             tooltip.add("标记: " + markedItem.getDisplayName());
         } else {
             tooltip.add("右键点击标记物品");
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void render(RenderItem instance, ItemCameraTransforms.TransformType transform, ItemStack stack, IBakedModel model) {
+        ItemStack markedItem = Order.getMarkedItem(stack);
+        if (!markedItem.isEmpty() && transform == ItemCameraTransforms.TransformType.GUI) {
+            GlStateManager.pushMatrix();
+            Minecraft.getMinecraft().getRenderItem().renderItem(markedItem, ItemCameraTransforms.TransformType.GUI);
+            GlStateManager.popMatrix();
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.5f, 0.5f, 1f);
+            GlStateManager.translate(0.5f, -0.5f, 1f);
+            instance.renderItem(stack, model);
+            GlStateManager.popMatrix();
+            return;
+        }
+        instance.renderItem(stack, model);
     }
 }

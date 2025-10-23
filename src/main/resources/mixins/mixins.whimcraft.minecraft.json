@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "MinecraftMixin",
-    "RenderItemMixin"
+    "RenderItemMixin",
+    "RenderEntityItemMixin"
   ]
 }
