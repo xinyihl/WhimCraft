@@ -17,7 +17,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID == ORDER_GUI) {
             ItemStack heldItem = player.getHeldItemMainhand();
             if (heldItem.getItem() instanceof Order) {
-                return new ContainerOrder(player, heldItem);
+                return new ContainerOrder(player);
             }
         }
         return null;
@@ -28,7 +28,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID == ORDER_GUI) {
             ItemStack heldItem = player.getHeldItemMainhand();
             if (heldItem.getItem() instanceof Order) {
-                return new OrderGui(player, heldItem);
+                return new OrderGui(new ContainerOrder(player), heldItem);
             }
         }
         return null;

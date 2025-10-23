@@ -27,7 +27,8 @@ public enum Mixins {
     AuraChunkUpdate("AuraChunkUpdate", true, () -> !Configurations.NATURE_CONFIG.auraChunkUpdateEnable, "naturesaura"),
     FixTileMelterCrash("FixTileMelterCrash", true, null, "tcomplement"),
     EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm"),
-    PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2")
+    PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
+    RecipeTransferOrder("RecipeTransferOrder", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery")
     ;
 
     final String mixinName;

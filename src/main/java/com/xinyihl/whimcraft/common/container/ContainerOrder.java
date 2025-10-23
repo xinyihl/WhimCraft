@@ -14,7 +14,7 @@ public class ContainerOrder extends Container {
 
     private final EntityPlayer player;
 
-    public ContainerOrder(EntityPlayer player, ItemStack orderStack) {
+    public ContainerOrder(EntityPlayer player) {
         this.player = player;
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {

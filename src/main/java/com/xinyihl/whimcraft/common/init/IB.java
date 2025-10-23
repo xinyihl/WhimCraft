@@ -43,7 +43,7 @@ public class IB {
     @GameRegistry.ObjectHolder(Tags.MOD_ID + ":blockmeaspectoutputbusmmce")
     public static Item itemMEAspectOutputBusMMCE;
     @GameRegistry.ObjectHolder(Tags.MOD_ID + ":order")
-    public static Item ORDER_ITEM;
+    public static Item itemOrder;
 
     static {
         CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {

@@ -7,7 +7,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -15,16 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class OrderGui extends GuiContainer {
-
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Tags.MOD_ID, "textures/gui/order_gui.png");
-
-    private final EntityPlayer player;
     private final ItemStack orderStack;
 
-    public OrderGui(EntityPlayer player, ItemStack orderStack) {
-        super(new ContainerOrder(player, orderStack));
-        this.player = player;
-        this.orderStack = orderStack;
+    public OrderGui(ContainerOrder container, ItemStack stack) {
+        super(container);
+        this.orderStack = stack;
         this.xSize = 176;
         this.ySize = 166;
     }

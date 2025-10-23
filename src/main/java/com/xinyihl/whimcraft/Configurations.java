@@ -55,6 +55,8 @@ public class Configurations {
         public boolean serverListEnable = false;
         @Config.Comment("ME源质输出最大缓存源质数量")
         public int aspectOutputHatchMaxStorage = 500;
+        @Config.Comment("Jei添加样板配方是否启用订单模式")
+        public boolean JeiTransferOrderEnable = false;
     }
 
     public static class MmceConfig {
