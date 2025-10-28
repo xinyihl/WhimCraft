@@ -28,7 +28,8 @@ public enum Mixins {
     FixTileMelterCrash("FixTileMelterCrash", true, null, "tcomplement"),
     EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm"),
     PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
-    RecipeTransferOrder("RecipeTransferOrder", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery")
+    RecipeTransferOrderAe2("RecipeTransferOrder.appliedenergistics2", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery"),
+    RecipeTransferOrderNee("RecipeTransferOrder.neenergistics", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery", "neenergistics")
     ;
 
     final String mixinName;

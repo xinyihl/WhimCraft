@@ -1,6 +1,6 @@
-package com.xinyihl.whimcraft.common.mixins.appliedenergistics2;
+package com.xinyihl.whimcraft.common.mixins.nee;
 
-import appeng.container.implementations.ContainerPatternEncoder;
+import appeng.container.implementations.ContainerPatternTerm;
 import appeng.container.slot.SlotCraftingMatrix;
 import appeng.container.slot.SlotFakeCraftingMatrix;
 import appeng.core.AELog;
@@ -9,6 +9,7 @@ import appeng.core.sync.packets.PacketJEIRecipe;
 import appeng.core.sync.packets.PacketValueConfig;
 import appeng.helpers.ItemStackHelper;
 import appeng.util.Platform;
+import com.github.vfyjxf.nee.jei.PatternTransferHandler;
 import com.xinyihl.whimcraft.common.init.IB;
 import com.xinyihl.whimcraft.common.items.Order;
 import hellfirepvp.modularmachinery.common.item.ItemBlockController;
@@ -16,7 +17,6 @@ import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,22 +31,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(targets = "appeng.integration.modules.jei.RecipeTransferHandler", remap = false)
-public abstract class RecipeTransferHandlerMixin {
+@Mixin(value = PatternTransferHandler.class, remap = false)
+public abstract class PatternTransferHandlerMixin {
     @Inject(
-            method = "transferRecipe",
+            method = "transferRecipe*",
             at = @At(
                     value = "HEAD"
             ),
             cancellable = true
     )
-    public <T extends Container> void injected(T container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir){
+    public void injected(ContainerPatternTerm container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir){
         String recipeType = recipeLayout.getRecipeCategory().getUid();
         if (doTransfer){
             if (recipeType.equals("modularmachinery.preview")) {
-                if (container instanceof ContainerPatternEncoder) {
+                if (container != null) {
                     try {
-                        if (((ContainerPatternEncoder)container).isCraftingMode()) {
+                        if (container.isCraftingMode()) {
                             NetworkHandler.instance().sendToServer(new PacketValueConfig("PatternTerminal.CraftMode", "0"));
                         }
                     } catch (IOException e) {
