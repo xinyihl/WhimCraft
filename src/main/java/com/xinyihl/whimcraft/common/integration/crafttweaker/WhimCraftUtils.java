@@ -5,17 +5,19 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntity;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.world.IBiome;
 import crafttweaker.api.world.IWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -23,13 +25,16 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @ZenRegister
 @ZenClass("mods.whimcraft.WhimCraftUtils")
 public class WhimCraftUtils {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.fromString("7E1D8024-D2EF-4077-AD6F-636F16F43BB6"), "[WhimCraft]");
     private static Method getLootTable;
+    public static Map<Integer, Short> generateBiomeAuraBase;
 
     /**
      * 获取实体掉落物
@@ -99,5 +104,17 @@ public class WhimCraftUtils {
         LootContext context = contextBuilder.build();
         List<ItemStack> drops = lootTable.generateLootForPools(worldServer.rand, context);
         return CraftTweakerMC.getIItemStacks(drops.toArray(new ItemStack[0]));
+    }
+
+    /**
+     * 设置群系神秘区块灵气基础值
+     *
+     * @param ibiome 要修改的群系
+     * @param value  目标值
+     */
+    @ZenMethod
+    public static void setBiomeAuraBase(IBiome ibiome, short value) {
+        Biome biome = CraftTweakerMC.getBiome(ibiome);
+        generateBiomeAuraBase.put(Biome.getIdForBiome(biome), value);
     }
 }

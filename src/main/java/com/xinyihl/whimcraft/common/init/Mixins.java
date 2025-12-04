@@ -28,8 +28,10 @@ public enum Mixins {
     FixTileMelterCrash("FixTileMelterCrash", true, null, "tcomplement"),
     EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm"),
     PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
-    RecipeTransferOrderAe2("RecipeTransferOrder.appliedenergistics2", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery"),
-    RecipeTransferOrderNee("RecipeTransferOrder.neenergistics", true, () -> Configurations.GENERAL_CONFIG.JeiTransferOrderEnable, "appliedenergistics2", "modularmachinery", "neenergistics")
+    RecipeTransferOrderAe2("RecipeTransferOrder.appliedenergistics2", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery"),
+    RecipeTransferOrderNee("RecipeTransferOrder.neenergistics", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "neenergistics"),
+    RecipeTransferOrderAe2Fc("RecipeTransferOrder.ae2fc", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "ae2fc"),
+    GenerateBiomeAuraBase("GenerateBiomeAuraBase", true, () -> Configurations.GENERAL_CONFIG.generateBiomeAuraBaseEnable, "thaumcraft"),
     ;
 
     final String mixinName;

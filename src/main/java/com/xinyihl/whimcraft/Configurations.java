@@ -55,8 +55,12 @@ public class Configurations {
         public boolean serverListEnable = false;
         @Config.Comment("ME源质输出最大缓存源质数量")
         public int aspectOutputHatchMaxStorage = 500;
+        @Config.Comment("是否启用Jei添加样板配方修改器")
+        public boolean JeiTransferMixinEnable = false;
         @Config.Comment("Jei添加样板配方是否启用订单模式")
         public boolean JeiTransferOrderEnable = false;
+        @Config.Comment("是否启用群系神秘区块灵气基础值覆盖")
+        public boolean generateBiomeAuraBaseEnable = false;
     }
 
     public static class MmceConfig {
