@@ -1,5 +1,7 @@
 package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
+import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import com.warmthdawn.mod.gugu_utils.modularmachenary.MMRequirements;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.common.init.Mods;
@@ -9,10 +11,56 @@ import hellfirepvp.modularmachinery.common.crafting.requirement.type.Requirement
 import hellfirepvp.modularmachinery.common.lib.RegistriesMM;
 import hellfirepvp.modularmachinery.common.machine.IOType;
 import kport.modularmagic.common.crafting.requirement.types.ModularMagicRequirements;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Optional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 public class AspectRequirementUtil {
+    public static final String ASPECT_PATH = "." + File.separator + "config" + File.separator + "thaumcraft_smelter.dat";
+    private static final Logger log = LogManager.getLogger(AspectRequirementUtil.class);
+    private static final Gson GSON = new Gson();
+    public static Thread aspectCacheThread;
+
+    public static void runCreateAspectsFile(List<ItemStack> items) {
+        File aspectFile = new File(ASPECT_PATH);
+        if (aspectCacheThread == null && (!aspectFile.exists())) {
+            aspectCacheThread = new Thread(() -> {
+                log.info("Starting Aspect ItemStack Thread.");
+                log.info("Trying to cache {} aspects.", items.size());
+
+                List<AspectCache> aspectCaches = Lists.newArrayList();
+
+                for (ItemStack stack : items) {
+                    AspectList list = new AspectList(stack);
+                    if (list.size() > 0) {
+                        NBTTagCompound tag = new NBTTagCompound();
+                        list.writeToNBT(tag);
+                        aspectCaches.add(new AspectCache(stack.serializeNBT().toString(), tag.toString()));
+                    }
+                }
+
+                try (FileWriter writer = new FileWriter(ASPECT_PATH)) {
+                    GSON.toJson(aspectCaches, writer);
+                } catch (IOException e) {
+                    log.warn("Failed to open/create aspect caches file");
+                }
+
+                log.info("Finished Aspect ItemStack Thread.");
+            }, "Aspect Cache");
+
+            aspectCacheThread.start();
+        }
+    }
+
     public static ComponentRequirement<?, ?> getRequirement(IOType actionType, int amount, Aspect aspect) {
         switch (Configurations.ADAPTER_CONFIG.aspectType) {
             case "mmce": {
@@ -53,7 +101,6 @@ public class AspectRequirementUtil {
     private static RequirementType<?, ?> getRequirementTypeMMCE() {
         return RegistriesMM.REQUIREMENT_TYPE_REGISTRY.getValue(ModularMagicRequirements.KEY_REQUIREMENT_ASPECT);
     }
-
 
     @Optional.Method(modid = "modularmachinery")
     private static ComponentRequirement<?, ?> getRequirementMMCE(IOType actionType, int amount, Aspect aspect) {

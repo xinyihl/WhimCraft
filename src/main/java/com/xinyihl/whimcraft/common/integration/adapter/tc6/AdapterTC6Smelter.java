@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
-import static com.xinyihl.whimcraft.common.integration.adapter.jei.WhimcraftJeiPlugin.ASPECT_PATH;
+import static com.xinyihl.whimcraft.common.integration.adapter.tc6.AspectRequirementUtil.ASPECT_PATH;
 
 public class AdapterTC6Smelter extends RecipeAdapter {
 
