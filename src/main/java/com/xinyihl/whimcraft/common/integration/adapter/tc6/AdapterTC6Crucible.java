@@ -69,18 +69,20 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                     .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, inAmount)))
                     .collect(Collectors.toList());
             if (!inputMainList.isEmpty()) {
-                int i = items.getOrDefault(inputMain[0].toString(), 0);
-                Item item = Item.getByNameOrId(ADAPTER_CONFIG.pcb + i);
-                if (item == null) {
-                    log.fatal("未找到编程电路: " + ADAPTER_CONFIG.pcb + i);
-                } else {
-                    RequirementItem reqdlb = new RequirementItem(IOType.INPUT, new ItemStack(item));
-                    reqdlb.setParallelizeUnaffected(true);
-                    machineRecipe.addRequirement(reqdlb);
-                    RequirementItem out = new RequirementItem(IOType.OUTPUT, new ItemStack(item));
-                    machineRecipe.addRequirement(out);
+                if(!"null".equals(ADAPTER_CONFIG.pcb)) {
+                    int i = items.getOrDefault(inputMain[0].toString(), 0);
+                    Item item = Item.getByNameOrId(ADAPTER_CONFIG.pcb + i);
+                    if (item == null) {
+                        log.fatal("未找到编程电路: " + ADAPTER_CONFIG.pcb + i);
+                    } else {
+                        RequirementItem reqdlb = new RequirementItem(IOType.INPUT, new ItemStack(item));
+                        reqdlb.setParallelizeUnaffected(true);
+                        machineRecipe.addRequirement(reqdlb);
+                        RequirementItem out = new RequirementItem(IOType.OUTPUT, new ItemStack(item));
+                        machineRecipe.addRequirement(out);
+                    }
+                    items.put(inputMain[0].toString(), i + 1);
                 }
-                items.put(inputMain[0].toString(), i + 1);
                 machineRecipe.addRequirement(new RequirementIngredientArray(inputMainList));
             }
             // Aspect Inputs

@@ -83,8 +83,8 @@ public class Configurations {
         public int infusionMatrixTime = 100;
         @Config.Comment("注魔祭坛配方耗时乘数( 稳定性 * infusionMatrixTimeMul )")
         public int infusionMatrixTimeMul = 1000;
-        @Config.Comment("电路板前缀(eg: contenttweaker:programming_circuit_[x])")
-        public String pcb = "contenttweaker:programming_circuit_";
+        @Config.Comment("电路板前缀，防止同输入多输出配方问题，A->B A->C, 填 null 忽略(eg: contenttweaker:programming_circuit_[x])")
+        public String pcb = "null";
         @Config.Comment("适配器使用的源质处理系统, 可选:[mmce, gugu, mmce-addons]")
         public String aspectType = "mmce";
     }
