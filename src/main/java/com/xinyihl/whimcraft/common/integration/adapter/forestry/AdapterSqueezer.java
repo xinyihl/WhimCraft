@@ -16,7 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class AdapterSqueezer extends RecipeAdapter {
     public AdapterSqueezer() {
@@ -40,7 +43,7 @@ public class AdapterSqueezer extends RecipeAdapter {
             recipe.getResources().forEach(resource -> {
                 int inAmount1 = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.INPUT, resource.getCount(), false));
                 if (inAmount1 > 0) {
-                    if(!resource.isEmpty()) {
+                    if (!resource.isEmpty()) {
                         machineRecipe.addRequirement(new RequirementItem(IOType.INPUT, ItemUtils.copyStackWithSize(resource, inAmount1)));
                     }
                 }

@@ -43,9 +43,9 @@ public abstract class RecipeTransferHandlerMixin {
             ),
             cancellable = true
     )
-    public <T extends Container> void injected(T container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir){
+    public <T extends Container> void injected(T container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir) {
         String recipeType = recipeLayout.getRecipeCategory().getUid();
-        if (doTransfer){
+        if (doTransfer) {
             if (PatternTransfer.listInput.containsKey(recipeType) || PatternTransfer.listOutput.containsKey(recipeType)) {
                 if (container instanceof ContainerPatternEncoder) {
                     try {
@@ -138,7 +138,7 @@ public abstract class RecipeTransferHandlerMixin {
             if (recipeType.equals("modularmachinery.preview") && Configurations.GENERAL_CONFIG.JeiTransferOrderEnable) {
                 if (container instanceof ContainerPatternEncoder) {
                     try {
-                        if (((ContainerPatternEncoder)container).isCraftingMode()) {
+                        if (((ContainerPatternEncoder) container).isCraftingMode()) {
                             NetworkHandler.instance().sendToServer(new PacketValueConfig("PatternTerminal.CraftMode", "0"));
                         }
                     } catch (IOException e) {
@@ -149,7 +149,7 @@ public abstract class RecipeTransferHandlerMixin {
                 NBTTagCompound recipe = new NBTTagCompound();
                 NBTTagList outputs = new NBTTagList();
                 int slotIndex = 0;
-                for(Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> ingredientEntry : ingredients.entrySet()) {
+                for (Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> ingredientEntry : ingredients.entrySet()) {
                     IGuiIngredient<ItemStack> ingredient = ingredientEntry.getValue();
                     if (!ingredient.isInput()) {
                         ItemStack output = ingredient.getDisplayedIngredient();
@@ -159,14 +159,14 @@ public abstract class RecipeTransferHandlerMixin {
                                 Order.setMarkedItem(order, output);
                                 NBTTagCompound tag = ItemStackHelper.stackToNBT(order);
                                 outputs.appendTag(tag);
-                                for(Slot slot : container.inventorySlots) {
+                                for (Slot slot : container.inventorySlots) {
                                     if ((slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix) && slot.getSlotIndex() == slotIndex) {
                                         NBTTagList tags = new NBTTagList();
                                         List<ItemStack> list = new ArrayList<>();
                                         if (!output.isEmpty()) {
                                             list.add(output);
                                         }
-                                        for(ItemStack stack : ingredient.getAllIngredients()) {
+                                        for (ItemStack stack : ingredient.getAllIngredients()) {
                                             if (stack != null) {
                                                 if (Platform.isRecipePrioritized(stack)) {
                                                     list.add(0, stack);
@@ -175,7 +175,7 @@ public abstract class RecipeTransferHandlerMixin {
                                                 }
                                             }
                                         }
-                                        for(ItemStack is : list) {
+                                        for (ItemStack is : list) {
                                             NBTTagCompound tag1 = ItemStackHelper.stackToNBT(is);
                                             tags.appendTag(tag1);
                                         }
@@ -190,7 +190,7 @@ public abstract class RecipeTransferHandlerMixin {
                             }
                         }
                     } else {
-                        for(Slot slot : container.inventorySlots) {
+                        for (Slot slot : container.inventorySlots) {
                             if ((slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix) && slot.getSlotIndex() == slotIndex) {
                                 NBTTagList tags = new NBTTagList();
                                 List<ItemStack> list = new ArrayList<>();
@@ -198,7 +198,7 @@ public abstract class RecipeTransferHandlerMixin {
                                 if (displayed != null && !displayed.isEmpty()) {
                                     list.add(displayed);
                                 }
-                                for(ItemStack stack : ingredient.getAllIngredients()) {
+                                for (ItemStack stack : ingredient.getAllIngredients()) {
                                     if (stack != null) {
                                         if (Platform.isRecipePrioritized(stack)) {
                                             list.add(0, stack);
@@ -207,7 +207,7 @@ public abstract class RecipeTransferHandlerMixin {
                                         }
                                     }
                                 }
-                                for(ItemStack is : list) {
+                                for (ItemStack is : list) {
                                     NBTTagCompound tag = ItemStackHelper.stackToNBT(is);
                                     tags.appendTag(tag);
                                 }

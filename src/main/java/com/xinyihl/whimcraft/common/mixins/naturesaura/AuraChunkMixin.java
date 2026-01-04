@@ -21,14 +21,16 @@ public abstract class AuraChunkMixin {
     @Shadow
     @Final
     private Chunk chunk;
+
     @Shadow
     public abstract IMessage makePacket();
+
     @Inject(
             method = "update",
             at = @At("HEAD"),
             cancellable = true
     )
-    public void injected(CallbackInfo ci){
+    public void injected(CallbackInfo ci) {
         if (!Configurations.NATURE_CONFIG.auraChunkUpdateEnable) {
             if (this.needsSync) {
                 World world = this.chunk.getWorld();

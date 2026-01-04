@@ -28,8 +28,7 @@ public class WhimCraft {
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
         PROXY.postInit();
     }
 

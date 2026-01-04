@@ -67,13 +67,13 @@ public abstract class ModTweakerMixin {
         List<IAction> R = new ArrayList<>();
         try {
             for (IAction action : LATE_REMOVALS) {
-                if(needChange.contains(action.getClass().getName())) {
+                if (needChange.contains(action.getClass().getName())) {
                     action.apply();
                     A.add(action);
                 }
             }
             for (IAction action : LATE_ADDITIONS) {
-                if(needChange.contains(action.getClass().getName())) {
+                if (needChange.contains(action.getClass().getName())) {
                     action.apply();
                     R.add(action);
                 }

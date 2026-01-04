@@ -15,11 +15,11 @@ import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;
 
 public class Elgoog extends Item {
 
-    public Elgoog(){
+    public Elgoog() {
         this.setMaxDamage(0);
         this.setMaxStackSize(1);
         this.setCreativeTab(CREATIVE_TAB);
-        this.setRegistryName(new ResourceLocation(Tags.MOD_ID,"elgoog"));
+        this.setRegistryName(new ResourceLocation(Tags.MOD_ID, "elgoog"));
         this.setTranslationKey(Tags.MOD_ID + ".elgoog");
     }
 

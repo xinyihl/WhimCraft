@@ -43,9 +43,9 @@ public abstract class PatternTransferHandlerMixin {
             ),
             cancellable = true
     )
-    public void injected(ContainerPatternTerm container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir){
+    public void injected(ContainerPatternTerm container, IRecipeLayout recipeLayout, EntityPlayer player, boolean maxTransfer, boolean doTransfer, CallbackInfoReturnable<IRecipeTransferError> cir) {
         String recipeType = recipeLayout.getRecipeCategory().getUid();
-        if (doTransfer){
+        if (doTransfer) {
             if (PatternTransfer.listInput.containsKey(recipeType) || PatternTransfer.listOutput.containsKey(recipeType)) {
                 if (container != null) {
                     try {
@@ -142,7 +142,7 @@ public abstract class PatternTransferHandlerMixin {
                 NBTTagCompound recipe = new NBTTagCompound();
                 NBTTagList outputs = new NBTTagList();
                 int slotIndex = 0;
-                for(Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> ingredientEntry : ingredients.entrySet()) {
+                for (Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> ingredientEntry : ingredients.entrySet()) {
                     IGuiIngredient<ItemStack> ingredient = ingredientEntry.getValue();
                     if (!ingredient.isInput()) {
                         ItemStack output = ingredient.getDisplayedIngredient();
@@ -152,7 +152,7 @@ public abstract class PatternTransferHandlerMixin {
                                 Order.setMarkedItem(order, output);
                                 NBTTagCompound tag = ItemStackHelper.stackToNBT(order);
                                 outputs.appendTag(tag);
-                                for(Slot slot : container.inventorySlots) {
+                                for (Slot slot : container.inventorySlots) {
                                     if ((slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix) && slot.getSlotIndex() == slotIndex) {
                                         NBTTagList tags = new NBTTagList();
                                         List<ItemStack> list = new ArrayList<>();
@@ -160,7 +160,7 @@ public abstract class PatternTransferHandlerMixin {
                                             list.add(output);
                                         }
 
-                                        for(ItemStack stack : ingredient.getAllIngredients()) {
+                                        for (ItemStack stack : ingredient.getAllIngredients()) {
                                             if (stack != null) {
                                                 if (Platform.isRecipePrioritized(stack)) {
                                                     list.add(0, stack);
@@ -169,7 +169,7 @@ public abstract class PatternTransferHandlerMixin {
                                                 }
                                             }
                                         }
-                                        for(ItemStack is : list) {
+                                        for (ItemStack is : list) {
                                             NBTTagCompound tag1 = ItemStackHelper.stackToNBT(is);
                                             tags.appendTag(tag1);
                                         }
@@ -184,7 +184,7 @@ public abstract class PatternTransferHandlerMixin {
                             }
                         }
                     } else {
-                        for(Slot slot : container.inventorySlots) {
+                        for (Slot slot : container.inventorySlots) {
                             if ((slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix) && slot.getSlotIndex() == slotIndex) {
                                 NBTTagList tags = new NBTTagList();
                                 List<ItemStack> list = new ArrayList<>();
@@ -192,7 +192,7 @@ public abstract class PatternTransferHandlerMixin {
                                 if (displayed != null && !displayed.isEmpty()) {
                                     list.add(displayed);
                                 }
-                                for(ItemStack stack : ingredient.getAllIngredients()) {
+                                for (ItemStack stack : ingredient.getAllIngredients()) {
                                     if (stack != null) {
                                         if (Platform.isRecipePrioritized(stack)) {
                                             list.add(0, stack);
@@ -201,7 +201,7 @@ public abstract class PatternTransferHandlerMixin {
                                         }
                                     }
                                 }
-                                for(ItemStack is : list) {
+                                for (ItemStack is : list) {
                                     NBTTagCompound tag = ItemStackHelper.stackToNBT(is);
                                     tags.appendTag(tag);
                                 }

@@ -37,6 +37,79 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
     protected UUID uuid;
     private int tickCounter;
 
+    protected static void pushStacksToRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
+        int maxEntries = Math.max(0, Configurations.REDIS_IO_CONFIG.maxEntries);
+        long len = jedis.llen(key);
+        for (int i = 0; i < inv.getSlots(); i++) {
+            if (maxEntries > 0 && len >= maxEntries) {
+                break;
+            }
+            ItemStack stack = inv.getStackInSlot(i);
+            if (stack.isEmpty()) {
+                continue;
+            }
+            String payload = ItemStackSerde.toBase64(stack);
+            jedis.rpush(key, payload);
+            inv.setStackInSlot(i, ItemStack.EMPTY);
+            len++;
+        }
+    }
+
+    protected static void popStacksFromRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
+        while (true) {
+            String payload = jedis.lpop(key);
+            if (payload == null) {
+                return;
+            }
+            ItemStack stack = ItemStackSerde.fromBase64(payload);
+            if (stack.isEmpty()) {
+                continue;
+            }
+            ItemStack remainder = insertPreferStacking(inv, stack);
+            if (!remainder.isEmpty()) {
+                jedis.lpush(key, ItemStackSerde.toBase64(remainder));
+                return;
+            }
+        }
+    }
+
+    private static ItemStack insertPreferStacking(ItemStackHandler inv, ItemStack stack) {
+        ItemStack remaining = stack;
+        for (int i = 0; i < inv.getSlots(); i++) {
+            ItemStack existing = inv.getStackInSlot(i);
+            if (existing.isEmpty()) {
+                continue;
+            }
+            if (!canStacksMerge(existing, remaining)) {
+                continue;
+            }
+            remaining = inv.insertItem(i, remaining, false);
+            if (remaining.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+        }
+        for (int i = 0; i < inv.getSlots(); i++) {
+            if (!inv.getStackInSlot(i).isEmpty()) {
+                continue;
+            }
+            remaining = inv.insertItem(i, remaining, false);
+            if (remaining.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+        }
+        return remaining;
+    }
+
+    private static boolean canStacksMerge(ItemStack a, ItemStack b) {
+        if (a.isEmpty() || b.isEmpty()) {
+            return false;
+        }
+        if (!ItemStack.areItemsEqual(a, b)) {
+            return false;
+        }
+        return ItemStack.areItemStackTagsEqual(a, b);
+    }
+
     public UUID ensureUuid() {
         if (uuid == null) {
             uuid = UUID.randomUUID();
@@ -201,78 +274,5 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
         public int getSlotLimit(int slot) {
             return delegate.getSlotLimit(slot);
         }
-    }
-
-    protected static void pushStacksToRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
-        int maxEntries = Math.max(0, Configurations.REDIS_IO_CONFIG.maxEntries);
-        long len = jedis.llen(key);
-        for (int i = 0; i < inv.getSlots(); i++) {
-            if (maxEntries > 0 && len >= maxEntries) {
-                break;
-            }
-            ItemStack stack = inv.getStackInSlot(i);
-            if (stack.isEmpty()) {
-                continue;
-            }
-            String payload = ItemStackSerde.toBase64(stack);
-            jedis.rpush(key, payload);
-            inv.setStackInSlot(i, ItemStack.EMPTY);
-            len++;
-        }
-    }
-
-    protected static void popStacksFromRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
-        while (true) {
-            String payload = jedis.lpop(key);
-            if (payload == null) {
-                return;
-            }
-            ItemStack stack = ItemStackSerde.fromBase64(payload);
-            if (stack.isEmpty()) {
-                continue;
-            }
-            ItemStack remainder = insertPreferStacking(inv, stack);
-            if (!remainder.isEmpty()) {
-                jedis.lpush(key, ItemStackSerde.toBase64(remainder));
-                return;
-            }
-        }
-    }
-
-    private static ItemStack insertPreferStacking(ItemStackHandler inv, ItemStack stack) {
-        ItemStack remaining = stack;
-        for (int i = 0; i < inv.getSlots(); i++) {
-            ItemStack existing = inv.getStackInSlot(i);
-            if (existing.isEmpty()) {
-                continue;
-            }
-            if (!canStacksMerge(existing, remaining)) {
-                continue;
-            }
-            remaining = inv.insertItem(i, remaining, false);
-            if (remaining.isEmpty()) {
-                return ItemStack.EMPTY;
-            }
-        }
-        for (int i = 0; i < inv.getSlots(); i++) {
-            if (!inv.getStackInSlot(i).isEmpty()) {
-                continue;
-            }
-            remaining = inv.insertItem(i, remaining, false);
-            if (remaining.isEmpty()) {
-                return ItemStack.EMPTY;
-            }
-        }
-        return remaining;
-    }
-
-    private static boolean canStacksMerge(ItemStack a, ItemStack b) {
-        if (a.isEmpty() || b.isEmpty()) {
-            return false;
-        }
-        if (!ItemStack.areItemsEqual(a, b)) {
-            return false;
-        }
-        return ItemStack.areItemStackTagsEqual(a, b);
     }
 }

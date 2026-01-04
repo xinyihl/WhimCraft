@@ -2,7 +2,10 @@ package com.xinyihl.whimcraft.common.mixins.mmce;
 
 import com.xinyihl.whimcraft.Configurations;
 import hellfirepvp.modularmachinery.common.block.prop.ParallelControllerData;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

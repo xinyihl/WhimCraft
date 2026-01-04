@@ -30,7 +30,7 @@ public class AdapterCentrifuge extends RecipeAdapter {
     public Collection<MachineRecipe> createRecipesFor(ResourceLocation owningMachineName, List<RecipeModifier> modifiers, List<ComponentRequirement<?, ?>> additionalRequirements, Map<Class<?>, List<IEventHandler<RecipeEvent>>> eventHandlers, List<String> recipeTooltips) {
         List<MachineRecipe> machineRecipeList = new ArrayList<>();
         RecipeManagers.centrifugeManager.recipes().forEach(recipe -> {
-            if(recipe.getInput().isEmpty()) {
+            if (recipe.getInput().isEmpty()) {
                 return;
             }
             int inDuration = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_DURATION, IOType.INPUT, recipe.getProcessingTime(), false));

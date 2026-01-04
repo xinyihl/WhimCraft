@@ -33,20 +33,20 @@ import java.util.UUID;
 @ZenClass("mods.whimcraft.WhimCraftUtils")
 public class WhimCraftUtils {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.fromString("7E1D8024-D2EF-4077-AD6F-636F16F43BB6"), "[WhimCraft]");
-    private static Method getLootTable;
     public static Map<Integer, Short> generateBiomeAuraBase;
+    private static Method getLootTable;
 
     /**
      * 获取实体掉落物
      *
-     * @param ientity     目标实体
-     * @param isPlayer    是否玩家击杀
-     * @param luck        幸运(不是抢夺)
+     * @param ientity  目标实体
+     * @param isPlayer 是否玩家击杀
+     * @param luck     幸运(不是抢夺)
      */
     @ZenMethod
     public static IItemStack[] getDrops(IEntity ientity, boolean isPlayer, int luck) {
         Entity entity = CraftTweakerMC.getEntity(ientity);
-        if (entity.world.isRemote || !(entity instanceof EntityLiving)){
+        if (entity.world.isRemote || !(entity instanceof EntityLiving)) {
             return null;
         }
         EntityLiving entityliving = (EntityLiving) entity;
@@ -57,7 +57,7 @@ public class WhimCraftUtils {
         ResourceLocation lootTableLocation;
         try {
             lootTableLocation = (ResourceLocation) getLootTable.invoke(entityliving);
-        } catch (IllegalAccessException | InvocationTargetException e){
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
         if (lootTableLocation == null) {
@@ -81,15 +81,15 @@ public class WhimCraftUtils {
     /**
      * 获取实体掉落物
      *
-     * @param iworld      世界
-     * @param location    目标实体战利品表id
-     * @param isPlayer    是否玩家击杀
-     * @param luck        幸运(不是抢夺)
+     * @param iworld   世界
+     * @param location 目标实体战利品表id
+     * @param isPlayer 是否玩家击杀
+     * @param luck     幸运(不是抢夺)
      */
     @ZenMethod
     public static IItemStack[] getDrops(IWorld iworld, String location, boolean isPlayer, int luck) {
         World world = CraftTweakerMC.getWorld(iworld);
-        if (world.isRemote || !(world instanceof WorldServer)){
+        if (world.isRemote || !(world instanceof WorldServer)) {
             return null;
         }
         WorldServer worldServer = (WorldServer) world;

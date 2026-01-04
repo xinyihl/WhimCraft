@@ -1,8 +1,8 @@
 package com.xinyihl.whimcraft.common.integration.adapter.tc6;
 
 import com.xinyihl.whimcraft.Configurations;
-import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.player.IPlayer;
 import crafttweaker.util.IEventHandler;
 import github.kasuminova.mmce.common.event.Phase;
 import github.kasuminova.mmce.common.event.recipe.RecipeCheckEvent;
@@ -16,8 +16,8 @@ import hellfirepvp.modularmachinery.common.crafting.requirement.RequirementItem;
 import hellfirepvp.modularmachinery.common.lib.RequirementTypesMM;
 import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
-import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import hellfirepvp.modularmachinery.common.tiles.base.TileMultiblockMachineController;
+import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -133,34 +133,34 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
             Item primordialPearlItem = ItemsTC.primordialPearl;
             if (primordialPearlItem != null) {
                 int totalPrimordialPearls = 0;
-    
+
                 ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
                 for (ItemStack inputStack : inputStacks) {
-                    if (inputStack != null && !inputStack.isEmpty() && 
-                        inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+                    if (inputStack != null && !inputStack.isEmpty() &&
+                            inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
                         totalPrimordialPearls += inputStack.getCount();
                     }
                 }
-    
+
                 for (Ingredient component : recipe.getComponents()) {
                     if (component instanceof net.minecraft.item.crafting.Ingredient) {
                         for (ItemStack componentStack : component.getMatchingStacks()) {
-                            if (componentStack != null && !componentStack.isEmpty() && 
-                                componentStack.getItem() == primordialPearlItem && componentStack.getMetadata() == 0) {
+                            if (componentStack != null && !componentStack.isEmpty() &&
+                                    componentStack.getItem() == primordialPearlItem && componentStack.getMetadata() == 0) {
                                 totalPrimordialPearls += componentStack.getCount();
                             }
                         }
                     }
                 }
-    
+
                 if (totalPrimordialPearls > 0) {
                     ItemStack outputPearl = new ItemStack(primordialPearlItem, totalPrimordialPearls, 1);
                     int outAmount = Math.round(RecipeModifier.applyModifiers(
-                        modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, totalPrimordialPearls, false));
-        
+                            modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, totalPrimordialPearls, false));
+
                     if (outAmount > 0) {
                         machineRecipe.addRequirement(new RequirementItem(
-                            IOType.OUTPUT, ItemUtils.copyStackWithSize(outputPearl, outAmount)
+                                IOType.OUTPUT, ItemUtils.copyStackWithSize(outputPearl, outAmount)
                         ));
                         type = false;
                     }

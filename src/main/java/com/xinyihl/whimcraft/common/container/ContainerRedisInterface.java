@@ -87,6 +87,7 @@ public class ContainerRedisInterface extends Container {
         private SlotInputOnly(ItemStackHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
+
         @Override
         public boolean canTakeStack(EntityPlayer playerIn) {
             return false;
@@ -97,6 +98,7 @@ public class ContainerRedisInterface extends Container {
         private SlotOutputOnly(ItemStackHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
+
         @Override
         public boolean isItemValid(@Nonnull ItemStack stack) {
             return false;

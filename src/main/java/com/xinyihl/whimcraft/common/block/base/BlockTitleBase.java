@@ -14,5 +14,5 @@ public abstract class BlockTitleBase extends BlockMEMachineComponent implements 
         this.setTranslationKey(Tags.MOD_ID + "." + name);
     }
 
-    abstract public Class<? extends TileEntity>  getTileEntityClass();
+    abstract public Class<? extends TileEntity> getTileEntityClass();
 }

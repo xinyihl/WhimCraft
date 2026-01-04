@@ -10,8 +10,7 @@ public class CommonProxy {
         FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", TheOneProbe.class.getName());
     }
 
-    public void postInit()
-    {
+    public void postInit() {
         MinecraftForge.EVENT_BUS.register(new HandlerWorldTick());
     }
 

@@ -4,11 +4,7 @@ import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.adapter.forestry.AdapterCentrifuge;
 import com.xinyihl.whimcraft.common.integration.adapter.forestry.AdapterSqueezer;
 import com.xinyihl.whimcraft.common.integration.adapter.ie.AdapterIEArcFurnace;
-import com.xinyihl.whimcraft.common.integration.adapter.tc6.AdapterTC6Arcane;
-import com.xinyihl.whimcraft.common.integration.adapter.tc6.AdapterTC6Crucible;
-import com.xinyihl.whimcraft.common.integration.adapter.tc6.AdapterTC6InfusionMatrix;
-import com.xinyihl.whimcraft.common.integration.adapter.tc6.AdapterTC6InfusionMatrixResearch;
-import com.xinyihl.whimcraft.common.integration.adapter.tc6.AdapterTC6Smelter;
+import com.xinyihl.whimcraft.common.integration.adapter.tc6.*;
 import com.xinyihl.whimcraft.common.integration.adapter.tconstruct.AdapterSmelteryBasinCasting;
 import com.xinyihl.whimcraft.common.integration.adapter.tconstruct.AdapterSmelteryTableCasting;
 

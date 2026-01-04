@@ -39,11 +39,13 @@ public class WorldChunkUnloader {
                 for (west = chunk.x;
                      loadedChunks.contains(new ChunkPos(west - 1, chunk.z))
                              && (radiusLimit == 0 || Math.abs(west - 1 - seed.x) <= radiusLimit);
-                     --west);
+                     --west)
+                    ;
                 for (east = chunk.x;
                      loadedChunks.contains(new ChunkPos(east + 1, chunk.z))
                              && (radiusLimit == 0 || Math.abs(east + 1 - seed.x) <= radiusLimit);
-                     ++east);
+                     ++east)
+                    ;
                 for (int x = west; x <= east; ++x) {
                     groupedChunks.add(new ChunkPos(x, chunk.z));
                     if (loadedChunks.contains(new ChunkPos(x, chunk.z + 1))

@@ -26,11 +26,11 @@ import java.util.List;
 
 public class ClientEventHandler {
 
+    private static final List<String> itemList = new ArrayList<>();
     public static KeyBinding KEY_FOUND_ITEM_AE;
     public static KeyBinding KEY_GET_ITEM_ID;
     public static KeyBinding KEY_GET_ITEM_ID_LIST;
     public static KeyBinding KEY_GET_ITEM_ID_LIST_OUT;
-    private static final List<String> itemList = new ArrayList<>();
     private static boolean keyDown1 = false;
     private static boolean keyDown2 = false;
     private static boolean keyDown3 = false;
@@ -87,9 +87,9 @@ public class ClientEventHandler {
             keyDown3 = false;
             String name = itemStack.getDisplayName();
             Container container = player.openContainer;
-            if (container instanceof ContainerMEMonitorable){
+            if (container instanceof ContainerMEMonitorable) {
                 IConfigManagerHost gui = ((ContainerMEMonitorable) container).getGui();
-                if (gui instanceof GuiMEMonitorableAccessor){
+                if (gui instanceof GuiMEMonitorableAccessor) {
                     GuiMEMonitorableAccessor accessor = (GuiMEMonitorableAccessor) gui;
                     accessor.getSearchField().setText(name);
                     accessor.getSearchField().selectAll();

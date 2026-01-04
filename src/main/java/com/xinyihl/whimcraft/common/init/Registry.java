@@ -47,7 +47,7 @@ public class Registry {
         }
     }
 
-    public static void initDynamicColor(){
+    public static void initDynamicColor() {
         BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
         for (Block block : blocks) {
             if (block instanceof BlockDynamicColor) {

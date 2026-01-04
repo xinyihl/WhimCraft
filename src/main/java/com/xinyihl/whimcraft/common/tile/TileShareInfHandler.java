@@ -21,16 +21,18 @@ import java.util.function.Function;
 
 public class TileShareInfHandler extends TileColorableMachineComponent implements MachineComponentTile, IHasProbeInfo {
     private BlockPos bp;
+
     @Nullable
     @Override
     public MachineComponent<?> provideComponent() {
         if (bp != null) {
             TileEntity tileEntity = this.world.getTileEntity(bp);
-            if (tileEntity instanceof MEPatternProvider){
+            if (tileEntity instanceof MEPatternProvider) {
                 return new MachineComponent<InfItemFluidHandler>(IOType.INPUT) {
                     public ComponentType getComponentType() {
                         return ComponentTypesMM.COMPONENT_ITEM_FLUID_GAS;
                     }
+
                     public InfItemFluidHandler getContainerProvider() {
                         return ((MEPatternProvider) tileEntity).getInfHandler();
                     }
@@ -42,7 +44,7 @@ public class TileShareInfHandler extends TileColorableMachineComponent implement
 
     public void readCustomNBT(NBTTagCompound compound) {
         super.readCustomNBT(compound);
-        if(compound.hasKey("share_inf_handler_bp")){
+        if (compound.hasKey("share_inf_handler_bp")) {
             this.bp = BlockPos.fromLong(compound.getLong("share_inf_handler_bp"));
         }
     }
@@ -50,13 +52,13 @@ public class TileShareInfHandler extends TileColorableMachineComponent implement
     @Override
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
-        if (bp != null){
+        if (bp != null) {
             compound.setLong("share_inf_handler_bp", bp.toLong());
         }
     }
 
-    public void setBlockPos(EntityPlayer player, BlockPos blockPos){
-        if (!(this.world.getTileEntity(blockPos) instanceof MEPatternProvider)){
+    public void setBlockPos(EntityPlayer player, BlockPos blockPos) {
+        if (!(this.world.getTileEntity(blockPos) instanceof MEPatternProvider)) {
             player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.titleshareinfhandler.error.noShare"), true);
         } else {
             player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.titleshareinfhandler.suc"), true);
@@ -66,12 +68,12 @@ public class TileShareInfHandler extends TileColorableMachineComponent implement
 
     @Override
     public void addProbeInfo(Consumer<String> consumer, Function<String, String> loc) {
-        if(bp == null){
+        if (bp == null) {
             consumer.accept(loc.apply("blockshareinfhandler.offline"));
-        }else {
+        } else {
             if (!(this.world.getTileEntity(bp) instanceof MEPatternProvider)) {
                 consumer.accept(loc.apply("blockshareinfhandler.error"));
-            }else {
+            } else {
                 consumer.accept(loc.apply("blockshareinfhandler.online"));
                 consumer.accept("Bop: " + bp.toString());
             }

@@ -29,11 +29,11 @@ import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;
 
 public class Order extends Item implements IItemDrawable {
 
-    public Order(){
+    public Order() {
         this.setMaxDamage(0);
         this.setMaxStackSize(1);
         this.setCreativeTab(CREATIVE_TAB);
-        this.setRegistryName(new ResourceLocation(Tags.MOD_ID,"order"));
+        this.setRegistryName(new ResourceLocation(Tags.MOD_ID, "order"));
         this.setTranslationKey(Tags.MOD_ID + ".order");
     }
 

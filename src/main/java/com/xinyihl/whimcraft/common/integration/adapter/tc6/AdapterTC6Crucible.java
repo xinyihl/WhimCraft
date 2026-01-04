@@ -28,6 +28,7 @@ import static com.xinyihl.whimcraft.Configurations.ADAPTER_CONFIG;
 
 public class AdapterTC6Crucible extends RecipeAdapter {
     private static final Logger log = LogManager.getLogger(AdapterTC6Crucible.class);
+
     public AdapterTC6Crucible() {
         super(new ResourceLocation("thaumcraft", "whimcraft_crucible"));
     }
@@ -64,12 +65,12 @@ public class AdapterTC6Crucible extends RecipeAdapter {
                     incId, false);
             // Item Input
             ItemStack[] inputMain = recipe.getCatalyst().getMatchingStacks();
-            if("1xitem.nugget@9".equals(inputMain[0].toString())) return;
+            if ("1xitem.nugget@9".equals(inputMain[0].toString())) return;
             List<ChancedIngredientStack> inputMainList = Arrays.stream(inputMain)
                     .map(itemStack -> new ChancedIngredientStack(ItemUtils.copyStackWithSize(itemStack, inAmount)))
                     .collect(Collectors.toList());
             if (!inputMainList.isEmpty()) {
-                if(!"null".equals(ADAPTER_CONFIG.pcb)) {
+                if (!"null".equals(ADAPTER_CONFIG.pcb)) {
                     int i = items.getOrDefault(inputMain[0].toString(), 0);
                     Item item = Item.getByNameOrId(ADAPTER_CONFIG.pcb + i);
                     if (item == null) {

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 @JEIPlugin
-public class WhimcraftJeiPlugin implements IModPlugin{
+public class WhimcraftJeiPlugin implements IModPlugin {
 
 
     @Override

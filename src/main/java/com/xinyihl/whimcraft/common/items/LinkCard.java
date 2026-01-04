@@ -1,8 +1,6 @@
 package com.xinyihl.whimcraft.common.items;
 
-import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.tile.TileShareInfHandler;
 import com.xinyihl.whimcraft.common.tile.base.TileRedisInterfaceBase;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
@@ -35,16 +33,15 @@ public class LinkCard extends Item {
     private static final String NBT_POS = "link_card_pos";
     private static final String NBT_REDIS_UUID = "link_card_redis_uuid";
 
-    public LinkCard(){
+    public LinkCard() {
         this.setCreativeTab(CREATIVE_TAB);
-        this.setRegistryName(new ResourceLocation(Tags.MOD_ID,"link_card"));
+        this.setRegistryName(new ResourceLocation(Tags.MOD_ID, "link_card"));
         this.setTranslationKey(Tags.MOD_ID + ".link_card");
     }
 
     @Override
     @Nonnull
-    public EnumActionResult onItemUse(@Nonnull EntityPlayer player, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
+    public EnumActionResult onItemUse(@Nonnull EntityPlayer player, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) return EnumActionResult.SUCCESS;
         ItemStack itemStack = player.getHeldItem(hand);
         TileEntity tileEntity = worldIn.getTileEntity(pos);
@@ -73,7 +70,7 @@ public class LinkCard extends Item {
         }
 
         if (tileEntity instanceof MEPatternProvider) {
-            if(player.isSneaking()){
+            if (player.isSneaking()) {
                 NBTTagCompound tag = itemStack.getTagCompound();
                 if (tag == null) {
                     tag = new NBTTagCompound();
@@ -105,8 +102,7 @@ public class LinkCard extends Item {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn,@Nonnull List<String> tooltip,@Nonnull ITooltipFlag flagIn)
-    {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
         NBTTagCompound nbtpos = stack.getTagCompound();
         if (nbtpos != null) {
             if (nbtpos.hasUniqueId(NBT_REDIS_UUID)) {

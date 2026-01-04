@@ -11,8 +11,10 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface GuiMEMonitorableAccessor {
     @Accessor
     MEGuiTextField getSearchField();
+
     @Accessor
     ItemRepo getRepo();
+
     @Invoker
     void invokeSetScrollBar();
 }

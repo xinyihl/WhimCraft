@@ -103,7 +103,7 @@ public class Configurations {
         public boolean searchInGui = false;
     }
 
-    public static class ChunkPurgeConfig{
+    public static class ChunkPurgeConfig {
         @Config.Comment("尝试卸载区块的间隔时间(tick) 必须是大于 0 的整数")
         public int chunkUnloadDelay = 600;
         @Config.Comment("是否启用自动区块清除")
@@ -131,7 +131,7 @@ public class Configurations {
         @Config.Comment("加载阶段, 可选:[preinit, init, postinit]")
         public String loadComplete = "init";
         @Config.Comment("需要修改加载阶段的处理类(需要填写对应处理类的全类名)")
-        public String[] classList = { };
+        public String[] classList = {};
     }
 
     public static class RedisIOConfig {

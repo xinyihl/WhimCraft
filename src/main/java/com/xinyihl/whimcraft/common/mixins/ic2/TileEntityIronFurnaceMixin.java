@@ -17,7 +17,7 @@ public abstract class TileEntityIronFurnaceMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private static void injected(EntityPlayer player, double xp, CallbackInfoReturnable<Double> cir){
+    private static void injected(EntityPlayer player, double xp, CallbackInfoReturnable<Double> cir) {
         if (Configurations.IC2_CONFIG.changeXPOrb) {
             long balls = (long) Math.floor(xp);
             while (balls > 0L) {
