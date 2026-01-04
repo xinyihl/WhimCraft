@@ -1,44 +1,44 @@
-itemGroup.whimcraft_tab=奇思妙想
+itemGroup.whimcraft_tab=WhimCraft
 
-tooltip.whimcraft.pattern_encoder.name=由 %s 编码
-tooltip.whimcraft.tile_me_base.missing_channel=设备缺少频道
-tooltip.whimcraft.tile_me_base.online=设备开启
-tooltip.whimcraft.tile_me_base.offline=设备关闭
-tooltip.whimcraft.blockshareinfhandler.error=连接错误
-tooltip.whimcraft.blockshareinfhandler.online=已连接
-tooltip.whimcraft.blockshareinfhandler.offline=未设置连接
+tooltip.whimcraft.pattern_encoder.name=Encoded by %s
+tooltip.whimcraft.tile_me_base.missing_channel=Missing channel
+tooltip.whimcraft.tile_me_base.online=Device online
+tooltip.whimcraft.tile_me_base.offline=Device offline
+tooltip.whimcraft.blockshareinfhandler.error=Connection error
+tooltip.whimcraft.blockshareinfhandler.online=Connected
+tooltip.whimcraft.blockshareinfhandler.offline=No connection set
 
-key.whimcraft.desc=奇思妙想
-key.whimcraft.getItemId=获取物品ID
-key.whimcraft.getItemIdList=获取物品ID列表
-key.whimcraft.getItemIdListOut=导出物品ID列表
-key.whimcraft.foundItemAe=在AE中搜索物品
+key.whimcraft.desc=WhimCraft
+key.whimcraft.getItemId=Get Item ID
+key.whimcraft.getItemIdList=Get Item ID List
+key.whimcraft.getItemIdListOut=Export Item ID List
+key.whimcraft.foundItemAe=Search Item in AE
 
-item.whimcraft.link_card.name=闪存卡
+item.whimcraft.link_card.name=Link Card
 
-tile.whimcraft.blockshareinfhandler.name=ME机械样板供应器库存共享总线
-tile.whimcraft.blockmeaspectinputbus.name=GUGU-ME机械源质输入总线
-tile.whimcraft.blockmeaspectoutputbus.name=GUGU-ME机械源质输出总线
-tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME机械源质输入总线
-tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME机械源质输出总线
+tile.whimcraft.blockshareinfhandler.name=ME Mechanical Pattern Provider Inventory Sharing Bus
+tile.whimcraft.blockmeaspectinputbus.name=GUGU-ME Mechanical Essentia Input Bus
+tile.whimcraft.blockmeaspectoutputbus.name=GUGU-ME Mechanical Essentia Output Bus
+tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME Mechanical Essentia Input Bus
+tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME Mechanical Essentia Output Bus
 
 tile.whimcraft.redis_input_interface.name=Redis Input Interface
 tile.whimcraft.redis_output_interface.name=Redis Output Interface
 
-message.whimcraft.linkgard.clear=§a清除坐标成功
-message.whimcraft.linkgard.save=§a保存坐标成功
-message.whimcraft.linkgard.error.noShare=§c设置失败，目标不是库存共享总线
-message.whimcraft.linkgard.error.noPos=§c设置失败，未保存坐标
-message.whimcraft.titleshareinfhandler.error.noShare=§c设置失败，闪存卡保存坐标不是样板总线
-message.whimcraft.titleshareinfhandler.suc=§a设置成功
+message.whimcraft.linkgard.clear=§aCoordinates cleared successfully
+message.whimcraft.linkgard.save=§aCoordinates saved successfully
+message.whimcraft.linkgard.error.noShare=§cFailed to set: target is not an Inventory Sharing Bus
+message.whimcraft.linkgard.error.noPos=§cFailed to set: no coordinates saved
+message.whimcraft.titleshareinfhandler.error.noShare=§cFailed to set: coordinates stored in the Link Card are not a Pattern Bus
+message.whimcraft.titleshareinfhandler.suc=§aSet successfully
 
 message.whimcraft.linkgard.redis.save=§aSaved Redis UUID
 message.whimcraft.linkgard.redis.bind=§aBound Redis UUID
 message.whimcraft.linkgard.redis.error.noUuid=§cNo Redis UUID stored in Link Card
 
-tooltip.whimcraft.linkgard.no=未保存数据
-tooltip.whimcraft.titleshareinfhandler.connect=连接至:
+tooltip.whimcraft.linkgard.no=No data saved
+tooltip.whimcraft.titleshareinfhandler.connect=Connect to:
 tooltip.whimcraft.need_research=Research required
 
-item.whimcraft.order.name=订单
-gui.order.title=物品标记
+item.whimcraft.order.name=Order
+gui.order.title=Item Marker
