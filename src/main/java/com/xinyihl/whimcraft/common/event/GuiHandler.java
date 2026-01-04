@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
@@ -28,13 +29,16 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerOrder(player);
             }
         }
-        if (ID == REDIS_INPUT_GUI || ID == REDIS_OUTPUT_GUI) {
+        if (ID == REDIS_INPUT_GUI) {
             TileEntity te = world.getTileEntity(new net.minecraft.util.math.BlockPos(x, y, z));
-            boolean isInput = ID == REDIS_INPUT_GUI;
-            if (isInput && te instanceof TileRedisInputInterface) {
+            if (te instanceof TileRedisInputInterface) {
                 return new ContainerRedisInterface(player.inventory, (TileRedisInputInterface) te, true);
             }
-            if (!isInput && te instanceof TileRedisOutputInterface) {
+
+        }
+        if (ID == REDIS_OUTPUT_GUI) {
+            TileEntity te = world.getTileEntity(new net.minecraft.util.math.BlockPos(x, y, z));
+            if (te instanceof TileRedisOutputInterface) {
                 return new ContainerRedisInterface(player.inventory, (TileRedisOutputInterface) te, false);
             }
         }
@@ -49,16 +53,16 @@ public class GuiHandler implements IGuiHandler {
                 return new OrderGui(new ContainerOrder(player), heldItem);
             }
         }
-        if (ID == REDIS_INPUT_GUI || ID == REDIS_OUTPUT_GUI) {
-            TileEntity te = world.getTileEntity(new net.minecraft.util.math.BlockPos(x, y, z));
-            boolean isInput = ID == REDIS_INPUT_GUI;
-            if (isInput && te instanceof TileRedisInputInterface) {
-                Container container = new ContainerRedisInterface(player.inventory, (TileRedisInputInterface) te, true);
-                return new GuiRedisInterface((ContainerRedisInterface) container, true);
+        if (ID == REDIS_INPUT_GUI) {
+            TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+            if (te instanceof TileRedisInputInterface) {
+                return new GuiRedisInterface(new ContainerRedisInterface(player.inventory, (TileRedisInputInterface) te, true), true);
             }
-            if (!isInput && te instanceof TileRedisOutputInterface) {
-                Container container = new ContainerRedisInterface(player.inventory, (TileRedisOutputInterface) te, false);
-                return new GuiRedisInterface((ContainerRedisInterface) container, false);
+        }
+        if (ID == REDIS_OUTPUT_GUI) {
+            TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+            if (te instanceof TileRedisOutputInterface) {
+                return new GuiRedisInterface(new ContainerRedisInterface(player.inventory, (TileRedisOutputInterface) te, false), false);
             }
         }
         return null;
