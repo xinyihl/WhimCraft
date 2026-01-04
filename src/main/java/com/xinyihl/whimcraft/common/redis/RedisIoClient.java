@@ -13,10 +13,6 @@ public final class RedisIoClient {
     private RedisIoClient() {
     }
 
-    public static boolean isEnabled() {
-        return Configurations.REDIS_IO_CONFIG.enabled;
-    }
-
     private static String signature() {
         Configurations.RedisIOConfig c = Configurations.REDIS_IO_CONFIG;
         return c.host + ":" + c.port + ":" + c.database + ":" + (c.password == null ? "" : c.password);

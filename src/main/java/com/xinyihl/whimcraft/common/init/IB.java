@@ -3,13 +3,13 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.block.*;
-import com.xinyihl.whimcraft.common.items.LinkCard;
-import com.xinyihl.whimcraft.common.items.MyItemBlock;
-import com.xinyihl.whimcraft.common.items.Order;
+import com.xinyihl.whimcraft.common.items.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
@@ -56,12 +56,16 @@ public class IB {
     public static Item itemRedisOutputInterface;
 
     static {
-        CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
-            public ItemStack createIcon() {
-                return new ItemStack(items.get(0));
-            }
-        };
-        registerItem(new Order());
+        if(Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
+            CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
+                public ItemStack createIcon() {
+                    return new ItemStack(items.isEmpty() ? Items.AIR : items.get(0));
+                }
+            };
+        }
+        if (Configurations.GENERAL_CONFIG.orderEnable) {
+            registerItem(new Order());
+        }
         if (Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler)) {
             registerItem(new LinkCard());
         }
@@ -69,25 +73,44 @@ public class IB {
             registerBlock(new BlockRedisInputInterface());
             registerBlock(new BlockRedisOutputInterface());
         }
-        if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) {
+        if (Mods.MMCE.isLoaded()){
+            initMmce();
+        }
+    }
+
+
+    @Optional.Method(modid = "modularmachinery")
+    private static void initMmce() {
+        if (Configurations.MMCE_CONFIG.useShareInfHandler) {
             registerBlock(new BlockShareInfHandler());
         }
-        if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {
+        if (Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {
             registerBlock(new BlockMEAspectInputBusMMCE());
             registerBlock(new BlockMEAspectOutputBusMMCE());
         }
-        if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
+        if (Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
             registerBlock(new BlockMEAspectInputBus());
             registerBlock(new BlockMEAspectOutputBus());
         }
     }
 
+
+    private static <T> T createOptional(String className, Class<T> expectedType) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            return expectedType.cast(instance);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Failed to create optional instance: " + className, e);
+        }
+    }
+
     public static void registerBlock(Block block) {
-        IB.blocks.add(block);
+        blocks.add(block);
         registerItem(new MyItemBlock(block));
     }
 
     public static void registerItem(Item item) {
-        IB.items.add(item);
+        items.add(item);
     }
 }

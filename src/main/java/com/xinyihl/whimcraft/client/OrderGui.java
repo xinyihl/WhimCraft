@@ -46,7 +46,7 @@ public class OrderGui extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String title = I18n.format("gui.order.title");
+        String title = I18n.format("item.whimcraft.order.name");
         this.fontRenderer.drawString(title, this.xSize / 2 - this.fontRenderer.getStringWidth(title) / 2, 6, 0x404040);
         ItemStack markedItem = Order.getMarkedItem(orderStack);
         if (!markedItem.isEmpty()) {

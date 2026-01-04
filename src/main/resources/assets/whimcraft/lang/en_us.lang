@@ -7,6 +7,9 @@ tooltip.whimcraft.tile_me_base.offline=Device offline
 tooltip.whimcraft.blockshareinfhandler.error=Connection error
 tooltip.whimcraft.blockshareinfhandler.online=Connected
 tooltip.whimcraft.blockshareinfhandler.offline=No connection set
+tooltip.whimcraft.linkgard.no=No data saved
+tooltip.whimcraft.titleshareinfhandler.connect=Connect to:
+tooltip.whimcraft.need_research=Research required
 
 key.whimcraft.desc=WhimCraft
 key.whimcraft.getItemId=Get Item ID
@@ -15,13 +18,13 @@ key.whimcraft.getItemIdListOut=Export Item ID List
 key.whimcraft.foundItemAe=Search Item in AE
 
 item.whimcraft.link_card.name=Link Card
+item.whimcraft.order.name=Order
 
 tile.whimcraft.blockshareinfhandler.name=ME Mechanical Pattern Provider Inventory Sharing Bus
 tile.whimcraft.blockmeaspectinputbus.name=GUGU-ME Mechanical Essentia Input Bus
 tile.whimcraft.blockmeaspectoutputbus.name=GUGU-ME Mechanical Essentia Output Bus
 tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME Mechanical Essentia Input Bus
 tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME Mechanical Essentia Output Bus
-
 tile.whimcraft.redis_input_interface.name=Redis Input Interface
 tile.whimcraft.redis_output_interface.name=Redis Output Interface
 
@@ -29,16 +32,8 @@ message.whimcraft.linkgard.clear=§aCoordinates cleared successfully
 message.whimcraft.linkgard.save=§aCoordinates saved successfully
 message.whimcraft.linkgard.error.noShare=§cFailed to set: target is not an Inventory Sharing Bus
 message.whimcraft.linkgard.error.noPos=§cFailed to set: no coordinates saved
-message.whimcraft.titleshareinfhandler.error.noShare=§cFailed to set: coordinates stored in the Link Card are not a Pattern Bus
-message.whimcraft.titleshareinfhandler.suc=§aSet successfully
-
 message.whimcraft.linkgard.redis.save=§aSaved Redis UUID
 message.whimcraft.linkgard.redis.bind=§aBound Redis UUID
 message.whimcraft.linkgard.redis.error.noUuid=§cNo Redis UUID stored in Link Card
-
-tooltip.whimcraft.linkgard.no=No data saved
-tooltip.whimcraft.titleshareinfhandler.connect=Connect to:
-tooltip.whimcraft.need_research=Research required
-
-item.whimcraft.order.name=Order
-gui.order.title=Item Marker
+message.whimcraft.titleshareinfhandler.error.noShare=§cFailed to set: coordinates stored in the Link Card are not a Pattern Bus
+message.whimcraft.titleshareinfhandler.suc=§aSet successfully

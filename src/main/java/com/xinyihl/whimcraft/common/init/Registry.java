@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -47,6 +48,7 @@ public class Registry {
         }
     }
 
+    @Optional.Method(modid = "modularmachinery")
     public static void initDynamicColor() {
         BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
         for (Block block : blocks) {

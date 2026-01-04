@@ -64,6 +64,8 @@ public class Configurations {
         public boolean JeiTransferOrderEnable = false;
         @Config.Comment("是否启用群系神秘区块灵气基础值覆盖")
         public boolean generateBiomeAuraBaseEnable = false;
+        @Config.Comment("是否启用订单")
+        public boolean orderEnable = false;
     }
 
     public static class MmceConfig {
@@ -135,7 +137,7 @@ public class Configurations {
     }
 
     public static class RedisIOConfig {
-        @Config.Comment("是否启用跨次元输入/输出接口功能(关闭后方块仍可当作本地箱子使用，但不会与 Redis 同步)")
+        @Config.Comment("是否启用跨次元输入/输出接口功能")
         public boolean enabled = false;
 
         @Config.Comment("跨次元输入/输出接口更新间隔")

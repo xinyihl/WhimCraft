@@ -1,6 +1,8 @@
 package com.xinyihl.whimcraft.common.items;
 
+import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
+import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.tile.TileShareInfHandler;
 import com.xinyihl.whimcraft.common.tile.base.TileRedisInterfaceBase;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
@@ -18,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -45,6 +48,25 @@ public class LinkCard extends Item {
         if (worldIn.isRemote) return EnumActionResult.SUCCESS;
         ItemStack itemStack = player.getHeldItem(hand);
         TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+        if (handleRedisInterfaceLinking(player, itemStack, tileEntity)) {
+            return EnumActionResult.SUCCESS;
+        }
+
+        if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler && handleShareInfHandlerLinking(player, pos, itemStack, tileEntity)) {
+            return EnumActionResult.SUCCESS;
+        }
+
+        if (player.isSneaking()) {
+            itemStack.setTagCompound(null);
+            player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.clear"), true);
+            return EnumActionResult.SUCCESS;
+        }
+
+        return EnumActionResult.FAIL;
+    }
+
+    private boolean handleRedisInterfaceLinking(EntityPlayer player, ItemStack itemStack, TileEntity tileEntity) {
         if (tileEntity instanceof TileRedisInterfaceBase) {
             TileRedisInterfaceBase redisTile = (TileRedisInterfaceBase) tileEntity;
             if (player.isSneaking()) {
@@ -66,9 +88,13 @@ public class LinkCard extends Item {
                     player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.redis.bind"), true);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
+        return false;
+    }
 
+    @Optional.Method(modid = "modularmachinery")
+    private boolean handleShareInfHandlerLinking(EntityPlayer player, BlockPos pos, ItemStack itemStack, TileEntity tileEntity) {
         if (tileEntity instanceof MEPatternProvider) {
             if (player.isSneaking()) {
                 NBTTagCompound tag = itemStack.getTagCompound();
@@ -79,9 +105,8 @@ public class LinkCard extends Item {
                 itemStack.setTagCompound(tag);
                 player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.save"), true);
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-
         if (tileEntity instanceof TileShareInfHandler) {
             NBTTagCompound tag = itemStack.getTagCompound();
             if (tag == null || !tag.hasKey(NBT_POS)) {
@@ -90,31 +115,24 @@ public class LinkCard extends Item {
                 BlockPos blockPos = BlockPos.fromLong(tag.getLong(NBT_POS));
                 ((TileShareInfHandler) tileEntity).setBlockPos(player, blockPos);
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-
-        if (player.isSneaking()) {
-            itemStack.setTagCompound(null);
-            player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.linkgard.clear"), true);
-        }
-
-        return EnumActionResult.FAIL;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
-        NBTTagCompound nbtpos = stack.getTagCompound();
-        if (nbtpos != null) {
-            if (nbtpos.hasUniqueId(NBT_REDIS_UUID)) {
-                tooltip.add("UUID: " + nbtpos.getUniqueId(NBT_REDIS_UUID).toString());
-                return;
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag != null) {
+            if (tag.hasUniqueId(NBT_REDIS_UUID)) {
+                tooltip.add("UUID: " + tag.getUniqueId(NBT_REDIS_UUID).toString());
             }
-            if (nbtpos.hasKey(NBT_POS)) {
-                BlockPos blockPos = BlockPos.fromLong(nbtpos.getLong(NBT_POS));
+            if (tag.hasKey(NBT_POS)) {
+                BlockPos blockPos = BlockPos.fromLong(tag.getLong(NBT_POS));
                 tooltip.add("Pos: " + blockPos.getX() + "/" + blockPos.getY() + "/" + blockPos.getZ());
-                return;
             }
+        } else {
+            tooltip.add(I18n.format("tooltip.whimcraft.linkgard.no"));
         }
-        tooltip.add(I18n.format("tooltip.whimcraft.linkgard.no"));
     }
 }

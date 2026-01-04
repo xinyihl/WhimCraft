@@ -26,14 +26,12 @@ public enum Mods {
     ;
 
     public final String modid;
-    private final boolean loaded;
 
     Mods(String modid) {
         this.modid = modid;
-        this.loaded = Loader.isModLoaded(this.modid);
     }
 
     public boolean isLoaded() {
-        return loaded;
+        return Loader.isModLoaded(this.modid);
     }
 }

@@ -144,9 +144,6 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
         if (tickCounter % Configurations.REDIS_IO_CONFIG.tick != 0) {
             return;
         }
-        if (!RedisIoClient.isEnabled()) {
-            return;
-        }
         try {
             doRedisSync();
         } catch (Exception ignored) {
