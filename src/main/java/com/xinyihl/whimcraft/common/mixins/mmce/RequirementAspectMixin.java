@@ -1,6 +1,6 @@
 package com.xinyihl.whimcraft.common.mixins.mmce;
 
-import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBusMMCE;
+import com.xinyihl.whimcraft.common.tile.base.TileMEAspectBusMMCE;
 import hellfirepvp.modularmachinery.common.crafting.helper.ProcessingComponent;
 import kport.modularmagic.common.crafting.helper.AspectProviderCopy;
 import kport.modularmagic.common.crafting.requirement.RequirementAspect;
@@ -23,8 +23,8 @@ public class RequirementAspectMixin {
         List<ProcessingComponent<?>> list = new ArrayList<>();
 
         for (ProcessingComponent<?> component : components) {
-            if (component.providedComponent() instanceof TitleMEAspectBusMMCE.MYAspectProviderCopy) {
-                list.add(new ProcessingComponent(component.component(), new TitleMEAspectBusMMCE.MYAspectProviderCopy(((TitleMEAspectBusMMCE.MYAspectProviderCopy) component.providedComponent()).getOriginal()), component.tag()));
+            if (component.providedComponent() instanceof TileMEAspectBusMMCE.MYAspectProviderCopy) {
+                list.add(new ProcessingComponent(component.component(), new TileMEAspectBusMMCE.MYAspectProviderCopy(((TileMEAspectBusMMCE.MYAspectProviderCopy) component.providedComponent()).getOriginal()), component.tag()));
             } else {
                 list.add(new ProcessingComponent(component.component(), new AspectProviderCopy(((AspectProviderCopy) component.providedComponent()).getOriginal()), component.tag()));
             }

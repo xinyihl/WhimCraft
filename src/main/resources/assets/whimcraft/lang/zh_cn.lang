@@ -22,6 +22,9 @@ tile.whimcraft.blockmeaspectoutputbus.name=GUGU-ME机械源质输出总线
 tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME机械源质输入总线
 tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME机械源质输出总线
 
+tile.whimcraft.redis_input_interface.name=跨次元输入接口
+tile.whimcraft.redis_output_interface.name=跨次元输出接口
+
 message.whimcraft.linkgard.clear=§a清除坐标成功
 message.whimcraft.linkgard.save=§a保存坐标成功
 message.whimcraft.linkgard.error.noShare=§c设置失败，目标不是库存共享总线
@@ -29,7 +32,11 @@ message.whimcraft.linkgard.error.noPos=§c设置失败，未保存坐标
 message.whimcraft.titleshareinfhandler.error.noShare=§c设置失败，闪存卡保存坐标不是样板总线
 message.whimcraft.titleshareinfhandler.suc=§a设置成功
 
-tooltip.whimcraft.linkgard.noPos=未保存坐标
+message.whimcraft.linkgard.redis.save=§a已保存跨次元接口 UUID
+message.whimcraft.linkgard.redis.bind=§a已绑定跨次元接口 UUID
+message.whimcraft.linkgard.redis.error.noUuid=§c绑定失败，闪存卡未保存跨次元接口 UUID
+
+tooltip.whimcraft.linkgard.no=未保存数据
 tooltip.whimcraft.titleshareinfhandler.connect=连接至:
 tooltip.whimcraft.need_research=需要研究
 

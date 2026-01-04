@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.title.base;
+package com.xinyihl.whimcraft.common.tile.base;
 
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
@@ -23,11 +23,11 @@ import thaumicenergistics.util.AEUtil;
 
 import javax.annotation.Nonnull;
 
-public abstract class TitleMEAspectBus extends TitleMeBase implements MachineComponentTile, ColorableMachineTile {
+public abstract class TileMEAspectBus extends TileMeBase implements MachineComponentTile, ColorableMachineTile {
 
     private int definedColor;
 
-    public TitleMEAspectBus() {
+    public TileMEAspectBus() {
         this.definedColor = Config.machineColor;
         this.proxy.setFlags(GridFlags.REQUIRE_CHANNEL);
     }

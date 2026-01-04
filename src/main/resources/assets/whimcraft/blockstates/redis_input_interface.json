@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "model": "whimcraft:redis_input_interface"
+  },
+  "variants": {
+    "inventory": {
+      "model": "whimcraft:redis_input_interface"
+    },
+    "normal": {
+      "model": "whimcraft:redis_input_interface"
+    }
+  }
+}

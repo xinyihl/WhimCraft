@@ -44,6 +44,14 @@ public class IB {
     public static Item itemMEAspectOutputBusMMCE;
     @GameRegistry.ObjectHolder(Tags.MOD_ID + ":order")
     public static Item itemOrder;
+    @GameRegistry.ObjectHolder(Tags.MOD_ID + ":redis_input_interface")
+    public static Block redisInputInterface;
+    @GameRegistry.ObjectHolder(Tags.MOD_ID + ":redis_input_interface")
+    public static Item itemRedisInputInterface;
+    @GameRegistry.ObjectHolder(Tags.MOD_ID + ":redis_output_interface")
+    public static Block redisOutputInterface;
+    @GameRegistry.ObjectHolder(Tags.MOD_ID + ":redis_output_interface")
+    public static Item itemRedisOutputInterface;
 
     static {
         CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
@@ -52,8 +60,14 @@ public class IB {
             }
         };
         registerItem(new Order());
-        if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) {
+        if (Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler)) {
             registerItem(new LinkCard());
+        }
+        if(Configurations.REDIS_IO_CONFIG.enabled) {
+            registerBlock(new BlockRedisInputInterface());
+            registerBlock(new BlockRedisOutputInterface());
+        }
+        if (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) {
             registerBlock(new BlockShareInfHandler());
         }
         if (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {

@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.block;
 
 import com.xinyihl.whimcraft.common.block.base.BlockTitleBase;
-import com.xinyihl.whimcraft.common.title.TitleShareInfHandler;
+import com.xinyihl.whimcraft.common.tile.TileShareInfHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -26,11 +26,11 @@ public class BlockShareInfHandler extends BlockTitleBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState iBlockState) {
-        return new TitleShareInfHandler();
+        return new TileShareInfHandler();
     }
 
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
-        return TitleShareInfHandler.class;
+        return TileShareInfHandler.class;
     }
 }

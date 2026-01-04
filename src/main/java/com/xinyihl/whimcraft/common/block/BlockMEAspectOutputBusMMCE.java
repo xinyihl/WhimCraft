@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.block;
 
 import com.xinyihl.whimcraft.common.block.base.BlockMEBase;
-import com.xinyihl.whimcraft.common.title.TitleMEAspectOutputBusMMCE;
+import com.xinyihl.whimcraft.common.tile.TileMEAspectOutputBusMMCE;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -16,11 +16,11 @@ public class BlockMEAspectOutputBusMMCE extends BlockMEBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState iBlockState) {
-        return new TitleMEAspectOutputBusMMCE();
+        return new TileMEAspectOutputBusMMCE();
     }
 
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
-        return TitleMEAspectOutputBusMMCE.class;
+        return TileMEAspectOutputBusMMCE.class;
     }
 }

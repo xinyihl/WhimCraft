@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.title.base;
+package com.xinyihl.whimcraft.common.tile.base;
 
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
@@ -28,12 +28,12 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public abstract class TitleMeBase extends TileEntity implements IActionHost, IGridProxyable, IHasProbeInfo {
+public abstract class TileMeBase extends TileEntity implements IActionHost, IGridProxyable, IHasProbeInfo {
 
     protected final AENetworkProxy proxy = new AENetworkProxy(this, "aeProxy", getVisualItemStack(), true);
     protected final IActionSource source;
 
-    public TitleMeBase() {
+    public TileMeBase() {
         this.source = new MachineSource(this);
         this.proxy.setIdlePowerUsage(100.0D);
         //this.proxy.setFlags(GridFlags.REQUIRE_CHANNEL);

@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.title;
+package com.xinyihl.whimcraft.common.tile;
 
 import com.xinyihl.whimcraft.common.api.IHasProbeInfo;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class TitleShareInfHandler extends TileColorableMachineComponent implements MachineComponentTile, IHasProbeInfo {
+public class TileShareInfHandler extends TileColorableMachineComponent implements MachineComponentTile, IHasProbeInfo {
     private BlockPos bp;
     @Nullable
     @Override

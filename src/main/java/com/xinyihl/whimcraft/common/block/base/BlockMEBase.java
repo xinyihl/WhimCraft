@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.block.base;
 
-import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBus;
-import com.xinyihl.whimcraft.common.title.base.TitleMEAspectBusMMCE;
+import com.xinyihl.whimcraft.common.tile.base.TileMEAspectBus;
+import com.xinyihl.whimcraft.common.tile.base.TileMEAspectBusMMCE;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,13 +29,13 @@ public abstract class BlockMEBase extends BlockTitleBase {
         super.onBlockPlacedBy(world, pos, state, placer, stack);
         if (!world.isRemote) {
             TileEntity te = world.getTileEntity(pos);
-            if (te instanceof TitleMEAspectBus && placer instanceof EntityPlayer) {
-                TitleMEAspectBus tn = (TitleMEAspectBus) te;
+            if (te instanceof TileMEAspectBus && placer instanceof EntityPlayer) {
+                TileMEAspectBus tn = (TileMEAspectBus) te;
                 tn.setOwner((EntityPlayer) placer);
                 tn.getActionableNode();
             }
-            if (te instanceof TitleMEAspectBusMMCE && placer instanceof EntityPlayer) {
-                TitleMEAspectBusMMCE tn = (TitleMEAspectBusMMCE) te;
+            if (te instanceof TileMEAspectBusMMCE && placer instanceof EntityPlayer) {
+                TileMEAspectBusMMCE tn = (TileMEAspectBusMMCE) te;
                 tn.setOwner((EntityPlayer) placer);
                 tn.getActionableNode();
             }

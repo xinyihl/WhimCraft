@@ -101,6 +101,7 @@ repositories {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
     }
+    mavenCentral()
     mavenLocal()
 }
 
@@ -126,25 +127,28 @@ dependencies {
 
     implementation 'com.cleanroommc:configanytime:2.0'
 
+    // Redis
+    embed 'redis.clients:jedis:3.9.0'
+
 //    compileOnly rfg.deobf(fileTree(dir: 'libs/compileOnly', include: ['*.jar']))
 //    implementation rfg.deobf(fileTree(dir: 'libs/implementation', include: ['*.jar']))
 
     //库
-    compileOnly("software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31")
-    compileOnly "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.698"
-    compileOnly rfg.deobf("curse.maven:theoneprobe-245211:2667280")
-    compileOnly rfg.deobf("curse.maven:baubles-227083:2518667")
-    compileOnly rfg.deobf("curse.maven:codechickenlib-242818:2779848")
-    compileOnly rfg.deobf("curse.maven:mcjtylib-233105:2745846")
-    compileOnly rfg.deobf("curse.maven:mantle-74924:2713386")
-    compileOnly rfg.deobf("curse.maven:patchouli-306770:3162874")
+    implementation("software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31")
+    implementation "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.698"
+    implementation rfg.deobf("curse.maven:theoneprobe-245211:2667280")
+    implementation rfg.deobf("curse.maven:baubles-227083:2518667")
+    implementation rfg.deobf("curse.maven:codechickenlib-242818:2779848")
+    implementation rfg.deobf("curse.maven:mcjtylib-233105:2745846")
+    implementation rfg.deobf("curse.maven:mantle-74924:2713386")
+    implementation rfg.deobf("curse.maven:patchouli-306770:3162874")
 
     //主要功能需求
-    compileOnly rfg.deobf("curse.maven:hadenoughitems-557549:7057606")
-    compileOnly rfg.deobf("curse.maven:ae2extendedlife-570458:6302098")
-    compileOnly rfg.deobf("curse.maven:mmce-817377:6945422")
-    compileOnly rfg.deobf("curse.maven:thaumcraft-223628:2629023")
-    compileOnly rfg.deobf("curse.maven:guguutils-530919:3652765")
+    implementation rfg.deobf("curse.maven:hadenoughitems-557549:7057606")
+    implementation rfg.deobf("curse.maven:ae2extendedlife-570458:6302098")
+    implementation rfg.deobf("curse.maven:mmce-817377:6945422")
+    implementation rfg.deobf("curse.maven:thaumcraft-223628:2629023")
+    implementation rfg.deobf("curse.maven:guguutils-530919:3652765")
 
     //适配器
     compileOnly rfg.deobf("curse.maven:forestry-59751:6104316")

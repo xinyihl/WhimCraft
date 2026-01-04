@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.title.base;
+package com.xinyihl.whimcraft.common.tile.base;
 
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
@@ -44,12 +44,12 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public abstract class TitleMEAspectBusMMCE extends TileJarFillable implements MachineComponentTile, IActionHost, IGridProxyable, IHasProbeInfo {
+public abstract class TileMEAspectBusMMCE extends TileJarFillable implements MachineComponentTile, IActionHost, IGridProxyable, IHasProbeInfo {
 
     protected final AENetworkProxy proxy = new AENetworkProxy(this, "aeProxy", getVisualItemStack(), true);
     protected final IActionSource source;
 
-    public TitleMEAspectBusMMCE() {
+    public TileMEAspectBusMMCE() {
         this.source = new MachineSource(this);
         this.proxy.setIdlePowerUsage(100.0D);
         //this.amount = Integer.MAX_VALUE;
@@ -325,12 +325,12 @@ public abstract class TitleMEAspectBusMMCE extends TileJarFillable implements Ma
 
         @Override
         public synchronized int addToContainer(final Aspect tt, final int am) {
-            return ((TitleMEAspectBusMMCE) this.getOriginal()).addAspectToME(tt, am, false);
+            return ((TileMEAspectBusMMCE) this.getOriginal()).addAspectToME(tt, am, false);
         }
 
         @Override
         public synchronized boolean takeFromContainer(final Aspect tt, final int am) {
-            return ((TitleMEAspectBusMMCE) this.getOriginal()).takeAspectFromME(tt, am, false) == am;
+            return ((TileMEAspectBusMMCE) this.getOriginal()).takeAspectFromME(tt, am, false) == am;
         }
     }
 

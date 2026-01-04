@@ -42,6 +42,9 @@ public class Configurations {
     @Config.Comment("ModTweaker设置")
     public static final ModTwModConfig MODTWMOD_CONFIG = new ModTwModConfig();
 
+    @Config.Comment("跨次元输入/输出接口设置")
+    public static final RedisIOConfig REDIS_IO_CONFIG = new RedisIOConfig();
+
     static {
         ConfigAnytime.register(Configurations.class);
     }
@@ -129,6 +132,32 @@ public class Configurations {
         public String loadComplete = "init";
         @Config.Comment("需要修改加载阶段的处理类(需要填写对应处理类的全类名)")
         public String[] classList = { };
+    }
+
+    public static class RedisIOConfig {
+        @Config.Comment("是否启用跨次元输入/输出接口功能(关闭后方块仍可当作本地箱子使用，但不会与 Redis 同步)")
+        public boolean enabled = false;
+
+        @Config.Comment("跨次元输入/输出接口更新间隔")
+        public int tick = 10;
+
+        @Config.Comment("Redis 地址")
+        public String host = "127.0.0.1";
+
+        @Config.Comment("Redis 端口")
+        public int port = 6379;
+
+        @Config.Comment("Redis 数据库编号")
+        public int database = 0;
+
+        @Config.Comment("Redis 密码(为空表示不使用 AUTH)")
+        public String password = "";
+
+        @Config.Comment("Redis key 前缀")
+        public String keyPrefix = "whimcraft:io";
+
+        @Config.Comment("Redis 中每个接口队列的最大元素数量(上限)。单位是 ItemStack 条目数，不是单个物品数量")
+        public int maxEntries = 10000;
     }
 
     public static class NatureModConfig {

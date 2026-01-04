@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.block.base.BlockTitleBase;
+import com.xinyihl.whimcraft.common.block.base.IHasTileEntityClass;
 import hellfirepvp.modularmachinery.common.block.BlockDynamicColor;
 import hellfirepvp.modularmachinery.common.item.ItemDynamicColor;
 import net.minecraft.block.Block;
@@ -34,8 +34,8 @@ public class Registry {
     public static void registerBlock(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
         for (Block block : blocks) {
-            if (block instanceof BlockTitleBase) {
-                GameRegistry.registerTileEntity(((BlockTitleBase) block).getTileEntityClass(), new ResourceLocation(Tags.MOD_ID, "tile_" + block.getRegistryName().getPath()));
+            if (block instanceof IHasTileEntityClass) {
+                GameRegistry.registerTileEntity(((IHasTileEntityClass) block).getTileEntityClass(), new ResourceLocation(Tags.MOD_ID, "tile_" + block.getRegistryName().getPath()));
             }
         }
     }
