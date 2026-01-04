@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "minecraft:blocks/gold_block"
+    "all": "whimcraft:blocks/redis_output_interface"
   }
 }
