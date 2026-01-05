@@ -66,6 +66,8 @@ public class Configurations {
         public boolean generateBiomeAuraBaseEnable = false;
         @Config.Comment("是否启用订单")
         public boolean orderEnable = false;
+        @Config.Comment("是否启用 Elgoog")
+        public boolean elgoogEnable = false;
     }
 
     public static class MmceConfig {
