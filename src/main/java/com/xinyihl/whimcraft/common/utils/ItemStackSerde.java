@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.redis;
+package com.xinyihl.whimcraft.common.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -9,9 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 
 public final class ItemStackSerde {
-
-    private ItemStackSerde() {
-    }
 
     public static String toBase64(ItemStack stack) throws Exception {
         NBTTagCompound tag = new NBTTagCompound();

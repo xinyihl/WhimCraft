@@ -3,7 +3,9 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.block.*;
-import com.xinyihl.whimcraft.common.items.*;
+import com.xinyihl.whimcraft.common.items.LinkCard;
+import com.xinyihl.whimcraft.common.items.MyItemBlock;
+import com.xinyihl.whimcraft.common.items.Order;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -15,7 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IB {
+public final class IB {
 
     public static CreativeTabs CREATIVE_TAB;
 
@@ -78,7 +80,6 @@ public class IB {
         }
     }
 
-
     @Optional.Method(modid = "modularmachinery")
     private static void initMmce() {
         if (Configurations.MMCE_CONFIG.useShareInfHandler) {
@@ -91,17 +92,6 @@ public class IB {
         if (Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
             registerBlock(new BlockMEAspectInputBus());
             registerBlock(new BlockMEAspectOutputBus());
-        }
-    }
-
-
-    private static <T> T createOptional(String className, Class<T> expectedType) {
-        try {
-            Class<?> clazz = Class.forName(className);
-            Object instance = clazz.getDeclaredConstructor().newInstance();
-            return expectedType.cast(instance);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("Failed to create optional instance: " + className, e);
         }
     }
 

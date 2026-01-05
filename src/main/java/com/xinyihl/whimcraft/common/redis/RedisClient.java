@@ -5,12 +5,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public final class RedisIoClient {
+public final class RedisClient {
 
     private static volatile JedisPool POOL;
     private static volatile String POOL_SIGNATURE;
 
-    private RedisIoClient() {
+    private RedisClient() {
     }
 
     private static String signature() {
@@ -22,7 +22,7 @@ public final class RedisIoClient {
         String sig = signature();
         JedisPool pool = POOL;
         if (pool == null || !sig.equals(POOL_SIGNATURE)) {
-            synchronized (RedisIoClient.class) {
+            synchronized (RedisClient.class) {
                 if (POOL == null || !sig.equals(POOL_SIGNATURE)) {
                     if (POOL != null) {
                         try {
