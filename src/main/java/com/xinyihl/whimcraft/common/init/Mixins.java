@@ -32,6 +32,7 @@ public enum Mixins {
     RecipeTransferOrderNee("RecipeTransferOrder.neenergistics", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "neenergistics"),
     RecipeTransferOrderAe2Fc("RecipeTransferOrder.ae2fc", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "ae2fc"),
     GenerateBiomeAuraBase("GenerateBiomeAuraBase", true, () -> Configurations.GENERAL_CONFIG.generateBiomeAuraBaseEnable, "thaumcraft"),
+    GuguStarlight("GuguStarlight", true, () -> Configurations.ASMOD_CONFIG.starLightHatchFix, "gugu-utils", "astralsorcery")
     ;
 
     final String mixinName;

@@ -71,7 +71,7 @@ public class Configurations {
     }
 
     public static class MmceConfig {
-        @Config.Comment("额外的并行控制器\n启动一次后前往 mmce 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])\n添加格式可打开jar文件查看assets/modularmachinery")
+        @Config.Comment("额外的并行控制器\n启动一次后前往 MMCE 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])\n添加格式可打开 jar 文件查看 assets/modularmachinery")
         public int otherParallelController = 0;
         @Config.Comment("样板供应器允许忽略并行处理单元")
         public boolean isIgnoreParallel = false;
@@ -127,6 +127,8 @@ public class Configurations {
     public static class ASModConfig {
         @Config.Comment("星辉等级(覆盖星辉原版配置文件的设置)")
         public int asLevelCap = 30;
+        @Config.Comment("星辉输入仓 GUI 显示修复")
+        public boolean starLightHatchFix = false;
     }
 
     public static class ModTwModConfig {
