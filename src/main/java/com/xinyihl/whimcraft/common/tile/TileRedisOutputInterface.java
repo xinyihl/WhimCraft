@@ -7,14 +7,14 @@ import redis.clients.jedis.Jedis;
 public class TileRedisOutputInterface extends TileRedisInterfaceBase {
 
     @Override
-    public String getRedisKeyType() {
+    public String getType() {
         return "output";
     }
 
     @Override
-    protected void doRedisSync() throws Exception {
+    protected void doSync() throws Exception {
         try (Jedis jedis = RedisClient.getJedis()) {
-            popStacksFromRedisQueue(jedis, redisKey(), inventory);
+            this.popStacksFromRedisQueue(jedis, redisKey());
         }
     }
 }

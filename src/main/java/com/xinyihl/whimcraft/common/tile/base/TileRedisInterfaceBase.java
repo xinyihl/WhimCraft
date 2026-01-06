@@ -39,16 +39,16 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
     protected UUID uuid;
     private int tickCounter;
 
-    protected static void pushStacksToRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
+    protected void pushStacksToRedisQueue(Jedis jedis, String key) throws Exception {
         int maxEntries = Math.max(0, Configurations.REDIS_IO_CONFIG.maxEntries);
         long len = jedis.llen(key);
         Pipeline p = jedis.pipelined();
         List<Integer> toClear = new ArrayList<>();
-        for (int i = 0; i < inv.getSlots(); i++) {
+        for (int i = 0; i < inventory.getSlots(); i++) {
             if (maxEntries > 0 && len >= maxEntries) {
                 break;
             }
-            ItemStack stack = inv.getStackInSlot(i);
+            ItemStack stack = inventory.getStackInSlot(i);
             if (stack.isEmpty()) {
                 continue;
             }
@@ -59,11 +59,11 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
         }
         p.sync();
         for (int idx : toClear) {
-            inv.setStackInSlot(idx, ItemStack.EMPTY);
+            inventory.setStackInSlot(idx, ItemStack.EMPTY);
         }
     }
 
-    protected static void popStacksFromRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
+    protected void popStacksFromRedisQueue(Jedis jedis, String key) throws Exception {
         while (true) {
             String payload = jedis.lpop(key);
             if (payload == null) {
@@ -73,7 +73,7 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
             if (stack.isEmpty()) {
                 continue;
             }
-            ItemStack remainder = insertPreferStacking(inv, stack);
+            ItemStack remainder = insertPreferStacking(stack);
             if (!remainder.isEmpty()) {
                 jedis.lpush(key, ItemStackSerde.toBase64(remainder));
                 return;
@@ -81,26 +81,26 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
         }
     }
 
-    private static ItemStack insertPreferStacking(ItemStackHandler inv, ItemStack stack) {
+    private ItemStack insertPreferStacking(ItemStack stack) {
         ItemStack remaining = stack;
-        for (int i = 0; i < inv.getSlots(); i++) {
-            ItemStack existing = inv.getStackInSlot(i);
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            ItemStack existing = inventory.getStackInSlot(i);
             if (existing.isEmpty()) {
                 continue;
             }
             if (!canStacksMerge(existing, remaining)) {
                 continue;
             }
-            remaining = inv.insertItem(i, remaining, false);
+            remaining = inventory.insertItem(i, remaining, false);
             if (remaining.isEmpty()) {
                 return ItemStack.EMPTY;
             }
         }
-        for (int i = 0; i < inv.getSlots(); i++) {
-            if (!inv.getStackInSlot(i).isEmpty()) {
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()) {
                 continue;
             }
-            remaining = inv.insertItem(i, remaining, false);
+            remaining = inventory.insertItem(i, remaining, false);
             if (remaining.isEmpty()) {
                 return ItemStack.EMPTY;
             }
@@ -108,7 +108,7 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
         return remaining;
     }
 
-    private static boolean canStacksMerge(ItemStack a, ItemStack b) {
+    private boolean canStacksMerge(ItemStack a, ItemStack b) {
         if (a.isEmpty() || b.isEmpty()) {
             return false;
         }
@@ -153,15 +153,15 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
             return;
         }
         try {
-            doRedisSync();
+            doSync();
         } catch (Exception ignored) {
             // 不让 Redis 异常导致崩服
         }
     }
 
-    public abstract String getRedisKeyType();
+    public abstract String getType();
 
-    protected abstract void doRedisSync() throws Exception;
+    protected abstract void doSync() throws Exception;
 
     @Override
     public void readFromNBT(@Nonnull NBTTagCompound compound) {
@@ -198,10 +198,10 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
     @SuppressWarnings("unchecked")
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if ("input".equals(getRedisKeyType())) {
+            if ("input".equals(getType())) {
                 return (T) insertOnly;
             }
-            if ("output".equals(getRedisKeyType())) {
+            if ("output".equals(getType())) {
                 return (T) extractOnly;
             }
             return (T) inventory;
