@@ -4,7 +4,6 @@ import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.WhimCraft;
 import com.xinyihl.whimcraft.common.api.IItemDrawable;
 import com.xinyihl.whimcraft.common.event.GuiHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -89,7 +88,12 @@ public class Order extends Item implements IItemDrawable {
         ItemStack markedItem = Order.getMarkedItem(stack);
         if (!markedItem.isEmpty() && transform == ItemCameraTransforms.TransformType.GUI) {
             GlStateManager.pushMatrix();
-            Minecraft.getMinecraft().getRenderItem().renderItem(markedItem, ItemCameraTransforms.TransformType.GUI);
+            IBakedModel bakedmodel = instance.getItemModelWithOverrides(markedItem, null, null);
+            if(bakedmodel.isGui3d())
+                GlStateManager.enableLighting();
+            bakedmodel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(bakedmodel, ItemCameraTransforms.TransformType.GUI, false);
+            instance.renderItem(markedItem, bakedmodel);
+            GlStateManager.disableLighting();
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5f, 0.5f, 1f);
