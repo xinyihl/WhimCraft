@@ -12,9 +12,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class TileRedisInterfaceBase extends TileEntity implements ITickable {
@@ -39,6 +42,8 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
     protected static void pushStacksToRedisQueue(Jedis jedis, String key, ItemStackHandler inv) throws Exception {
         int maxEntries = Math.max(0, Configurations.REDIS_IO_CONFIG.maxEntries);
         long len = jedis.llen(key);
+        Pipeline p = jedis.pipelined();
+        List<Integer> toClear = new ArrayList<>();
         for (int i = 0; i < inv.getSlots(); i++) {
             if (maxEntries > 0 && len >= maxEntries) {
                 break;
@@ -48,9 +53,13 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
                 continue;
             }
             String payload = ItemStackSerde.toBase64(stack);
-            jedis.rpush(key, payload);
-            inv.setStackInSlot(i, ItemStack.EMPTY);
+            p.rpush(key, payload);
+            toClear.add(i);
             len++;
+        }
+        p.sync();
+        for (int idx : toClear) {
+            inv.setStackInSlot(idx, ItemStack.EMPTY);
         }
     }
 
