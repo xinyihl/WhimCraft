@@ -9,6 +9,7 @@ public final class RedisClient {
 
     private static volatile JedisPool POOL;
     private static volatile String POOL_SIGNATURE;
+    public static boolean isOnline;
 
     private RedisClient() {
     }

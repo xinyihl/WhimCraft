@@ -1,6 +1,7 @@
 package com.xinyihl.whimcraft.common.tile.base;
 
 import com.xinyihl.whimcraft.Configurations;
+import com.xinyihl.whimcraft.common.redis.RedisClient;
 import com.xinyihl.whimcraft.common.utils.ItemStackSerde;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -146,6 +147,9 @@ public abstract class TileRedisInterfaceBase extends TileEntity implements ITick
     @Override
     public void update() {
         if (world == null || world.isRemote) {
+            return;
+        }
+        if (!RedisClient.isOnline) {
             return;
         }
         tickCounter++;
