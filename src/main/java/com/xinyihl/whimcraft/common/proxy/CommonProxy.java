@@ -19,6 +19,8 @@ public class CommonProxy {
     public void init() {
         try (Jedis jedis = RedisClient.getJedis()) {
             RedisClient.isOnline = "PONG".equals(jedis.ping());
+        } catch (Exception ignore) {
+            //忽略 Redis 报错防止崩溃
         }
     }
 }
