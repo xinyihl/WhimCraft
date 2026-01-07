@@ -1,4 +1,4 @@
-package com.xinyihl.whimcraft.common.block.base;
+package com.xinyihl.whimcraft.common.api;
 
 import net.minecraft.tileentity.TileEntity;
 

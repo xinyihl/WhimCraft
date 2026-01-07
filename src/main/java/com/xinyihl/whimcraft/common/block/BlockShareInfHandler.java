@@ -1,6 +1,6 @@
 package com.xinyihl.whimcraft.common.block;
 
-import com.xinyihl.whimcraft.common.block.base.BlockTitleBase;
+import com.xinyihl.whimcraft.common.block.base.BlockTileBase;
 import com.xinyihl.whimcraft.common.tile.TileShareInfHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockShareInfHandler extends BlockTitleBase {
+public class BlockShareInfHandler extends BlockTileBase {
     public BlockShareInfHandler() {
         super("blockshareinfhandler");
     }

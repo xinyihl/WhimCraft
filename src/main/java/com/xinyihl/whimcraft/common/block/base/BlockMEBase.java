@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public abstract class BlockMEBase extends BlockTitleBase {
+public abstract class BlockMEBase extends BlockTileBase {
 
     public BlockMEBase(String name) {
         super(name);
