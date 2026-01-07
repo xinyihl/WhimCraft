@@ -120,7 +120,7 @@ public class Configurations {
         public int tradius = 5;
         @Config.Comment("由于生物生成行为而加载的区块周围忽略区块卸载的半径")
         public int sradius = 3;
-        @Config.Comment("进行检查的维度id")
+        @Config.Comment("进行检查的维度id(置空表示所有维度)")
         public Integer[] dimlist = {-1, 0, 1};
     }
 
