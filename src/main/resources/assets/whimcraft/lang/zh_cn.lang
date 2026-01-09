@@ -7,6 +7,7 @@ tooltip.whimcraft.tile_me_base.offline=设备关闭
 tooltip.whimcraft.blockshareinfhandler.error=连接错误
 tooltip.whimcraft.blockshareinfhandler.online=已连接
 tooltip.whimcraft.blockshareinfhandler.offline=未设置连接
+tooltip.whimcraft.infinity_list_cell=无限存储元件 (支持多个物品)
 tooltip.whimcraft.titleshareinfhandler.connect=连接至:
 tooltip.whimcraft.linkgard.no=未保存数据
 tooltip.whimcraft.need_research=需要研究
@@ -20,6 +21,7 @@ key.whimcraft.foundItemAe=在AE中搜索物品
 item.whimcraft.link_card.name=闪存卡
 item.whimcraft.order.name=订单
 item.whimcraft.elgoog.name=滚动的elgoog(
+item.whimcraft.infinity_list_cell.name=无限列表存储元件
 
 tile.whimcraft.blockshareinfhandler.name=ME机械样板供应器库存共享总线
 tile.whimcraft.blockmeaspectinputbus.name=GUGU-ME机械源质输入总线

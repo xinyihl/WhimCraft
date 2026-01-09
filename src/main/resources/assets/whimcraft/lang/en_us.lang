@@ -7,6 +7,7 @@ tooltip.whimcraft.tile_me_base.offline=Device offline
 tooltip.whimcraft.blockshareinfhandler.error=Connection error
 tooltip.whimcraft.blockshareinfhandler.online=Connected
 tooltip.whimcraft.blockshareinfhandler.offline=No connection set
+tooltip.whimcraft.infinity_list_cell=Infinite Storage Cell (Supports multiple items)
 tooltip.whimcraft.linkgard.no=No data saved
 tooltip.whimcraft.titleshareinfhandler.connect=Connect to:
 tooltip.whimcraft.need_research=Research required
@@ -20,6 +21,7 @@ key.whimcraft.foundItemAe=Search Item in AE
 item.whimcraft.link_card.name=Link Card
 item.whimcraft.order.name=Order
 item.whimcraft.elgoog.name=elgoog
+item.whimcraft.infinity_list_cell.name=Infinite List Storage Cell
 
 tile.whimcraft.blockshareinfhandler.name=ME Mechanical Pattern Provider Inventory Sharing Bus
 tile.whimcraft.blockmeaspectinputbus.name=GUGU-ME Mechanical Essentia Input Bus

@@ -38,6 +38,7 @@ public final class IB {
     public static Item itemRedisInputInterface;
     public static Block blockRedisOutputInterface;
     public static Item itemRedisOutputInterface;
+    public static Item itemInfinityListCell;
 
     static {
         initTab();
@@ -56,6 +57,9 @@ public final class IB {
             blockRedisOutputInterface = registerBlock(new BlockRedisOutputInterface());
             itemRedisOutputInterface = registerItemBlock(blockRedisOutputInterface);
         }
+        if (Mods.AE2.isLoaded()) {
+            initAE2();
+        }
         if (Mods.MMCE.isLoaded()){
             initMmce();
         }
@@ -68,6 +72,13 @@ public final class IB {
                     return new ItemStack(items.isEmpty() ? Items.AIR : items.get(0));
                 }
             };
+        }
+    }
+
+    @Optional.Method(modid = "appliedenergistics2")
+    private static void initAE2() {
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            itemInfinityListCell = registerItem(new InfinityListCell());
         }
     }
 

@@ -2,7 +2,12 @@ package com.xinyihl.whimcraft;
 
 import com.cleanroommc.configanytime.ConfigAnytime;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 @Config(modid = Tags.MOD_ID, name = Tags.MOD_NAME)
 public class Configurations {
 
@@ -47,6 +52,13 @@ public class Configurations {
 
     static {
         ConfigAnytime.register(Configurations.class);
+    }
+
+    @SubscribeEvent
+    public static void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.getModID().equals(Tags.MOD_ID)) {
+            ConfigManager.sync(Tags.MOD_ID, Config.Type.INSTANCE);
+        }
     }
 
     public static class GeneralConfig {
@@ -105,6 +117,8 @@ public class Configurations {
         public AECellConfig AECellConfig = new AECellConfig();
         @Config.Comment("在Gui中按键搜索物品")
         public boolean searchInGui = false;
+        @Config.Comment("是否启用无限列表存储元件")
+        public boolean infinityListCellEnable = false;
     }
 
     public static class ChunkPurgeConfig {

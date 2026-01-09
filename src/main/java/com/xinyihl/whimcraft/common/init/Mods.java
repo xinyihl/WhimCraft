@@ -23,6 +23,7 @@ public enum Mods {
     FORESTRY("forestry"),
     MMADDONS("modularmachineryaddons"),
     MODTW("modtweaker"),
+    EXTENDEDAE("extendedae"),
     ;
 
     public final String modid;
