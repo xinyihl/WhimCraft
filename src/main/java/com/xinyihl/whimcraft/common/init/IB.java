@@ -3,7 +3,14 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.block.*;
-import com.xinyihl.whimcraft.common.items.*;
+import com.xinyihl.whimcraft.common.items.Elgoog;
+import com.xinyihl.whimcraft.common.items.LinkCard;
+import com.xinyihl.whimcraft.common.items.MyItemBlock;
+import com.xinyihl.whimcraft.common.items.Order;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListFluidCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListItemCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityStorageFluidCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityStorageItemCell;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -38,7 +45,10 @@ public final class IB {
     public static Item itemRedisInputInterface;
     public static Block blockRedisOutputInterface;
     public static Item itemRedisOutputInterface;
-    public static Item itemInfinityListCell;
+    public static Item itemInfinityListFluidCell;
+    public static Item itemInfinityStorageFluidCell;
+    public static Item itemInfinityListItemCell;
+    public static Item itemInfinityStorageItemCell;
 
     static {
         initTab();
@@ -78,7 +88,13 @@ public final class IB {
     @Optional.Method(modid = "appliedenergistics2")
     private static void initAE2() {
         if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
-            itemInfinityListCell = registerItem(new InfinityListCell());
+            itemInfinityListFluidCell = registerItem(new InfinityListFluidCell());
+            itemInfinityListItemCell = registerItem(new InfinityListItemCell());
+
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            itemInfinityStorageFluidCell = registerItem(new InfinityStorageFluidCell());
+            itemInfinityStorageItemCell = registerItem(new InfinityStorageItemCell());
         }
     }
 

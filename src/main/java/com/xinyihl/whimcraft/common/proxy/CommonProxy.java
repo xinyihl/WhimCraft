@@ -4,6 +4,7 @@ import appeng.api.AEApi;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.common.event.HandlerWorldTick;
 import com.xinyihl.whimcraft.common.handler.InfinityListCellHandler;
+import com.xinyihl.whimcraft.common.handler.InfinityStorageCellHandler;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.top.TheOneProbe;
 import com.xinyihl.whimcraft.common.redis.RedisClient;
@@ -19,14 +20,20 @@ public class CommonProxy {
 
     public void postInit() {
         MinecraftForge.EVENT_BUS.register(new HandlerWorldTick());
-        if (Mods.AE2.isLoaded() && Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+        if (Mods.AE2.isLoaded()) {
             initAE2();
         }
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     private void initAE2() {
-        AEApi.instance().registries().cell().addCellHandler(new InfinityListCellHandler());
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityListCellHandler());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageCellHandler());
+        }
+
     }
 
     public void init() {

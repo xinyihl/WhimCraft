@@ -117,8 +117,10 @@ public class Configurations {
         public AECellConfig AECellConfig = new AECellConfig();
         @Config.Comment("在Gui中按键搜索物品")
         public boolean searchInGui = false;
-        @Config.Comment("是否启用无限列表存储元件")
+        @Config.Comment("是否启用无限元件")
         public boolean infinityListCellEnable = false;
+        @Config.Comment("是否启用无限存储元件")
+        public boolean infinityStorageCellEnable = false;
     }
 
     public static class ChunkPurgeConfig {

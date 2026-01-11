@@ -9,7 +9,7 @@ import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
-import com.xinyihl.whimcraft.common.items.InfinityListCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListItemCell;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class InfinityListItemCellInventory implements IMEInventoryHandler<IAEIte
     private final List<IAEItemStack> records = new ArrayList<>();
 
     public InfinityListItemCellInventory(ItemStack stack) {
-        for (Object obj : InfinityListCell.getRecords(stack)) {
+        for (Object obj : InfinityListItemCell.getRecords(stack)) {
             if (obj instanceof IAEItemStack) {
                 IAEItemStack s = (IAEItemStack) obj;
                 s.setStackSize(2147483647L);

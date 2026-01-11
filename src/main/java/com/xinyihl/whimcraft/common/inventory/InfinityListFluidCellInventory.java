@@ -9,7 +9,7 @@ import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.channels.IFluidStorageChannel;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IItemList;
-import com.xinyihl.whimcraft.common.items.InfinityListCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListFluidCell;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class InfinityListFluidCellInventory implements IMEInventoryHandler<IAEFl
     private final List<IAEFluidStack> records = new ArrayList<>();
 
     public InfinityListFluidCellInventory(ItemStack stack) {
-        for (Object obj : InfinityListCell.getRecords(stack)) {
+        for (Object obj : InfinityListFluidCell.getRecords(stack)) {
             if (obj instanceof IAEFluidStack) {
                 IAEFluidStack s = (IAEFluidStack) obj;
                 s.setStackSize(2147483647000L);
