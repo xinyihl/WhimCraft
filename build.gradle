@@ -101,25 +101,25 @@ repositories {
 }
 
 
-// tasks{
-//     shadowJar {
-//         mergeServiceFiles()
-//         dependencies {
-//             include(dependency('redis.clients:jedis:.*'))
-//             include(dependency('org.apache.commons:commons-pool2:.*'))
-//         }
-//         relocate "redis.clients.jedis", "com.shaded.jedis"
-//         relocate "org.apache.commons.pool2", "com.shaded.pool2"
-//         minimize()
-//         archiveClassifier.set('')
-//     }
+ tasks{
+     shadowJar {
+         mergeServiceFiles()
+         dependencies {
+             include(dependency('redis.clients:jedis:.*'))
+             include(dependency('org.apache.commons:commons-pool2:.*'))
+         }
+         relocate "redis.clients.jedis", "com.shaded.jedis"
+         relocate "org.apache.commons.pool2", "com.shaded.pool2"
+         minimize()
+         archiveClassifier.set('')
+     }
 
-//     reobfJar {
-//         inputJar.set(shadowJar.archiveFile)
-//     }
-// }
+     reobfJar {
+         inputJar.set(shadowJar.archiveFile)
+     }
+ }
 
-// reobfJar.dependsOn(shadowJar)
+ reobfJar.dependsOn(shadowJar)
 
 dependencies {
     if (project.use_assetmover.toBoolean()) {
