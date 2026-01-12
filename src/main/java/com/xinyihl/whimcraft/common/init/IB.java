@@ -7,10 +7,7 @@ import com.xinyihl.whimcraft.common.items.Elgoog;
 import com.xinyihl.whimcraft.common.items.LinkCard;
 import com.xinyihl.whimcraft.common.items.MyItemBlock;
 import com.xinyihl.whimcraft.common.items.Order;
-import com.xinyihl.whimcraft.common.items.cell.InfinityListFluidCell;
-import com.xinyihl.whimcraft.common.items.cell.InfinityListItemCell;
-import com.xinyihl.whimcraft.common.items.cell.InfinityStorageFluidCell;
-import com.xinyihl.whimcraft.common.items.cell.InfinityStorageItemCell;
+import com.xinyihl.whimcraft.common.items.cell.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -49,6 +46,8 @@ public final class IB {
     public static Item itemInfinityStorageFluidCell;
     public static Item itemInfinityListItemCell;
     public static Item itemInfinityStorageItemCell;
+    public static Item itemInfinityListGasCell;
+    public static Item itemInfinityStorageGasCell;
 
     static {
         initTab();
@@ -90,11 +89,23 @@ public final class IB {
         if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
             itemInfinityListFluidCell = registerItem(new InfinityListFluidCell());
             itemInfinityListItemCell = registerItem(new InfinityListItemCell());
-
         }
         if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
             itemInfinityStorageFluidCell = registerItem(new InfinityStorageFluidCell());
             itemInfinityStorageItemCell = registerItem(new InfinityStorageItemCell());
+        }
+        if (Mods.MEKENG.isLoaded()) {
+            initMEKENG();
+        }
+    }
+
+    @Optional.Method(modid = "mekeng")
+    private static void initMEKENG() {
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            itemInfinityListGasCell = registerItem(new InfinityListGasCell());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            itemInfinityStorageGasCell = registerItem(new InfinityStorageGasCell());
         }
     }
 
@@ -118,17 +129,17 @@ public final class IB {
         }
     }
 
-    public static Block registerBlock(Block block) {
+    private static Block registerBlock(Block block) {
         blocks.add(block);
         return block;
     }
 
-    public static Item registerItem(Item item) {
+    private static Item registerItem(Item item) {
         items.add(item);
         return item;
     }
 
-    public static Item registerItemBlock(Block block) {
+    private static Item registerItemBlock(Block block) {
         Item item = new MyItemBlock(block);
         items.add(item);
         return item;

@@ -3,8 +3,7 @@ package com.xinyihl.whimcraft.common.proxy;
 import appeng.api.AEApi;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.common.event.HandlerWorldTick;
-import com.xinyihl.whimcraft.common.handler.InfinityListCellHandler;
-import com.xinyihl.whimcraft.common.handler.InfinityStorageCellHandler;
+import com.xinyihl.whimcraft.common.handler.*;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.top.TheOneProbe;
 import com.xinyihl.whimcraft.common.redis.RedisClient;
@@ -28,12 +27,26 @@ public class CommonProxy {
     @Optional.Method(modid = "appliedenergistics2")
     private void initAE2() {
         if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
-            AEApi.instance().registries().cell().addCellHandler(new InfinityListCellHandler());
+            AEApi.instance().registries().cell().addCellHandler(new InfinityListItemCellHandler());
+            AEApi.instance().registries().cell().addCellHandler(new InfinityListFluidCellHandler());
         }
         if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
-            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageCellHandler());
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageItemCellHandler());
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageFluidCellHandler());
         }
+        if (Mods.MEKENG.isLoaded()) {
+            initMEKENG();
+        }
+    }
 
+    @Optional.Method(modid = "mekeng")
+    private void initMEKENG() {
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityListGasCellHandler());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageGasCellHandler());
+        }
     }
 
     public void init() {

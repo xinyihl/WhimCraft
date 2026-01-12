@@ -1,7 +1,6 @@
 package com.xinyihl.whimcraft.common.items.cell;
 
 import appeng.api.storage.data.IAEFluidStack;
-import appeng.api.storage.data.IAEItemStack;
 import appeng.fluids.util.AEFluidStack;
 import appeng.items.AEBaseItem;
 import com.xinyihl.whimcraft.Tags;
@@ -24,8 +23,8 @@ public class InfinityListFluidCell extends AEBaseItem {
         this.setCreativeTab(IB.CREATIVE_TAB);
     }
 
-    public static List<Object> getRecords(ItemStack stack) {
-        List<Object> records = new ArrayList<>();
+    public static List<IAEFluidStack> getRecords(ItemStack stack) {
+        List<IAEFluidStack> records = new ArrayList<>();
         if (stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound();
             if (tag.hasKey("recs", Constants.NBT.TAG_LIST)) {
@@ -40,14 +39,16 @@ public class InfinityListFluidCell extends AEBaseItem {
 
     @Override
     protected void addCheckedInformation(ItemStack stack, World world, List<String> lines, ITooltipFlag advancedTooltips) {
-        List<Object> records = getRecords(stack);
+        List<IAEFluidStack> records = getRecords(stack);
+        int maxShow = 5;
         if (!records.isEmpty()) {
-            for (Object obj : records) {
-                if (obj instanceof IAEItemStack) {
-                    lines.add(((IAEItemStack) obj).getDefinition().getDisplayName());
-                } else if (obj instanceof IAEFluidStack) {
-                    lines.add(((IAEFluidStack) obj).getFluidStack().getLocalizedName());
-                }
+            int count = Math.min(records.size(), maxShow);
+            for (int i = 0; i < count; i++) {
+                IAEFluidStack record = records.get(i);
+                lines.add(record.getFluidStack().getLocalizedName());
+            }
+            if (records.size() > maxShow) {
+                lines.add("...");
             }
         }
     }

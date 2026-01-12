@@ -6,52 +6,52 @@ import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.IStorageChannel;
-import appeng.api.storage.channels.IFluidStorageChannel;
-import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IItemList;
-import com.xinyihl.whimcraft.common.items.cell.InfinityListFluidCell;
+import com.mekeng.github.common.me.data.IAEGasStack;
+import com.mekeng.github.common.me.storage.IGasStorageChannel;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListGasCell;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfinityListFluidCellInventory implements IMEInventoryHandler<IAEFluidStack> {
-    private final List<IAEFluidStack> records = new ArrayList<>();
+public class InfinityListGasCellInventory implements IMEInventoryHandler<IAEGasStack> {
+    private final List<IAEGasStack> records = new ArrayList<>();
 
-    public InfinityListFluidCellInventory(ItemStack stack) {
-        for (IAEFluidStack fluid : InfinityListFluidCell.getRecords(stack)) {
+    public InfinityListGasCellInventory(ItemStack stack) {
+        for (IAEGasStack fluid : InfinityListGasCell.getRecords(stack)) {
             fluid.setStackSize(2147483647000L);
             records.add(fluid);
         }
     }
 
     @Override
-    public IAEFluidStack injectItems(IAEFluidStack stack, Actionable actionable, IActionSource iActionSource) {
-        for (IAEFluidStack record : records) {
+    public IAEGasStack injectItems(IAEGasStack stack, Actionable actionable, IActionSource iActionSource) {
+        for (IAEGasStack record : records) {
             if (record.equals(stack)) return null;
         }
         return stack;
     }
 
     @Override
-    public IAEFluidStack extractItems(IAEFluidStack stack, Actionable actionable, IActionSource iActionSource) {
-        for (IAEFluidStack record : records) {
+    public IAEGasStack extractItems(IAEGasStack stack, Actionable actionable, IActionSource iActionSource) {
+        for (IAEGasStack record : records) {
             if (record.equals(stack)) return stack.copy();
         }
         return null;
     }
 
     @Override
-    public IItemList<IAEFluidStack> getAvailableItems(IItemList<IAEFluidStack> iItemList) {
-        for (IAEFluidStack record : records) {
+    public IItemList<IAEGasStack> getAvailableItems(IItemList<IAEGasStack> iItemList) {
+        for (IAEGasStack record : records) {
             iItemList.add(record);
         }
         return iItemList;
     }
 
     @Override
-    public IStorageChannel<IAEFluidStack> getChannel() {
-        return AEApi.instance().storage().getStorageChannel(IFluidStorageChannel.class);
+    public IStorageChannel<IAEGasStack> getChannel() {
+        return AEApi.instance().storage().getStorageChannel(IGasStorageChannel.class);
     }
 
     @Override
@@ -60,16 +60,16 @@ public class InfinityListFluidCellInventory implements IMEInventoryHandler<IAEFl
     }
 
     @Override
-    public boolean isPrioritized(IAEFluidStack stack) {
-        for (IAEFluidStack record : records) {
+    public boolean isPrioritized(IAEGasStack stack) {
+        for (IAEGasStack record : records) {
             if (record.equals(stack)) return true;
         }
         return false;
     }
 
     @Override
-    public boolean canAccept(IAEFluidStack stack) {
-        for (IAEFluidStack record : records) {
+    public boolean canAccept(IAEGasStack stack) {
+        for (IAEGasStack record : records) {
             if (record.equals(stack)) return true;
         }
         return false;
