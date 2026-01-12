@@ -50,33 +50,24 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
         if (input == null || input.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        
         IAEStack existingKey = findMatchingStack(input);
-        
         if (actionable == Actionable.MODULATE) {
             if (existingKey == null) {
-                // 新流体
                 existingKey = input.copy();
                 existingKey.setStackSize(1);
                 storage.put(existingKey, input.getStackSize());
-                
-                // 更新NBT统计
                 updateStats();
             } else {
-                // 现有流体，增加数量
-                long currentCount = storage.get(existingKey);
-                storage.put(existingKey, currentCount + input.getStackSize());
+                storage.compute(existingKey, (k, currentCount) -> currentCount + input.getStackSize());
             }
             worldData.markDirty();
             if (saveProvider != null) {
                 saveProvider.saveChanges(null);
             }
         }
-        
-        return null; // 全部接受
+        return null;
     }
 
     @Override
@@ -84,22 +75,17 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
         if (request == null || request.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        
         IAEStack existingKey = findMatchingStack(request);
         if (existingKey == null) {
-            return null; // 没有这个流体
+            return null;
         }
-        
         long currentCount = storage.get(existingKey);
         long extractAmount = Math.min(currentCount, request.getStackSize());
-        
         if (extractAmount <= 0) {
             return null;
         }
-        
         if (actionable == Actionable.MODULATE) {
             long remaining = currentCount - extractAmount;
             if (remaining <= 0) {
@@ -113,7 +99,6 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
                 saveProvider.saveChanges(null);
             }
         }
-        
         IAEFluidStack result = (IAEFluidStack) existingKey.copy();
         result.setStackSize(extractAmount);
         return result;
@@ -122,7 +107,6 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
     @Override
     public IItemList<IAEFluidStack> getAvailableItems(IItemList<IAEFluidStack> out) {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             IAEStack stack = entry.getKey();
             if (stack instanceof IAEFluidStack) {
@@ -131,7 +115,6 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
                 out.add(fluidStack);
             }
         }
-        
         return out;
     }
 
@@ -144,12 +127,10 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
         int fluidTypes = 0;
         long totalBytes = 0;
-        
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             fluidTypes++;
             totalBytes += entry.getValue();
         }
-        
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
             tag.setInteger(InfinityStorageFluidCell.NBT_FLUID_TYPES, fluidTypes);

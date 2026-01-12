@@ -50,33 +50,24 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
         if (input == null || input.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        
         IAEStack existingKey = findMatchingStack(input);
-        
         if (actionable == Actionable.MODULATE) {
             if (existingKey == null) {
-                // 新物品
                 existingKey = input.copy();
                 existingKey.setStackSize(1);
                 storage.put(existingKey, input.getStackSize());
-                
-                // 更新NBT统计
                 updateStats();
             } else {
-                // 现有物品，增加数量
-                long currentCount = storage.get(existingKey);
-                storage.put(existingKey, currentCount + input.getStackSize());
+                storage.compute(existingKey, (k, currentCount) -> currentCount + input.getStackSize());
             }
             worldData.markDirty();
             if (saveProvider != null) {
                 saveProvider.saveChanges(null);
             }
         }
-        
-        return null; // 全部接受
+        return null;
     }
 
     @Override
@@ -84,22 +75,17 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
         if (request == null || request.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        
         IAEStack existingKey = findMatchingStack(request);
         if (existingKey == null) {
-            return null; // 没有这个物品
+            return null;
         }
-        
         long currentCount = storage.get(existingKey);
         long extractAmount = Math.min(currentCount, request.getStackSize());
-        
         if (extractAmount <= 0) {
             return null;
         }
-        
         if (actionable == Actionable.MODULATE) {
             long remaining = currentCount - extractAmount;
             if (remaining <= 0) {
@@ -113,7 +99,6 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
                 saveProvider.saveChanges(null);
             }
         }
-        
         IAEItemStack result = (IAEItemStack) existingKey.copy();
         result.setStackSize(extractAmount);
         return result;
@@ -122,7 +107,6 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
     @Override
     public IItemList<IAEItemStack> getAvailableItems(IItemList<IAEItemStack> out) {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             IAEStack stack = entry.getKey();
             if (stack instanceof IAEItemStack) {
@@ -131,7 +115,6 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
                 out.add(itemStack);
             }
         }
-        
         return out;
     }
 
@@ -144,12 +127,10 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
         int itemTypes = 0;
         long totalBytes = 0;
-        
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             itemTypes++;
             totalBytes += entry.getValue();
         }
-        
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
             tag.setInteger(InfinityStorageItemCell.NBT_ITEM_TYPES, itemTypes);
@@ -169,7 +150,7 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
 
     @Override
     public boolean canAccept(IAEItemStack iaeItemStack) {
-        return true; // 无限存储可以接受任何物品
+        return true;
     }
 
     @Override
@@ -184,6 +165,6 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
 
     @Override
     public boolean validForPass(int i) {
-        return true; // 对所有 pass 有效
+        return true;
     }
 }

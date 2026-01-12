@@ -50,12 +50,9 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         if (input == null || input.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-
         IAEStack existingKey = findMatchingStack(input);
-
         if (actionable == Actionable.MODULATE) {
             if (existingKey == null) {
                 existingKey = input.copy();
@@ -64,15 +61,13 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
 
                 updateStats();
             } else {
-                long currentCount = storage.get(existingKey);
-                storage.put(existingKey, currentCount + input.getStackSize());
+                storage.compute(existingKey, (k, currentCount) -> currentCount + input.getStackSize());
             }
             worldData.markDirty();
             if (saveProvider != null) {
                 saveProvider.saveChanges(null);
             }
         }
-
         return null;
     }
 
@@ -81,22 +76,17 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         if (request == null || request.getStackSize() <= 0) {
             return null;
         }
-
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-
         IAEStack existingKey = findMatchingStack(request);
         if (existingKey == null) {
             return null;
         }
-
         long currentCount = storage.get(existingKey);
         long extractAmount = Math.min(currentCount, request.getStackSize());
-
         if (extractAmount <= 0) {
             return null;
         }
-
         if (actionable == Actionable.MODULATE) {
             long remaining = currentCount - extractAmount;
             if (remaining <= 0) {
@@ -110,7 +100,6 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
                 saveProvider.saveChanges(null);
             }
         }
-
         IAEGasStack result = (IAEGasStack) existingKey.copy();
         result.setStackSize(extractAmount);
         return result;
@@ -119,7 +108,6 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
     @Override
     public IItemList<IAEGasStack> getAvailableItems(IItemList<IAEGasStack> out) {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             IAEStack stack = entry.getKey();
             if (stack instanceof IAEGasStack) {
@@ -128,7 +116,6 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
                 out.add(gasStack);
             }
         }
-
         return out;
     }
 
@@ -141,14 +128,12 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
         int gasTypes = 0;
         long totalBytes = 0;
-
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             if (entry.getKey() instanceof IAEGasStack) {
                 gasTypes++;
                 totalBytes += entry.getValue();
             }
         }
-
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
             tag.setInteger(InfinityStorageGasCell.NBT_GAS_TYPES, gasTypes);

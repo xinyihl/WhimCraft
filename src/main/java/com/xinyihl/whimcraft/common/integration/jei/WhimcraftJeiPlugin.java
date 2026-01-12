@@ -20,9 +20,6 @@ public class WhimcraftJeiPlugin implements IModPlugin {
         if (Mods.TC6.isLoaded()) {
             AspectRequirementUtil.runCreateAspectsFile(new ArrayList<>(registry.getIngredientRegistry().getAllIngredients(registry.getIngredientRegistry().getIngredientType(ItemStack.class))));
         }
-
         registry.addGhostIngredientHandler(OrderGui.class, new GhostJEIHandler());
     }
-
-
 }

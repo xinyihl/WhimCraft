@@ -16,14 +16,12 @@ public class GhostJEIHandler implements IGhostIngredientHandler<OrderGui> {
         List<IGhostIngredientHandler.Target<I>> targets = new ArrayList<>();
         if (ingredient instanceof ItemStack) {
             ItemStack stack = ((ItemStack) ingredient).copy();
-
             for (Slot slot : gui.inventorySlots.inventorySlots) {
                 if (slot instanceof GhostItemSlot && slot.isEnabled() && slot.isItemValid(stack)) {
                     targets.add(new GhostTarget<>(slot, gui.getGuiLeft(), gui.getGuiTop()));
                 }
             }
         }
-
         return targets;
     }
 
