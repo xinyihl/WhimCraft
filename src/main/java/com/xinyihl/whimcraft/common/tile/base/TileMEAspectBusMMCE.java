@@ -15,7 +15,7 @@ import appeng.me.helpers.AENetworkProxy;
 import appeng.me.helpers.IGridProxyable;
 import appeng.me.helpers.MachineSource;
 import appeng.util.Platform;
-import com.xinyihl.whimcraft.common.api.IHasProbeInfo;
+import com.xinyihl.whimcraft.api.IHasProbeInfo;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import kport.modularmagic.common.crafting.helper.AspectProviderCopy;
 import net.minecraft.entity.player.EntityPlayer;

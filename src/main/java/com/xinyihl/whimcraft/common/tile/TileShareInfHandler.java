@@ -1,6 +1,6 @@
 package com.xinyihl.whimcraft.common.tile;
 
-import com.xinyihl.whimcraft.common.api.IHasProbeInfo;
+import com.xinyihl.whimcraft.api.IHasProbeInfo;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
 import github.kasuminova.mmce.common.util.InfItemFluidHandler;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;

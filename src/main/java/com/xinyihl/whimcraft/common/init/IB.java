@@ -2,7 +2,7 @@ package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.block.*;
+import com.xinyihl.whimcraft.common.blocks.*;
 import com.xinyihl.whimcraft.common.items.Elgoog;
 import com.xinyihl.whimcraft.common.items.LinkCard;
 import com.xinyihl.whimcraft.common.items.MyItemBlock;

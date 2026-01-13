@@ -2,7 +2,7 @@ package com.xinyihl.whimcraft.common.items;
 
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.WhimCraft;
-import com.xinyihl.whimcraft.common.api.IItemDrawable;
+import com.xinyihl.whimcraft.api.IItemDrawable;
 import com.xinyihl.whimcraft.common.event.GuiHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;

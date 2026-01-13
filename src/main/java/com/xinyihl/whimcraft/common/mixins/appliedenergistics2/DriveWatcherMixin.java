@@ -4,7 +4,7 @@ import appeng.core.features.registries.cell.CreativeCellHandler;
 import appeng.me.storage.DriveWatcher;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.xinyihl.whimcraft.common.api.IInfinityListCellHandler;
+import com.xinyihl.whimcraft.api.IInfinityListCellHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 

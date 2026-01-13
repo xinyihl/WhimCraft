@@ -1,6 +1,6 @@
 package com.xinyihl.whimcraft.common.mixins.mmce;
 
-import com.xinyihl.whimcraft.common.api.IMEPatternIgnoreParallel;
+import com.xinyihl.whimcraft.api.IMEPatternIgnoreParallel;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
 import github.kasuminova.mmce.common.tile.base.MEMachineComponent;
 import org.spongepowered.asm.mixin.Mixin;

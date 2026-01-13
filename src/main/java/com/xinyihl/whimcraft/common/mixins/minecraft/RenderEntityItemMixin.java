@@ -1,6 +1,6 @@
 package com.xinyihl.whimcraft.common.mixins.minecraft;
 
-import com.xinyihl.whimcraft.common.api.IItemDrawable;
+import com.xinyihl.whimcraft.api.IItemDrawable;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

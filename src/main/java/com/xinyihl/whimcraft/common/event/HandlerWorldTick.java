@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.event;
 
 import com.xinyihl.whimcraft.Configurations;
-import com.xinyihl.whimcraft.common.operators.WorldChunkUnloader;
+import com.xinyihl.whimcraft.common.utils.WorldChunkUnloader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 

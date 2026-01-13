@@ -11,7 +11,7 @@ import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
 import appeng.crafting.MECraftingInventory;
 import appeng.me.cluster.implementations.CraftingCPUCluster;
-import com.xinyihl.whimcraft.common.api.IMEPatternIgnoreParallel;
+import com.xinyihl.whimcraft.api.IMEPatternIgnoreParallel;
 import github.kasuminova.mmce.common.tile.MEPatternProvider;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

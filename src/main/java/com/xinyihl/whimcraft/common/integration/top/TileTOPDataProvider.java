@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.integration.top;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.api.IHasProbeInfo;
+import com.xinyihl.whimcraft.api.IHasProbeInfo;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;

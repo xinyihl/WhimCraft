@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.api.IHasTileEntityClass;
+import com.xinyihl.whimcraft.api.IHasTileEntityClass;
 import hellfirepvp.modularmachinery.common.block.BlockDynamicColor;
 import hellfirepvp.modularmachinery.common.item.ItemDynamicColor;
 import net.minecraft.block.Block;
