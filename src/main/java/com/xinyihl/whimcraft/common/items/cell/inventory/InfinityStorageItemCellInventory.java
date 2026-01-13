@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.UUID;
 
@@ -126,15 +127,15 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
     private void updateStats() {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
         int itemTypes = 0;
-        long totalBytes = 0;
+        BigInteger totalBytes = BigInteger.ZERO;
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
             itemTypes++;
-            totalBytes += entry.getValue();
+            totalBytes = totalBytes.add(BigInteger.valueOf(entry.getValue()));
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
             tag.setInteger(InfinityStorageItemCell.NBT_ITEM_TYPES, itemTypes);
-            tag.setLong(InfinityStorageItemCell.NBT_DATA_BYTES, totalBytes);
+            tag.setString(InfinityStorageItemCell.NBT_DATA_BYTES, totalBytes.toString());
         }
     }
 

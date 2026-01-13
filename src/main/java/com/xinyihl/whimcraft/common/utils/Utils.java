@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import javax.swing.*;
+import java.math.BigInteger;
 import java.util.Objects;
 
 public final class Utils {
@@ -33,5 +34,25 @@ public final class Utils {
                 text += ".withTag(" + nbt + ")";
         }
         return text;
+    }
+
+    public static String formatBytes(String bytesStr) {
+        try {
+            BigInteger bytes = new BigInteger(bytesStr);
+            if (bytes.compareTo(BigInteger.ZERO) == 0) {
+                return "0B";
+            }
+            String[] units = {"B", "K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q"};
+            BigInteger k = BigInteger.valueOf(1024);
+            int unitIndex = 0;
+            BigInteger value = bytes;
+            while (value.compareTo(k) >= 0 && unitIndex < units.length - 1) {
+                value = value.divide(k);
+                unitIndex++;
+            }
+            return value + units[unitIndex];
+        } catch (Exception e) {
+            return "0B";
+        }
     }
 }

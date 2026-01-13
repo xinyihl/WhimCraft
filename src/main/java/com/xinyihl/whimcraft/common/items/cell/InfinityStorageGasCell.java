@@ -3,6 +3,7 @@ package com.xinyihl.whimcraft.common.items.cell;
 import appeng.items.AEBaseItem;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.init.IB;
+import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +12,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +46,7 @@ public class InfinityStorageGasCell extends AEBaseItem {
         UUID uuid = UUID.randomUUID();
         tag.setUniqueId(NBT_UUID, uuid);
         if (!tag.hasKey(NBT_GAS_TYPES)) tag.setInteger(NBT_GAS_TYPES, 0);
-        if (!tag.hasKey(NBT_DATA_BYTES)) tag.setLong(NBT_DATA_BYTES, 0L);
+        if (!tag.hasKey(NBT_DATA_BYTES)) tag.setString(NBT_DATA_BYTES, "0");
         return uuid;
     }
 
@@ -52,8 +54,9 @@ public class InfinityStorageGasCell extends AEBaseItem {
     protected void addCheckedInformation(ItemStack stack, World world, List<String> lines, ITooltipFlag advancedTooltips) {
         NBTTagCompound tag = stack.getTagCompound();
         int gasTypes = tag != null ? tag.getInteger(NBT_GAS_TYPES) : 0;
-        long bytes = tag != null ? tag.getLong(NBT_DATA_BYTES) : 0L;
-        lines.add(new TextComponentTranslation("tooltip.whimcraft.infinity_storage_gas_cell.stats", gasTypes, bytes)
+        String bytesStr = tag != null ? tag.getString(NBT_DATA_BYTES) : "0";
+        String formattedBytes = Utils.formatBytes(bytesStr);
+        lines.add(new TextComponentTranslation("tooltip.whimcraft.infinity_storage_cell.stats", gasTypes, formattedBytes)
                 .setStyle(new Style().setColor(TextFormatting.GRAY))
                 .getFormattedText());
         if (tag != null && tag.hasUniqueId(NBT_UUID)) {
