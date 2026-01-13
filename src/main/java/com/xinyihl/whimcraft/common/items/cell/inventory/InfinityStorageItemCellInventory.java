@@ -12,6 +12,7 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageItemCell;
+import com.xinyihl.whimcraft.common.items.cell.base.InfinityStorageCellBase;
 import com.xinyihl.whimcraft.common.storage.InfinityStorageWorldData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -134,8 +135,8 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
-            tag.setInteger(InfinityStorageItemCell.NBT_ITEM_TYPES, itemTypes);
-            tag.setString(InfinityStorageItemCell.NBT_DATA_BYTES, totalBytes.toString());
+            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, itemTypes);
+            tag.setString(InfinityStorageCellBase.NBT_BYTES, totalBytes.toString());
         }
     }
 

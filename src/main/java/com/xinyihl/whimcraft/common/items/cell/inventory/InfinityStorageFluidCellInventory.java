@@ -12,6 +12,7 @@ import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageFluidCell;
+import com.xinyihl.whimcraft.common.items.cell.base.InfinityStorageCellBase;
 import com.xinyihl.whimcraft.common.storage.InfinityStorageWorldData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -134,8 +135,8 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
-            tag.setInteger(InfinityStorageFluidCell.NBT_FLUID_TYPES, fluidTypes);
-            tag.setString(InfinityStorageFluidCell.NBT_DATA_BYTES, totalBytes.toString());
+            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, fluidTypes);
+            tag.setString(InfinityStorageCellBase.NBT_BYTES, totalBytes.toString());
         }
     }
 

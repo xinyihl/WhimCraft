@@ -12,6 +12,7 @@ import appeng.api.storage.data.IItemList;
 import com.mekeng.github.common.me.data.IAEGasStack;
 import com.mekeng.github.common.me.storage.IGasStorageChannel;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageGasCell;
+import com.xinyihl.whimcraft.common.items.cell.base.InfinityStorageCellBase;
 import com.xinyihl.whimcraft.common.storage.InfinityStorageWorldData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -137,8 +138,8 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
-            tag.setInteger(InfinityStorageGasCell.NBT_GAS_TYPES, gasTypes);
-            tag.setString(InfinityStorageGasCell.NBT_DATA_BYTES, totalBytes.toString());
+            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, gasTypes);
+            tag.setString(InfinityStorageCellBase.NBT_BYTES, totalBytes.toString());
         }
     }
 
