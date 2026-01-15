@@ -37,16 +37,6 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         return InfinityStorageWorldData.get(DimensionManager.getWorld(0));
     }
 
-    private IAEStack findMatchingStack(IAEGasStack stack) {
-        Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        for (IAEStack stored : storage.keySet()) {
-            if (stored instanceof IAEGasStack && stored.equals(stack)) {
-                return stored;
-            }
-        }
-        return null;
-    }
-
     @Override
     public IAEGasStack injectItems(IAEGasStack input, Actionable actionable, IActionSource src) {
         if (input == null || input.getStackSize() <= 0) {
@@ -54,21 +44,17 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         }
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        IAEStack existingKey = findMatchingStack(input);
+        IAEStack key = input.copy();
+        key.setStackSize(1);
+        boolean existingKey = storage.containsKey(key);
         if (actionable == Actionable.MODULATE) {
-            if (existingKey == null) {
-                existingKey = input.copy();
-                existingKey.setStackSize(1);
-                storage.put(existingKey, input.getStackSize());
-
+            if (!existingKey) {
+                storage.put(key, input.getStackSize());
                 updateStats();
             } else {
-                storage.compute(existingKey, (k, currentCount) -> currentCount + input.getStackSize());
+                storage.compute(key, (k, currentCount) -> currentCount + input.getStackSize());
             }
             worldData.markDirty();
-            if (saveProvider != null) {
-                saveProvider.saveChanges(null);
-            }
         }
         return null;
     }
@@ -80,11 +66,13 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         }
         InfinityStorageWorldData worldData = getWorldData();
         Map<IAEStack, Long> storage = worldData.getStorage(uuid);
-        IAEStack existingKey = findMatchingStack(request);
-        if (existingKey == null) {
+        IAEStack key = request.copy();
+        key.setStackSize(1);
+        boolean existingKey = storage.containsKey(request);
+        if (!existingKey) {
             return null;
         }
-        long currentCount = storage.get(existingKey);
+        long currentCount = storage.get(key);
         long extractAmount = Math.min(currentCount, request.getStackSize());
         if (extractAmount <= 0) {
             return null;
@@ -92,17 +80,14 @@ public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEG
         if (actionable == Actionable.MODULATE) {
             long remaining = currentCount - extractAmount;
             if (remaining <= 0) {
-                storage.remove(existingKey);
+                storage.remove(key);
                 updateStats();
             } else {
-                storage.put(existingKey, remaining);
+                storage.put(key, remaining);
             }
             worldData.markDirty();
-            if (saveProvider != null) {
-                saveProvider.saveChanges(null);
-            }
         }
-        IAEGasStack result = (IAEGasStack) existingKey.copy();
+        IAEGasStack result = (IAEGasStack) key.copy();
         result.setStackSize(extractAmount);
         return result;
     }
