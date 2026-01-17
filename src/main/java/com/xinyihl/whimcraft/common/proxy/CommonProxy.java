@@ -2,7 +2,10 @@ package com.xinyihl.whimcraft.common.proxy;
 
 import appeng.api.AEApi;
 import com.xinyihl.whimcraft.Configurations;
+import com.xinyihl.whimcraft.api.CableCompatManager;
 import com.xinyihl.whimcraft.common.event.HandlerWorldTick;
+import com.xinyihl.whimcraft.common.integration.ae2.Ae2CablePlaceHandler;
+import com.xinyihl.whimcraft.common.integration.mekanism.MekanismCablePlaceHandler;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.top.TheOneProbe;
 import com.xinyihl.whimcraft.common.items.cell.handler.*;
@@ -22,6 +25,14 @@ public class CommonProxy {
         if (Mods.AE2.isLoaded()) {
             initAE2();
         }
+        if (Mods.MEK.isLoaded()) {
+            initMekanism();
+        }
+    }
+
+    @Optional.Method(modid = "mekanism")
+    private void initMekanism() {
+        CableCompatManager.register(new MekanismCablePlaceHandler());
     }
 
     @Optional.Method(modid = "appliedenergistics2")
@@ -34,6 +45,7 @@ public class CommonProxy {
             AEApi.instance().registries().cell().addCellHandler(new InfinityStorageItemCellHandler());
             AEApi.instance().registries().cell().addCellHandler(new InfinityStorageFluidCellHandler());
         }
+        CableCompatManager.register(new Ae2CablePlaceHandler());
         if (Mods.MEKENG.isLoaded()) {
             initMEKENG();
         }

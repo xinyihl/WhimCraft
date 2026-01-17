@@ -80,6 +80,8 @@ public class Configurations {
         public boolean orderEnable = false;
         @Config.Comment("是否启用 Elgoog")
         public boolean elgoogEnable = false;
+        @Config.Comment("是否启用布线工具")
+        public boolean placerEnable = false;
     }
 
     public static class MmceConfig {

@@ -2,8 +2,11 @@ package com.xinyihl.whimcraft.common.event;
 
 import com.xinyihl.whimcraft.client.GuiRedisInterface;
 import com.xinyihl.whimcraft.client.OrderGui;
+import com.xinyihl.whimcraft.client.GuiCablePlacer;
+import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
 import com.xinyihl.whimcraft.common.container.ContainerOrder;
 import com.xinyihl.whimcraft.common.container.ContainerRedisInterface;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.Order;
 import com.xinyihl.whimcraft.common.tile.TileRedisInputInterface;
 import com.xinyihl.whimcraft.common.tile.TileRedisOutputInterface;
@@ -19,6 +22,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int ORDER_GUI = 1;
     public static final int REDIS_INPUT_GUI = 2;
     public static final int REDIS_OUTPUT_GUI = 3;
+    public static final int CABLE_PLACER_GUI = 4;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -26,6 +30,12 @@ public class GuiHandler implements IGuiHandler {
             ItemStack heldItem = player.getHeldItemMainhand();
             if (heldItem.getItem() instanceof Order) {
                 return new ContainerOrder(player);
+            }
+        }
+        if (ID == CABLE_PLACER_GUI) {
+            ItemStack heldItem = player.getHeldItemMainhand();
+            if (heldItem.getItem() instanceof CablePlacer) {
+                return new ContainerCablePlacer(player);
             }
         }
         if (ID == REDIS_INPUT_GUI) {
@@ -50,6 +60,12 @@ public class GuiHandler implements IGuiHandler {
             ItemStack heldItem = player.getHeldItemMainhand();
             if (heldItem.getItem() instanceof Order) {
                 return new OrderGui(new ContainerOrder(player), heldItem);
+            }
+        }
+        if (ID == CABLE_PLACER_GUI) {
+            ItemStack heldItem = player.getHeldItemMainhand();
+            if (heldItem.getItem() instanceof CablePlacer) {
+                return new GuiCablePlacer(new ContainerCablePlacer(player));
             }
         }
         if (ID == REDIS_INPUT_GUI) {

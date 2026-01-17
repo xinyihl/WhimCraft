@@ -3,6 +3,7 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.blocks.*;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.Elgoog;
 import com.xinyihl.whimcraft.common.items.LinkCard;
 import com.xinyihl.whimcraft.common.items.MyItemBlock;
@@ -27,6 +28,7 @@ public final class IB {
 
     public static Item itemElgoog;
     public static Item itemOrder;
+    public static Item itemCablePlacer;
     public static Item itemLinkCard;
     public static Block blockShareInfHandler;
     public static Item itemShareInfHandler;
@@ -57,6 +59,9 @@ public final class IB {
         if (Configurations.GENERAL_CONFIG.orderEnable) {
             itemOrder = registerItem(new Order());
         }
+        if (Configurations.GENERAL_CONFIG.placerEnable) {
+            itemCablePlacer = registerItem(new CablePlacer());
+        }
         if (Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler)) {
             itemLinkCard = registerItem(new LinkCard());
         }
@@ -75,7 +80,7 @@ public final class IB {
     }
 
     private static void initTab(){
-        if(Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
+        if(Configurations.GENERAL_CONFIG.placerEnable || Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
             CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
                 public ItemStack createIcon() {
                     return new ItemStack(items.isEmpty() ? Items.AIR : items.get(0));

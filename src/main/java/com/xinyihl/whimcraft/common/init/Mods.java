@@ -10,6 +10,7 @@ public enum Mods {
     EXU2("extrautils2"),
     GUGU("gugu-utils"),
     IC2("ic2"),
+    MEK("mekanism"),
     MEKENG("mekeng"),
     MMCE("modularmachinery"),
     MOBUTILS("mob_grinding_utils"),

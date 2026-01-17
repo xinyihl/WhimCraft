@@ -1,5 +1,7 @@
 package com.xinyihl.whimcraft.common.proxy;
 
+import com.xinyihl.whimcraft.Configurations;
+import com.xinyihl.whimcraft.client.CablePreviewRenderer;
 import com.xinyihl.whimcraft.common.event.ClientEventHandler;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.init.Registry;
@@ -20,5 +22,8 @@ public class ClientProxy extends CommonProxy {
             Registry.initDynamicColor();
         }
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+        if (Configurations.GENERAL_CONFIG.placerEnable) {
+            MinecraftForge.EVENT_BUS.register(new CablePreviewRenderer());
+        }
     }
 }
