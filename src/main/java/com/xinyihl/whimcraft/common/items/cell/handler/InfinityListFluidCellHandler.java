@@ -8,8 +8,8 @@ import appeng.api.storage.channels.IFluidStorageChannel;
 import appeng.api.storage.data.IAEStack;
 import appeng.me.storage.BasicCellInventoryHandler;
 import com.xinyihl.whimcraft.api.IInfinityListCellHandler;
-import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityListFluidCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.InfinityListFluidCell;
+import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityListFluidCellInventory;
 import net.minecraft.item.ItemStack;
 
 public class InfinityListFluidCellHandler implements IInfinityListCellHandler {

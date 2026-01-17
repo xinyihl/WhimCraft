@@ -8,8 +8,8 @@ import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEStack;
 import appeng.me.storage.BasicCellInventoryHandler;
-import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageItemCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageItemCell;
+import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageItemCellInventory;
 import net.minecraft.item.ItemStack;
 
 public class InfinityStorageItemCellHandler implements ICellHandler {

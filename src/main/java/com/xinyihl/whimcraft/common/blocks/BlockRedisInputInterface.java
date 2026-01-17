@@ -18,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Random;
 
 import static com.xinyihl.whimcraft.common.init.IB.CREATIVE_TAB;

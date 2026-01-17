@@ -11,19 +11,17 @@ import java.util.List;
 
 public final class CablePlacerData {
 
-    private CablePlacerData() {
-    }
-
     static final String NBT_START = "start";
     static final String NBT_END = "end";
     static final String NBT_WAYPOINTS = "waypoints";
     static final String NBT_PATH = "path";
     static final String NBT_CABLE_STACK = "cable";
     static final String NBT_OPTS = "opts";
-
     static final String OPT_ALLOW_REPLACE = "allow_replace";
     static final String OPT_MAX_NODES = "max_nodes";
     static final String OPT_RADIUS = "radius";
+    private CablePlacerData() {
+    }
 
     public static NBTTagCompound getRoot(ItemStack tool) {
         if (tool == null || tool.isEmpty() || !tool.hasTagCompound()) {

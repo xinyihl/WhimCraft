@@ -89,7 +89,7 @@ public class Order extends Item implements IItemDrawable {
         if (!markedItem.isEmpty() && transform == ItemCameraTransforms.TransformType.GUI) {
             GlStateManager.pushMatrix();
             IBakedModel bakedmodel = instance.getItemModelWithOverrides(markedItem, null, null);
-            if(bakedmodel.isGui3d())
+            if (bakedmodel.isGui3d())
                 GlStateManager.enableLighting();
             bakedmodel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(bakedmodel, ItemCameraTransforms.TransformType.GUI, false);
             instance.renderItem(markedItem, bakedmodel);

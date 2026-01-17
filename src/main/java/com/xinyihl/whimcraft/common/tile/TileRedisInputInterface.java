@@ -1,7 +1,7 @@
 package com.xinyihl.whimcraft.common.tile;
 
-import com.xinyihl.whimcraft.common.utils.RedisClient;
 import com.xinyihl.whimcraft.common.tile.base.TileRedisInterfaceBase;
+import com.xinyihl.whimcraft.common.utils.RedisClient;
 import redis.clients.jedis.Jedis;
 
 public class TileRedisInputInterface extends TileRedisInterfaceBase {

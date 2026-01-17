@@ -7,8 +7,8 @@ import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class ContainerCablePlacer extends Container {
 
@@ -39,12 +39,10 @@ public class ContainerCablePlacer extends Container {
             ItemStack tool = player.getHeldItemMainhand();
             if (!clickedStack.isEmpty() && tool.getItem() instanceof CablePlacer && clickedStack.getItem() != tool.getItem()) {
                 if (CableCompatManager.canSelect(clickedStack)) {
-                    // 立刻更新（server 负责同步给 client；client 侧也会马上读到本地 NBT）
                     ItemStack selected = clickedStack.copy();
                     selected.setCount(1);
                     CablePlacer.setCableStack(tool, selected);
                     if (!player.world.isRemote) {
-                        // 确保手持物品 NBT 变更立即同步到客户端，避免需要重新打开 GUI 才看到。
                         this.detectAndSendChanges();
                     }
                     return clickedStack;

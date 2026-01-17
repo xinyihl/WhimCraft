@@ -3,12 +3,12 @@ package com.xinyihl.whimcraft.common.init;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.blocks.*;
-import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.Elgoog;
 import com.xinyihl.whimcraft.common.items.LinkCard;
 import com.xinyihl.whimcraft.common.items.MyItemBlock;
 import com.xinyihl.whimcraft.common.items.Order;
 import com.xinyihl.whimcraft.common.items.cell.*;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -53,7 +53,7 @@ public final class IB {
 
     static {
         initTab();
-        if (Configurations.GENERAL_CONFIG.elgoogEnable){
+        if (Configurations.GENERAL_CONFIG.elgoogEnable) {
             itemElgoog = registerItem(new Elgoog());
         }
         if (Configurations.GENERAL_CONFIG.orderEnable) {
@@ -74,13 +74,13 @@ public final class IB {
         if (Mods.AE2.isLoaded()) {
             initAE2();
         }
-        if (Mods.MMCE.isLoaded()){
+        if (Mods.MMCE.isLoaded()) {
             initMmce();
         }
     }
 
-    private static void initTab(){
-        if(Configurations.GENERAL_CONFIG.placerEnable || Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
+    private static void initTab() {
+        if (Configurations.GENERAL_CONFIG.placerEnable || Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
             CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
                 public ItemStack createIcon() {
                     return new ItemStack(items.isEmpty() ? Items.AIR : items.get(0));

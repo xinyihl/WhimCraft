@@ -1,8 +1,8 @@
 package com.xinyihl.whimcraft.common.tile.base;
 
 import com.xinyihl.whimcraft.Configurations;
-import com.xinyihl.whimcraft.common.utils.RedisClient;
 import com.xinyihl.whimcraft.common.utils.ItemStackSerde;
+import com.xinyihl.whimcraft.common.utils.RedisClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

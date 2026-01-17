@@ -1,13 +1,13 @@
 package com.xinyihl.whimcraft.common.event;
 
+import com.xinyihl.whimcraft.client.GuiCablePlacer;
 import com.xinyihl.whimcraft.client.GuiRedisInterface;
 import com.xinyihl.whimcraft.client.OrderGui;
-import com.xinyihl.whimcraft.client.GuiCablePlacer;
 import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
 import com.xinyihl.whimcraft.common.container.ContainerOrder;
 import com.xinyihl.whimcraft.common.container.ContainerRedisInterface;
-import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.Order;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.tile.TileRedisInputInterface;
 import com.xinyihl.whimcraft.common.tile.TileRedisOutputInterface;
 import net.minecraft.entity.player.EntityPlayer;

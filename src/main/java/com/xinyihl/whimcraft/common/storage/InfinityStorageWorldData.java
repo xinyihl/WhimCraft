@@ -39,10 +39,6 @@ public class InfinityStorageWorldData extends WorldSavedData {
         return data;
     }
 
-    public Map<IAEStack, Long> getStorage(UUID uuid) {
-        return storageData.computeIfAbsent(uuid, k -> new HashMap<>());
-    }
-
     private static boolean isGasStack(Object stack) {
         try {
             Class<?> gasStackClass = Class.forName(GAS_STACK_INTERFACE);
@@ -70,6 +66,10 @@ public class InfinityStorageWorldData extends WorldSavedData {
         } catch (Throwable ignored) {
             return false;
         }
+    }
+
+    public Map<IAEStack, Long> getStorage(UUID uuid) {
+        return storageData.computeIfAbsent(uuid, k -> new HashMap<>());
     }
 
     @Override

@@ -7,11 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -31,6 +27,30 @@ public class CablePlacer extends Item {
         this.setCreativeTab(CREATIVE_TAB);
         this.setRegistryName(new ResourceLocation(Tags.MOD_ID, "cable_placer"));
         this.setTranslationKey(Tags.MOD_ID + ".cable_placer");
+    }
+
+    public static void clearAll(ItemStack tool) {
+        CablePlacerData.clearAll(tool);
+    }
+
+    public static ItemStack getCableStack(ItemStack tool) {
+        return CablePlacerData.getCableStack(tool);
+    }
+
+    public static void setCableStack(ItemStack tool, ItemStack cable) {
+        CablePlacerData.setCableStack(tool, cable);
+    }
+
+    public static boolean getOptAllowReplace(ItemStack tool) {
+        return CablePlacerData.getOptAllowReplace(tool);
+    }
+
+    public static void setOptAllowReplace(ItemStack tool, boolean value) {
+        CablePlacerData.setOptAllowReplace(tool, value);
+    }
+
+    public static List<BlockPos> getPath(NBTTagCompound root) {
+        return CablePlacerData.getPath(root);
     }
 
     @Nonnull
@@ -119,30 +139,6 @@ public class CablePlacer extends Item {
             CablePlacerData.writeRoot(tool, root);
         }
         return ActionResult.newResult(EnumActionResult.SUCCESS, tool);
-    }
-
-    public static void clearAll(ItemStack tool) {
-        CablePlacerData.clearAll(tool);
-    }
-
-    public static ItemStack getCableStack(ItemStack tool) {
-        return CablePlacerData.getCableStack(tool);
-    }
-
-    public static void setCableStack(ItemStack tool, ItemStack cable) {
-        CablePlacerData.setCableStack(tool, cable);
-    }
-
-    public static boolean getOptAllowReplace(ItemStack tool) {
-        return CablePlacerData.getOptAllowReplace(tool);
-    }
-
-    public static void setOptAllowReplace(ItemStack tool, boolean value) {
-        CablePlacerData.setOptAllowReplace(tool, value);
-    }
-
-    public static List<BlockPos> getPath(NBTTagCompound root) {
-        return CablePlacerData.getPath(root);
     }
 
 }

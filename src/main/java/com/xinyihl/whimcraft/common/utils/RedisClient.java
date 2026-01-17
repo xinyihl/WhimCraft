@@ -7,9 +7,9 @@ import redis.clients.jedis.JedisPoolConfig;
 
 public final class RedisClient {
 
+    public static boolean isOnline;
     private static volatile JedisPool POOL;
     private static volatile String POOL_SIGNATURE;
-    public static boolean isOnline;
 
     private RedisClient() {
     }

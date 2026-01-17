@@ -8,8 +8,8 @@ import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.data.IAEStack;
 import appeng.me.storage.BasicCellInventoryHandler;
 import com.mekeng.github.common.me.storage.IGasStorageChannel;
-import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageGasCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageGasCell;
+import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageGasCellInventory;
 import net.minecraft.item.ItemStack;
 
 public class InfinityStorageGasCellHandler implements ICellHandler {

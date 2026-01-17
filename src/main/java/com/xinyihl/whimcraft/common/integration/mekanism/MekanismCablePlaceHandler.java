@@ -1,8 +1,8 @@
 package com.xinyihl.whimcraft.common.integration.mekanism;
 
-import com.xinyihl.whimcraft.common.items.placer.CablePlaceContext;
 import com.xinyihl.whimcraft.api.ICablePlaceItem;
 import com.xinyihl.whimcraft.common.init.Mods;
+import com.xinyihl.whimcraft.common.items.placer.CablePlaceContext;
 import mekanism.common.block.BlockTransmitter;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;

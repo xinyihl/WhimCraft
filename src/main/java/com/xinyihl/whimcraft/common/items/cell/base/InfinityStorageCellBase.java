@@ -19,7 +19,7 @@ public abstract class InfinityStorageCellBase extends AEBaseItem {
     public static final String NBT_TYPES = "wc_types";
     public static final String NBT_BYTES = "wc_bytes";
 
-    protected InfinityStorageCellBase(){
+    protected InfinityStorageCellBase() {
         super();
         this.setMaxStackSize(1);
         this.setCreativeTab(IB.CREATIVE_TAB);

@@ -25,7 +25,7 @@ import java.util.UUID;
 public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IAEFluidStack> {
     private final UUID uuid;
     private final ItemStack container;
-    private ISaveProvider saveProvider;
+    private final ISaveProvider saveProvider;
 
     public InfinityStorageFluidCellInventory(ItemStack container, ISaveProvider saveProvider) {
         this.uuid = InfinityStorageFluidCell.getOrCreateUuid(container);

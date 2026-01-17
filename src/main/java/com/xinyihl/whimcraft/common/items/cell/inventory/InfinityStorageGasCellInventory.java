@@ -25,7 +25,7 @@ import java.util.UUID;
 public class InfinityStorageGasCellInventory implements IMEInventoryHandler<IAEGasStack> {
     private final UUID uuid;
     private final ItemStack container;
-    private ISaveProvider saveProvider;
+    private final ISaveProvider saveProvider;
 
     public InfinityStorageGasCellInventory(ItemStack container, ISaveProvider saveProvider) {
         this.uuid = InfinityStorageGasCell.getOrCreateUuid(container);
