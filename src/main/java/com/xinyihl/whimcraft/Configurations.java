@@ -147,6 +147,11 @@ public class Configurations {
         public int asLevelCap = 30;
         @Config.Comment("星辉输入仓 GUI 显示修复")
         public boolean starLightHatchFix = false;
+        @Config.Comment("是否禁用祭坛合成星辉知识需求")
+        public boolean altarProgressionEnable = false;
+        @Config.Comment("是否允许非玩家挖掘水晶石矿石")
+        public boolean celestialCrystalsEnable = false;
+
     }
 
     public static class ModTwModConfig {

@@ -174,13 +174,16 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:mmce-ad-1236022:6806329")
 
     //mixins
+    compileOnly rfg.deobf("curse.maven:valkyrielib-245480:2691542")
+    compileOnly rfg.deobf("curse.maven:endercore-231868:4671384")
+    compileOnly rfg.deobf("curse.maven:ender-io-64578:4674244")
     compileOnly rfg.deobf("curse.maven:nae2-884359:5317480")
     compileOnly rfg.deobf("curse.maven:ae2fluidcraftingrework-623955:5405482")
     compileOnly rfg.deobf("curse.maven:astralsorcery-241721:3044416")
     compileOnly rfg.deobf("curse.maven:naturesaura-306626:2882138")
     compileOnly rfg.deobf("curse.maven:extrautilities-225561:2678374")
     compileOnly rfg.deobf("curse.maven:botania-225643:3330934")
-    compileOnly rfg.deobf("curse.maven:mekanismceunofficial-840735:5946841")
+    implementation rfg.deobf("curse.maven:mekanismceunofficial-840735:5946841")
     compileOnly rfg.deobf("curse.maven:mekanismenergistics-1027681:5393252")
     compileOnly rfg.deobf("curse.maven:mobgrindingutils-254241:2656683")
     compileOnly rfg.deobf("curse.maven:industrialcraft-242638:3838713")
