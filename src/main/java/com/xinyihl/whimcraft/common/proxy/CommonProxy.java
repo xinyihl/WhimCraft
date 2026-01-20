@@ -4,6 +4,7 @@ import appeng.api.AEApi;
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.api.CableCompatManager;
 import com.xinyihl.whimcraft.common.event.HandlerWorldTick;
+import com.xinyihl.whimcraft.common.event.HandlerCowMilkAutoFill;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.ae2.Ae2CablePlaceHandler;
 import com.xinyihl.whimcraft.common.integration.mekanism.MekanismCablePlaceHandler;
@@ -21,7 +22,12 @@ public class CommonProxy {
     }
 
     public void postInit() {
-        MinecraftForge.EVENT_BUS.register(new HandlerWorldTick());
+        if (Configurations.CHUNCK_CONFIG.enabled) {
+            MinecraftForge.EVENT_BUS.register(new HandlerWorldTick());
+        }
+        if (Configurations.GENERAL_CONFIG.moumou) {
+            MinecraftForge.EVENT_BUS.register(new HandlerCowMilkAutoFill());
+        }
         if (Mods.AE2.isLoaded()) {
             initAE2();
         }

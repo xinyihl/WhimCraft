@@ -13,7 +13,7 @@ public class BlockCelestialCrystalsMixin {
      * @reason 允许非玩家挖掘水晶石矿石
      */
     @Overwrite
-    public boolean checkSafety(World world, BlockPos pos) {
+    private boolean checkSafety(World world, BlockPos pos) {
         return true;
     }
 }

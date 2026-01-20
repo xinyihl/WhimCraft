@@ -82,6 +82,8 @@ public class Configurations {
         public boolean elgoogEnable = false;
         @Config.Comment("是否启用布线工具")
         public boolean placerEnable = false;
+        @Config.Comment("moumou")
+        public boolean moumou = false;
     }
 
     public static class MmceConfig {
