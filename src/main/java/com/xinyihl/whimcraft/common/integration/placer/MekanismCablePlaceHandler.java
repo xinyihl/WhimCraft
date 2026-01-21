@@ -1,7 +1,6 @@
-package com.xinyihl.whimcraft.common.integration.mekanism;
+package com.xinyihl.whimcraft.common.integration.placer;
 
-import com.xinyihl.whimcraft.api.ICablePlaceItem;
-import com.xinyihl.whimcraft.common.init.Mods;
+import com.xinyihl.whimcraft.api.ICablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlaceContext;
 import mekanism.common.block.BlockTransmitter;
 import net.minecraft.block.Block;
@@ -12,12 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
-public class MekanismCablePlaceHandler implements ICablePlaceItem {
-
-    @Override
-    public boolean canUse() {
-        return Mods.MEK.isLoaded();
-    }
+public class MekanismCablePlaceHandler implements ICablePlacer {
 
     @Override
     public boolean canSelect(ItemStack stack) {

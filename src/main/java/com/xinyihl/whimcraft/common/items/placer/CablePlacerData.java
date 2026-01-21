@@ -20,6 +20,7 @@ public final class CablePlacerData {
     static final String OPT_ALLOW_REPLACE = "allow_replace";
     static final String OPT_MAX_NODES = "max_nodes";
     static final String OPT_RADIUS = "radius";
+
     private CablePlacerData() {
     }
 

@@ -29,30 +29,6 @@ public class CablePlacer extends Item {
         this.setTranslationKey(Tags.MOD_ID + ".cable_placer");
     }
 
-    public static void clearAll(ItemStack tool) {
-        CablePlacerData.clearAll(tool);
-    }
-
-    public static ItemStack getCableStack(ItemStack tool) {
-        return CablePlacerData.getCableStack(tool);
-    }
-
-    public static void setCableStack(ItemStack tool, ItemStack cable) {
-        CablePlacerData.setCableStack(tool, cable);
-    }
-
-    public static boolean getOptAllowReplace(ItemStack tool) {
-        return CablePlacerData.getOptAllowReplace(tool);
-    }
-
-    public static void setOptAllowReplace(ItemStack tool, boolean value) {
-        CablePlacerData.setOptAllowReplace(tool, value);
-    }
-
-    public static List<BlockPos> getPath(NBTTagCompound root) {
-        return CablePlacerData.getPath(root);
-    }
-
     @Nonnull
     @Override
     public EnumActionResult onItemUse(@Nonnull EntityPlayer player, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -105,21 +81,19 @@ public class CablePlacer extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack tool = player.getHeldItem(hand);
-        if (player.isSneaking()) {
-            if (!world.isRemote) {
-                clearAll(tool);
-                player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.cable_placer.clear"), true);
-            }
-            return ActionResult.newResult(EnumActionResult.SUCCESS, tool);
-        }
         if (!world.isRemote) {
+            if (player.isSneaking()) {
+                CablePlacerData.clearAll(tool);
+                player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.cable_placer.clear"), true);
+                return ActionResult.newResult(EnumActionResult.SUCCESS, tool);
+            }
+
             NBTTagCompound root = CablePlacerData.getOrCreateRoot(tool);
             BlockPos start = CablePlacerData.getStart(root);
             BlockPos end = CablePlacerData.getEnd(root);
             ItemStack cable = CablePlacerData.getCableStack(root);
             if (start == null || end == null || cable.isEmpty()) {
-                player.openGui(WhimCraft.instance, GuiHandler.CABLE_PLACER_GUI, world,
-                        (int) player.posX, (int) player.posY, (int) player.posZ);
+                player.openGui(WhimCraft.instance, GuiHandler.CABLE_PLACER_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 return ActionResult.newResult(EnumActionResult.SUCCESS, tool);
             }
             List<BlockPos> path = CablePlacerData.getPath(root);
@@ -140,5 +114,4 @@ public class CablePlacer extends Item {
         }
         return ActionResult.newResult(EnumActionResult.SUCCESS, tool);
     }
-
 }

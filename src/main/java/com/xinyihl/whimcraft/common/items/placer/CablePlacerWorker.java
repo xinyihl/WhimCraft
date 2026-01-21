@@ -19,10 +19,6 @@ public final class CablePlacerWorker {
     private CablePlacerWorker() {
     }
 
-    public static boolean canSelectCable(ItemStack stack) {
-        return stack != null && !stack.isEmpty() && CableCompatManager.canSelect(stack);
-    }
-
     public static List<BlockPos> planPath(World world, NBTTagCompound root) {
         BlockPos start = CablePlacerData.getStart(root);
         BlockPos end = CablePlacerData.getEnd(root);
@@ -47,7 +43,7 @@ public final class CablePlacerWorker {
             if (seg.isEmpty()) {
                 return Collections.emptyList();
             }
-            if (!out.isEmpty() && !seg.isEmpty() && out.get(out.size() - 1).equals(seg.get(0))) {
+            if (!out.isEmpty() && out.get(out.size() - 1).equals(seg.get(0))) {
                 seg = seg.subList(1, seg.size());
             }
             out.addAll(seg);

@@ -2,6 +2,7 @@ package com.xinyihl.whimcraft.common.container;
 
 import com.xinyihl.whimcraft.api.CableCompatManager;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacerData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -41,7 +42,7 @@ public class ContainerCablePlacer extends Container {
                 if (CableCompatManager.canSelect(clickedStack)) {
                     ItemStack selected = clickedStack.copy();
                     selected.setCount(1);
-                    CablePlacer.setCableStack(tool, selected);
+                    CablePlacerData.setCableStack(tool, selected);
                     if (!player.world.isRemote) {
                         this.detectAndSendChanges();
                     }
@@ -66,7 +67,7 @@ public class ContainerCablePlacer extends Container {
                 ItemStack clickedStack = new ItemStack(nbt);
                 if (!clickedStack.isEmpty()) {
                     if (CableCompatManager.canSelect(clickedStack)) {
-                        CablePlacer.setCableStack(tool, clickedStack);
+                        CablePlacerData.setCableStack(tool, clickedStack);
                     } else {
                         player.sendStatusMessage(new TextComponentTranslation("message.whimcraft.cable_placer.unsupported"), true);
                     }
@@ -75,11 +76,11 @@ public class ContainerCablePlacer extends Container {
             }
             case "toggle_allow_replace": {
                 boolean value = compound.getBoolean("value");
-                CablePlacer.setOptAllowReplace(tool, value);
+                CablePlacerData.setOptAllowReplace(tool, value);
                 break;
             }
             case "clear_points": {
-                CablePlacer.clearAll(tool);
+                CablePlacerData.clearAll(tool);
                 break;
             }
         }

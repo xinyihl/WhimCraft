@@ -10,23 +10,23 @@ import java.util.List;
 
 public final class CableCompatManager {
 
-    private static final List<ICablePlaceItem> HANDLERS = new ArrayList<>();
+    private static final List<ICablePlacer> HANDLERS = new ArrayList<>();
 
     private CableCompatManager() {
     }
 
-    public static void register(@Nonnull ICablePlaceItem handler) {
+    public static void register(@Nonnull ICablePlacer handler) {
         HANDLERS.add(handler);
     }
 
-    public static List<ICablePlaceItem> getHandlers() {
+    public static List<ICablePlacer> getHandlers() {
         return Collections.unmodifiableList(HANDLERS);
     }
 
     public static boolean canSelect(@Nonnull ItemStack stack) {
         if (stack.isEmpty()) return false;
-        for (ICablePlaceItem h : HANDLERS) {
-            if (h.canUse() && h.canSelect(stack)) {
+        for (ICablePlacer h : HANDLERS) {
+            if (h.canSelect(stack)) {
                 return true;
             }
         }
@@ -34,8 +34,8 @@ public final class CableCompatManager {
     }
 
     public static boolean placeCable(@Nonnull CablePlaceContext ctx) {
-        for (ICablePlaceItem h : HANDLERS) {
-            if (h.canUse() && h.canSelect(ctx.cableStack)) {
+        for (ICablePlacer h : HANDLERS) {
+            if (h.canSelect(ctx.cableStack)) {
                 if (h.placeCable(ctx)) {
                     return true;
                 }

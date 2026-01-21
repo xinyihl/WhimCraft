@@ -1,10 +1,9 @@
-package com.xinyihl.whimcraft.common.integration.ae2;
+package com.xinyihl.whimcraft.common.integration.placer;
 
 import appeng.api.AEApi;
 import appeng.items.parts.ItemPart;
 import appeng.items.parts.PartType;
-import com.xinyihl.whimcraft.api.ICablePlaceItem;
-import com.xinyihl.whimcraft.common.init.Mods;
+import com.xinyihl.whimcraft.api.ICablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlaceContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -13,19 +12,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
-public class Ae2CablePlaceHandler implements ICablePlaceItem {
-
-    @Override
-    public boolean canUse() {
-        return Mods.AE2.isLoaded();
-    }
+public class Ae2CablePlaceHandler implements ICablePlacer {
 
     @Override
     public boolean canSelect(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return false;
         if (!(stack.getItem() instanceof ItemPart)) return false;
         PartType type = ((ItemPart) stack.getItem()).getTypeByStack(stack);
-        return type != null && type.isCable() && type != PartType.CABLE_ANCHOR;
+        return type.isCable() && type != PartType.CABLE_ANCHOR;
     }
 
     @Override

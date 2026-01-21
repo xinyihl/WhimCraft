@@ -4,6 +4,7 @@ import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.WhimCraft;
 import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
+import com.xinyihl.whimcraft.common.items.placer.CablePlacerData;
 import com.xinyihl.whimcraft.common.network.PacketClientToServer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -58,7 +59,7 @@ public class GuiCablePlacer extends GuiContainer {
         btnAllowReplace.visible = page == 1 && isTool;
         btnClear.visible = page == 1 && isTool;
         if (isTool) {
-            btnAllowReplace.displayString = I18n.format("gui.whimcraft.cable_placer.allow_replace", CablePlacer.getOptAllowReplace(getTool()) ? I18n.format("gui.whimcraft.on") : I18n.format("gui.whimcraft.off"));
+            btnAllowReplace.displayString = I18n.format("gui.whimcraft.cable_placer.allow_replace", CablePlacerData.getOptAllowReplace(getTool()) ? I18n.format("gui.whimcraft.on") : I18n.format("gui.whimcraft.off"));
         }
         btnAllowReplace.enabled = page == 1;
         btnClear.enabled = page == 1;
@@ -75,9 +76,9 @@ public class GuiCablePlacer extends GuiContainer {
             return;
         }
         if (button.id == 2) {
-            boolean next = !CablePlacer.getOptAllowReplace(getTool());
+            boolean next = !CablePlacerData.getOptAllowReplace(getTool());
             sendToggle("toggle_allow_replace", next);
-            CablePlacer.setOptAllowReplace(getTool(), next);
+            CablePlacerData.setOptAllowReplace(getTool(), next);
             refreshButtons();
             return;
         }
@@ -85,7 +86,7 @@ public class GuiCablePlacer extends GuiContainer {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("type", "clear_points");
             WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
-            CablePlacer.clearAll(getTool());
+            CablePlacerData.clearAll(getTool());
             refreshButtons();
         }
     }
@@ -114,7 +115,7 @@ public class GuiCablePlacer extends GuiContainer {
             this.fontRenderer.drawString(I18n.format("gui.whimcraft.cable_placer.select_hint"), 8, 24, 0x404040);
             ItemStack tool = getTool();
             if (tool.getItem() instanceof CablePlacer) {
-                ItemStack cable = CablePlacer.getCableStack(tool);
+                ItemStack cable = CablePlacerData.getCableStack(tool);
                 if (!cable.isEmpty()) {
                     GlStateManager.pushMatrix();
                     RenderHelper.enableGUIStandardItemLighting();

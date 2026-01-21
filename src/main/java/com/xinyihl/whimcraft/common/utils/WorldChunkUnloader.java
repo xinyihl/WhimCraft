@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WorldChunkUnloader {
+public final class WorldChunkUnloader {
 
     private static final Logger log = LogManager.getLogger(WorldChunkUnloader.class);
     private final World world;
