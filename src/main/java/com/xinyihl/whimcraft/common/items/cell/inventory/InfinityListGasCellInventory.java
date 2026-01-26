@@ -19,9 +19,10 @@ public class InfinityListGasCellInventory implements IMEInventoryHandler<IAEGasS
     private final List<IAEGasStack> records = new ArrayList<>();
 
     public InfinityListGasCellInventory(ItemStack stack) {
-        for (IAEGasStack fluid : InfinityListGasCell.getRecords(stack)) {
-            fluid.setStackSize(2147483647000L);
-            records.add(fluid);
+        for (IAEGasStack gas : InfinityListGasCell.getRecords(stack)) {
+            if (gas == null) continue;
+            gas.setStackSize(2147483647000L);
+            records.add(gas);
         }
     }
 

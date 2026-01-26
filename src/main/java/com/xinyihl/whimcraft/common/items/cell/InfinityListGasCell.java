@@ -45,6 +45,7 @@ public class InfinityListGasCell extends AEBaseItem {
             int count = Math.min(records.size(), maxShow);
             for (int i = 0; i < count; i++) {
                 IAEGasStack record = records.get(i);
+                if (record == null) continue;
                 lines.add(record.getGas().getLocalizedName());
             }
             if (records.size() > maxShow) {

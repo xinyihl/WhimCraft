@@ -20,6 +20,7 @@ public class InfinityListFluidCellInventory implements IMEInventoryHandler<IAEFl
 
     public InfinityListFluidCellInventory(ItemStack stack) {
         for (IAEFluidStack fluid : InfinityListFluidCell.getRecords(stack)) {
+            if (fluid == null) continue;
             fluid.setStackSize(2147483647000L);
             records.add(fluid);
         }

@@ -45,6 +45,7 @@ public class InfinityListItemCell extends AEBaseItem {
             int count = Math.min(records.size(), maxShow);
             for (int i = 0; i < count; i++) {
                 IAEItemStack record = records.get(i);
+                if (record == null) continue;
                 lines.add(record.getDefinition().getDisplayName());
             }
             if (records.size() > maxShow) {

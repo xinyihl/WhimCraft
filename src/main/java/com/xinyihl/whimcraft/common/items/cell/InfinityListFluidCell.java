@@ -45,6 +45,7 @@ public class InfinityListFluidCell extends AEBaseItem {
             int count = Math.min(records.size(), maxShow);
             for (int i = 0; i < count; i++) {
                 IAEFluidStack record = records.get(i);
+                if (record == null) continue;
                 lines.add(record.getFluidStack().getLocalizedName());
             }
             if (records.size() > maxShow) {
