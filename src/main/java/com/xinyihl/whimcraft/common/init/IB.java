@@ -51,6 +51,8 @@ public final class IB {
     public static Item itemInfinityListGasCell;
     public static Item itemInfinityStorageGasCell;
     public static Item itemInfinityStorageAllCell;
+    public static Item itemInfinityListEssentiaCell;
+    public static Item itemInfinityStorageEssentiaCell;
 
     static {
         initTab();
@@ -103,8 +105,21 @@ public final class IB {
         if (Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable) {
             itemInfinityStorageAllCell = registerItem(new InfinityStorageAllCell());
         }
+        if (Mods.TCENERG.isLoaded()) {
+            initThaumicEnergistics();
+        }
         if (Mods.MEKENG.isLoaded()) {
             initMEKENG();
+        }
+    }
+
+    @Optional.Method(modid = "thaumicenergistics")
+    private static void initThaumicEnergistics() {
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            itemInfinityListEssentiaCell = registerItem(new InfinityListEssentiaCell());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            itemInfinityStorageEssentiaCell = registerItem(new InfinityStorageEssentiaCell());
         }
     }
 

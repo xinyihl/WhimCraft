@@ -27,9 +27,11 @@ item.whimcraft.infinity_storage_cell.name=Infinity Storage Cell
 item.whimcraft.infinity_list_item_cell.name=Infinite Item Cell
 item.whimcraft.infinity_list_fluid_cell.name=Infinite Fluid Cell
 item.whimcraft.infinity_list_gas_cell.name=Infinite Gas Cell
+item.whimcraft.infinity_list_essentia_cell.name=Infinite Essentia Cell
 item.whimcraft.infinity_storage_item_cell.name=Infinity Item Storage Cell
 item.whimcraft.infinity_storage_fluid_cell.name=Infinity Fluid Storage Cell
 item.whimcraft.infinity_storage_gas_cell.name=Infinity Gas Storage Cell
+item.whimcraft.infinity_storage_essentia_cell.name=Infinity Essentia Storage Cell
 item.whimcraft.infinity_storage_all_cell.name=Infinity All Storage Cell
 item.whimcraft.cable_placer.name=Cable Placer
 

@@ -19,6 +19,7 @@ public enum Mods {
     TCOM("tcomplement"),
     TMF("tinymobfarm"),
     TC6("thaumcraft"),
+    TCENERG("thaumicenergistics"),
     IE("immersiveengineering"),
     TCO("tconstruct"),
     FORESTRY("forestry"),

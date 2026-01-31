@@ -21,7 +21,7 @@ public class InfinityListItemCellInventory implements IMEInventoryHandler<IAEIte
     public InfinityListItemCellInventory(ItemStack stack) {
         for (IAEItemStack item : InfinityListItemCell.getRecords(stack)) {
             if (item == null) continue;
-            item.setStackSize(2147483647L);
+            item.setStackSize(Integer.MAX_VALUE);
             records.add(item);
         }
     }

@@ -25,9 +25,11 @@ item.whimcraft.elgoog.name=滚动的elgoog(
 item.whimcraft.infinity_list_item_cell.name=无限物品元件
 item.whimcraft.infinity_list_fluid_cell.name=无限流体元件
 item.whimcraft.infinity_list_gas_cell.name=无限气体元件
+item.whimcraft.infinity_list_essentia_cell.name=无限源质元件
 item.whimcraft.infinity_storage_item_cell.name=无限物品存储元件
 item.whimcraft.infinity_storage_fluid_cell.name=无限流体存储元件
 item.whimcraft.infinity_storage_gas_cell.name=无限气体存储元件
+item.whimcraft.infinity_storage_essentia_cell.name=无限源质存储元件
 item.whimcraft.infinity_storage_all_cell.name=无限通用存储元件
 item.whimcraft.cable_placer.name=布线工具
 

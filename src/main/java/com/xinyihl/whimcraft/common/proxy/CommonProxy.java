@@ -58,6 +58,19 @@ public class CommonProxy {
         if (Mods.MEKENG.isLoaded()) {
             initMEKENG();
         }
+        if (Mods.TCENERG.isLoaded()) {
+            initThaumicEnergistics();
+        }
+    }
+
+    @Optional.Method(modid = "thaumicenergistics")
+    private void initThaumicEnergistics() {
+        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityListEssentiaCellHandler());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageEssentiaCellHandler());
+        }
     }
 
     @Optional.Method(modid = "mekeng")

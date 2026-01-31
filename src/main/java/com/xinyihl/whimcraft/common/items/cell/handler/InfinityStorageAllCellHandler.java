@@ -12,11 +12,14 @@ import appeng.me.storage.BasicCellInventoryHandler;
 import com.mekeng.github.common.me.storage.IGasStorageChannel;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageAllCell;
+import com.xinyihl.whimcraft.common.items.cell.InfinityStorageEssentiaCell;
+import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageEssentiaCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageFluidCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageGasCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageItemCellInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
+import thaumicenergistics.api.storage.IEssentiaStorageChannel;
 
 public class InfinityStorageAllCellHandler implements ICellHandler {
     @Override
@@ -26,22 +29,34 @@ public class InfinityStorageAllCellHandler implements ICellHandler {
 
     @Override
     public <T extends IAEStack<T>> ICellInventoryHandler<T> getCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
+        ICellInventoryHandler<T> handler = null;
         if (itemStack.getItem() instanceof InfinityStorageAllCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class)) {
-            return new BasicCellInventoryHandler(new InfinityStorageItemCellInventory(itemStack, iSaveProvider), iStorageChannel);
+            handler = new BasicCellInventoryHandler<>(new InfinityStorageItemCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
         if (itemStack.getItem() instanceof InfinityStorageAllCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IFluidStorageChannel.class)) {
-            return new BasicCellInventoryHandler(new InfinityStorageFluidCellInventory(itemStack, iSaveProvider), iStorageChannel);
+            handler = new BasicCellInventoryHandler<>(new InfinityStorageFluidCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
         if (Mods.MEKENG.isLoaded()) {
-            return this.getGasCellInventory(itemStack, iSaveProvider, iStorageChannel);
+            handler = this.getGasCellInventory(itemStack, iSaveProvider, iStorageChannel);
         }
-        return null;
+        if (Mods.TCENERG.isLoaded()) {
+            handler = this.getEssCellInventory(itemStack, iSaveProvider, iStorageChannel);
+        }
+        return handler;
     }
 
     @Optional.Method(modid = "mekeng")
     private <T extends IAEStack<T>> ICellInventoryHandler<T> getGasCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
         if (itemStack.getItem() instanceof InfinityStorageAllCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IGasStorageChannel.class)) {
-            return new BasicCellInventoryHandler(new InfinityStorageGasCellInventory(itemStack, iSaveProvider), iStorageChannel);
+            return new BasicCellInventoryHandler<>(new InfinityStorageGasCellInventory(itemStack, iSaveProvider), iStorageChannel);
+        }
+        return null;
+    }
+
+    @Optional.Method(modid = "thaumicenergistics")
+    private <T extends IAEStack<T>> ICellInventoryHandler<T> getEssCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
+        if (itemStack.getItem() instanceof InfinityStorageEssentiaCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
+            return new BasicCellInventoryHandler<>(new InfinityStorageEssentiaCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
         return null;
     }
