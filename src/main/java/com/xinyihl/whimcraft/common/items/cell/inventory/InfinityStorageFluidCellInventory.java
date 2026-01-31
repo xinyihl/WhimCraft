@@ -113,15 +113,15 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
 
     private void updateStats() {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        int fluidTypes = 0;
+        int totalTypes = 0;
         BigInteger totalBytes = BigInteger.ZERO;
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
-            fluidTypes++;
+            totalTypes++;
             totalBytes = totalBytes.add(BigInteger.valueOf(entry.getValue()));
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
-            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, fluidTypes);
+            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, totalTypes);
             tag.setString(InfinityStorageCellBase.NBT_BYTES, totalBytes.toString());
         }
     }
@@ -138,7 +138,7 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
 
     @Override
     public boolean canAccept(IAEFluidStack iaeFluidStack) {
-        return true; // 无限存储可以接受任何流体
+        return true;
     }
 
     @Override
@@ -153,6 +153,6 @@ public class InfinityStorageFluidCellInventory implements IMEInventoryHandler<IA
 
     @Override
     public boolean validForPass(int i) {
-        return true; // 对所有 pass 有效
+        return true;
     }
 }

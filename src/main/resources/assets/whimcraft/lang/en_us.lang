@@ -30,6 +30,7 @@ item.whimcraft.infinity_list_gas_cell.name=Infinite Gas Cell
 item.whimcraft.infinity_storage_item_cell.name=Infinity Item Storage Cell
 item.whimcraft.infinity_storage_fluid_cell.name=Infinity Fluid Storage Cell
 item.whimcraft.infinity_storage_gas_cell.name=Infinity Gas Storage Cell
+item.whimcraft.infinity_storage_all_cell.name=Infinity All Storage Cell
 item.whimcraft.cable_placer.name=Cable Placer
 
 gui.whimcraft.on=On

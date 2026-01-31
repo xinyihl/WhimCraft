@@ -114,15 +114,15 @@ public class InfinityStorageItemCellInventory implements IMEInventoryHandler<IAE
 
     private void updateStats() {
         Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        int itemTypes = 0;
+        int totalTypes = 0;
         BigInteger totalBytes = BigInteger.ZERO;
         for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
-            itemTypes++;
+            totalTypes++;
             totalBytes = totalBytes.add(BigInteger.valueOf(entry.getValue()));
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {
-            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, itemTypes);
+            tag.setInteger(InfinityStorageCellBase.NBT_TYPES, totalTypes);
             tag.setString(InfinityStorageCellBase.NBT_BYTES, totalBytes.toString());
         }
     }

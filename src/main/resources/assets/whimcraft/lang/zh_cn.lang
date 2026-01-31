@@ -28,6 +28,7 @@ item.whimcraft.infinity_list_gas_cell.name=无限气体元件
 item.whimcraft.infinity_storage_item_cell.name=无限物品存储元件
 item.whimcraft.infinity_storage_fluid_cell.name=无限流体存储元件
 item.whimcraft.infinity_storage_gas_cell.name=无限气体存储元件
+item.whimcraft.infinity_storage_all_cell.name=无限通用存储元件
 item.whimcraft.cable_placer.name=布线工具
 
 gui.whimcraft.on=开

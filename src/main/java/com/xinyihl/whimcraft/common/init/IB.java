@@ -50,6 +50,7 @@ public final class IB {
     public static Item itemInfinityStorageItemCell;
     public static Item itemInfinityListGasCell;
     public static Item itemInfinityStorageGasCell;
+    public static Item itemInfinityStorageAllCell;
 
     static {
         initTab();
@@ -98,6 +99,9 @@ public final class IB {
         if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
             itemInfinityStorageFluidCell = registerItem(new InfinityStorageFluidCell());
             itemInfinityStorageItemCell = registerItem(new InfinityStorageItemCell());
+        }
+        if (Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable) {
+            itemInfinityStorageAllCell = registerItem(new InfinityStorageAllCell());
         }
         if (Mods.MEKENG.isLoaded()) {
             initMEKENG();

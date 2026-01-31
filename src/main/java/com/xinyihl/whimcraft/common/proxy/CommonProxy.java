@@ -43,6 +43,7 @@ public class CommonProxy {
 
     @Optional.Method(modid = "appliedenergistics2")
     private void initAE2() {
+        CableCompatManager.register(new Ae2CablePlaceHandler());
         if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
             AEApi.instance().registries().cell().addCellHandler(new InfinityListItemCellHandler());
             AEApi.instance().registries().cell().addCellHandler(new InfinityListFluidCellHandler());
@@ -51,7 +52,9 @@ public class CommonProxy {
             AEApi.instance().registries().cell().addCellHandler(new InfinityStorageItemCellHandler());
             AEApi.instance().registries().cell().addCellHandler(new InfinityStorageFluidCellHandler());
         }
-        CableCompatManager.register(new Ae2CablePlaceHandler());
+        if (Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable) {
+            AEApi.instance().registries().cell().addCellHandler(new InfinityStorageAllCellHandler());
+        }
         if (Mods.MEKENG.isLoaded()) {
             initMEKENG();
         }

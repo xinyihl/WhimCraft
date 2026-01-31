@@ -125,6 +125,8 @@ public class Configurations {
         public boolean infinityListCellEnable = false;
         @Config.Comment("是否启用无限存储元件")
         public boolean infinityStorageCellEnable = false;
+        @Config.Comment("是否启用通用无限存储元件")
+        public boolean infinityStorageAllCellEnable = false;
     }
 
     public static class ChunkPurgeConfig {
