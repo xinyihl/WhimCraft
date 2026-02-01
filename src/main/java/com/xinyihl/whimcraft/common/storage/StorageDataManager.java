@@ -51,14 +51,14 @@ public class StorageDataManager {
         }
 
         // gas
-        if (!Loader.isModLoaded("mekeng")) {
+        if (Loader.isModLoaded("mekeng")) {
             if (writeGasStack(stack, itemTag)) {
                 return true;
             }
         }
 
         // essentia
-        if (!Loader.isModLoaded("thaumicenergistics")) {
+        if (Loader.isModLoaded("thaumicenergistics")) {
             return writeEssentiaStack(stack, itemTag);
         }
 
