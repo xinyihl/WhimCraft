@@ -20,8 +20,7 @@ public class InfinityListEssentiaCellHandler implements IInfinityListCellHandler
 
     @Override
     public <T extends IAEStack<T>> ICellInventoryHandler<T> getCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
-        if (itemStack.getItem() instanceof InfinityListEssentiaCell
-                && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
+        if (itemStack.getItem() instanceof InfinityListEssentiaCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
             return new BasicCellInventoryHandler(new InfinityListEssentiaCellInventory(itemStack), iStorageChannel);
         }
         return null;

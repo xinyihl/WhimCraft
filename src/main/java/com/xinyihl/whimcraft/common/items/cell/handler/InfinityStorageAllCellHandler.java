@@ -12,7 +12,6 @@ import appeng.me.storage.BasicCellInventoryHandler;
 import com.mekeng.github.common.me.storage.IGasStorageChannel;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageAllCell;
-import com.xinyihl.whimcraft.common.items.cell.InfinityStorageEssentiaCell;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageEssentiaCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageFluidCellInventory;
 import com.xinyihl.whimcraft.common.items.cell.inventory.InfinityStorageGasCellInventory;
@@ -36,10 +35,10 @@ public class InfinityStorageAllCellHandler implements ICellHandler {
         if (itemStack.getItem() instanceof InfinityStorageAllCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IFluidStorageChannel.class)) {
             handler = new BasicCellInventoryHandler<>(new InfinityStorageFluidCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
-        if (Mods.MEKENG.isLoaded()) {
+        if (handler == null && Mods.MEKENG.isLoaded()) {
             handler = this.getGasCellInventory(itemStack, iSaveProvider, iStorageChannel);
         }
-        if (Mods.TCENERG.isLoaded()) {
+        if (handler == null && Mods.TCENERG.isLoaded()) {
             handler = this.getEssCellInventory(itemStack, iSaveProvider, iStorageChannel);
         }
         return handler;
@@ -55,7 +54,7 @@ public class InfinityStorageAllCellHandler implements ICellHandler {
 
     @Optional.Method(modid = "thaumicenergistics")
     private <T extends IAEStack<T>> ICellInventoryHandler<T> getEssCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
-        if (itemStack.getItem() instanceof InfinityStorageEssentiaCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
+        if (itemStack.getItem() instanceof InfinityStorageAllCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
             return new BasicCellInventoryHandler<>(new InfinityStorageEssentiaCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
         return null;

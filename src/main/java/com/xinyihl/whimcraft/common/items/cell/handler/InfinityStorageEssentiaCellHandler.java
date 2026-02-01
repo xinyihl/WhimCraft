@@ -20,8 +20,7 @@ public class InfinityStorageEssentiaCellHandler implements ICellHandler {
 
     @Override
     public <T extends IAEStack<T>> ICellInventoryHandler<T> getCellInventory(ItemStack itemStack, ISaveProvider iSaveProvider, IStorageChannel<T> iStorageChannel) {
-        if (itemStack.getItem() instanceof InfinityStorageEssentiaCell
-                && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
+        if (itemStack.getItem() instanceof InfinityStorageEssentiaCell && iStorageChannel == AEApi.instance().storage().getStorageChannel(IEssentiaStorageChannel.class)) {
             return new BasicCellInventoryHandler(new InfinityStorageEssentiaCellInventory(itemStack, iSaveProvider), iStorageChannel);
         }
         return null;
