@@ -7,6 +7,7 @@ import com.xinyihl.whimcraft.common.event.HandlerCowMilkAutoFill;
 import com.xinyihl.whimcraft.common.event.HandlerWorldTick;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.placer.Ae2CablePlaceHandler;
+import com.xinyihl.whimcraft.common.integration.placer.EnderIoCablePlaceHandler;
 import com.xinyihl.whimcraft.common.integration.placer.MekanismCablePlaceHandler;
 import com.xinyihl.whimcraft.common.integration.top.TheOneProbe;
 import com.xinyihl.whimcraft.common.items.cell.handler.*;
@@ -34,6 +35,14 @@ public class CommonProxy {
         if (Mods.MEK.isLoaded()) {
             initMekanism();
         }
+        if (Mods.ENDIO.isLoaded()) {
+            initEnderio();
+        }
+    }
+
+    @Optional.Method(modid = "enderio")
+    private void initEnderio() {
+        CableCompatManager.register(new EnderIoCablePlaceHandler());
     }
 
     @Optional.Method(modid = "mekanism")
