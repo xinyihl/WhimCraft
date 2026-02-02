@@ -12,6 +12,7 @@ import appeng.api.storage.data.IItemList;
 import com.xinyihl.whimcraft.common.items.cell.InfinityStorageEssentiaCell;
 import com.xinyihl.whimcraft.common.items.cell.base.InfinityStorageCellBase;
 import com.xinyihl.whimcraft.common.storage.InfinityStorageWorldData;
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
@@ -19,7 +20,6 @@ import thaumicenergistics.api.storage.IAEEssentiaStack;
 import thaumicenergistics.api.storage.IEssentiaStorageChannel;
 
 import java.math.BigInteger;
-import java.util.Map;
 import java.util.UUID;
 
 public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler<IAEEssentiaStack> {
@@ -43,7 +43,7 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
             return null;
         }
         InfinityStorageWorldData worldData = getWorldData();
-        Map<IAEStack, Long> storage = worldData.getStorage(uuid);
+        Object2LongMap<IAEStack> storage = worldData.getStorage(uuid);
         IAEStack key = input.copy();
         key.setStackSize(1);
         boolean existingKey = storage.containsKey(key);
@@ -52,7 +52,7 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
                 storage.put(key, input.getStackSize());
                 updateStats();
             } else {
-                storage.compute(key, (k, currentCount) -> currentCount + input.getStackSize());
+                storage.put(key, storage.getLong(key) + input.getStackSize());
             }
             worldData.markDirty();
         }
@@ -65,14 +65,14 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
             return null;
         }
         InfinityStorageWorldData worldData = getWorldData();
-        Map<IAEStack, Long> storage = worldData.getStorage(uuid);
+        Object2LongMap<IAEStack> storage = worldData.getStorage(uuid);
         IAEStack key = request.copy();
         key.setStackSize(1);
         boolean existingKey = storage.containsKey(key);
         if (!existingKey) {
             return null;
         }
-        long currentCount = storage.get(key);
+        long currentCount = storage.getLong(key);
         long extractAmount = Math.min(currentCount, request.getStackSize());
         if (extractAmount <= 0) {
             return null;
@@ -80,7 +80,7 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
         if (actionable == Actionable.MODULATE) {
             long remaining = currentCount - extractAmount;
             if (remaining <= 0) {
-                storage.remove(key);
+                storage.removeLong(key);
                 updateStats();
             } else {
                 storage.put(key, remaining);
@@ -94,12 +94,12 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
 
     @Override
     public IItemList<IAEEssentiaStack> getAvailableItems(IItemList<IAEEssentiaStack> out) {
-        Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
-        for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
+        Object2LongMap<IAEStack> storage = getWorldData().getStorage(uuid);
+        for (Object2LongMap.Entry<IAEStack> entry : storage.object2LongEntrySet()) {
             IAEStack stack = entry.getKey();
             if (stack instanceof IAEEssentiaStack) {
                 IAEEssentiaStack ess = ((IAEEssentiaStack) stack).copy();
-                ess.setStackSize(entry.getValue());
+                ess.setStackSize(entry.getLongValue());
                 out.add(ess);
             }
         }
@@ -112,12 +112,12 @@ public class InfinityStorageEssentiaCellInventory implements IMEInventoryHandler
     }
 
     private void updateStats() {
-        Map<IAEStack, Long> storage = getWorldData().getStorage(uuid);
+        Object2LongMap<IAEStack> storage = getWorldData().getStorage(uuid);
         int totalTypes = 0;
         BigInteger totalBytes = BigInteger.ZERO;
-        for (Map.Entry<IAEStack, Long> entry : storage.entrySet()) {
+        for (Object2LongMap.Entry<IAEStack> entry : storage.object2LongEntrySet()) {
             totalTypes++;
-            totalBytes = totalBytes.add(BigInteger.valueOf(entry.getValue()));
+            totalBytes = totalBytes.add(BigInteger.valueOf(entry.getLongValue()));
         }
         NBTTagCompound tag = container.getTagCompound();
         if (tag != null) {

@@ -10,33 +10,33 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum Mixins {
-    PatternEncoder("PatternEncoder", false, () -> Configurations.AEMOD_CONFIG.patternEncoder, "ae2fc", "appliedenergistics2"),
-    CellTotalTypes("CellTotalTypes", false, null, "appliedenergistics2", "mekeng", "nae2"),
-    IgnoreParallel("IgnoreParallel", true, () -> Configurations.MMCE_CONFIG.isIgnoreParallel, "appliedenergistics2", "modularmachinery"),
-    PerkLevelManager("PerkLevelManager", true, null, "astralsorcery"),
-    ManaRecipeWrapper("ManaRecipeWrapper", true, () -> Configurations.BOTANIA_CONFIG.showMana, "botania"),
-    LinkFlowerPool("LinkFlowerPool", true, () -> Configurations.BOTANIA_CONFIG.linkFlowerToPool, "botania"),
-    FixItemIngredientsCrash("FixItemIngredientsCrash", true, null, "extrautils2"),
-    RainbowGenerator("RainbowGenerator", true, null, "extrautils2"),
-    GuguMEAspectBus("GuguMEAspectBus", true, null, "gugu-utils", "modularmachinery", "appliedenergistics2", "thaumcraft"),
-    MmceMEAspectBus("MmceMEAspectBus", true, null, "modularmachinery", "appliedenergistics2", "thaumcraft"),
-    FurnaceXp("FurnaceXp", true, () -> Configurations.IC2_CONFIG.changeXPOrb, "ic2"),
-    MmceMain("MmceMain", true, null, "modularmachinery"),
-    MobUtilsXpSupport("MobUtilsXpSupport", true, () -> Configurations.MOBUTILS_CONFIG.otherXpSupport, "mob_grinding_utils"),
-    ModTweakerApplyAction("ModTweakerApplyAction", true, () -> Configurations.MODTWMOD_CONFIG.loadCompleteMixinEnable, "modtweaker"),
-    AuraChunkUpdate("AuraChunkUpdate", true, () -> !Configurations.NATURE_CONFIG.auraChunkUpdateEnable, "naturesaura"),
-    FixTileMelterCrash("FixTileMelterCrash", true, null, "tcomplement"),
-    EntityMobFarmDrop("EntityMobFarmDrop", true, null, "tinymobfarm"),
-    PassKeyToSearchInAeGui("PassKeyToSearchInAeGui", true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
+    PatternEncoder(false, () -> Configurations.AEMOD_CONFIG.patternEncoder, "ae2fc", "appliedenergistics2"),
+    CellTotalTypes(false, null, "appliedenergistics2", "mekeng", "nae2"),
+    IgnoreParallel(true, () -> Configurations.MMCE_CONFIG.isIgnoreParallel, "appliedenergistics2", "modularmachinery"),
+    PerkLevelManager(true, null, "astralsorcery"),
+    ManaRecipeWrapper(true, () -> Configurations.BOTANIA_CONFIG.showMana, "botania"),
+    LinkFlowerPool(true, () -> Configurations.BOTANIA_CONFIG.linkFlowerToPool, "botania"),
+    FixItemIngredientsCrash(true, null, "extrautils2"),
+    RainbowGenerator(true, null, "extrautils2"),
+    GuguMEAspectBus(true, null, "gugu-utils", "modularmachinery", "appliedenergistics2", "thaumcraft"),
+    MmceMEAspectBus(true, null, "modularmachinery", "appliedenergistics2", "thaumcraft"),
+    FurnaceXp(true, () -> Configurations.IC2_CONFIG.changeXPOrb, "ic2"),
+    MmceMain(true, null, "modularmachinery"),
+    MobUtilsXpSupport(true, () -> Configurations.MOBUTILS_CONFIG.otherXpSupport, "mob_grinding_utils"),
+    ModTweakerApplyAction(true, () -> Configurations.MODTWMOD_CONFIG.loadCompleteMixinEnable, "modtweaker"),
+    AuraChunkUpdate(true, () -> !Configurations.NATURE_CONFIG.auraChunkUpdateEnable, "naturesaura"),
+    FixTileMelterCrash(true, null, "tcomplement"),
+    EntityMobFarmDrop(true, null, "tinymobfarm"),
+    PassKeyToSearchInAeGui(true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
     RecipeTransferOrderAe2("RecipeTransferOrder.appliedenergistics2", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery"),
     RecipeTransferOrderNee("RecipeTransferOrder.neenergistics", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "neenergistics"),
     RecipeTransferOrderAe2Fc("RecipeTransferOrder.ae2fc", true, () -> Configurations.GENERAL_CONFIG.JeiTransferMixinEnable, "appliedenergistics2", "modularmachinery", "ae2fc"),
-    GenerateBiomeAuraBase("GenerateBiomeAuraBase", true, () -> Configurations.GENERAL_CONFIG.generateBiomeAuraBaseEnable, "thaumcraft"),
-    GuguStarlight("GuguStarlight", true, () -> Configurations.ASMOD_CONFIG.starLightHatchFix, "gugu-utils", "astralsorcery"),
-    InfinityListCell("InfinityListCell", true, () -> Configurations.AEMOD_CONFIG.infinityListCellEnable, "appliedenergistics2"),
-    CelestialCrystals("CelestialCrystals", true, () -> Configurations.ASMOD_CONFIG.celestialCrystalsEnable, "astralsorcery"),
-    AltarProgression("AltarProgression", true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
-    InfinityStorageAllCell("InfinityStorageAllCell", true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2")
+    GenerateBiomeAuraBase(true, () -> Configurations.GENERAL_CONFIG.generateBiomeAuraBaseEnable, "thaumcraft"),
+    GuguStarlight(true, () -> Configurations.ASMOD_CONFIG.starLightHatchFix, "gugu-utils", "astralsorcery"),
+    InfinityListCell(true, () -> Configurations.AEMOD_CONFIG.infinityListCellEnable, "appliedenergistics2"),
+    CelestialCrystals(true, () -> Configurations.ASMOD_CONFIG.celestialCrystalsEnable, "astralsorcery"),
+    AltarProgression(true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
+    InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2")
     ;
 
     final String mixinName;
@@ -44,9 +44,16 @@ public enum Mixins {
     final boolean needAllLoad;
     final Supplier<Boolean> otherConfig;
 
-    Mixins(String mixinName, boolean needAllLoad, Supplier<Boolean> otherConfig, String... modId) {
+    Mixins(String mixinName, boolean needAllLoad, Supplier<Boolean> config, String... modId) {
         this.mixinName = mixinName;
-        this.otherConfig = otherConfig;
+        this.otherConfig = config;
+        this.needAllLoad = needAllLoad;
+        this.modId = modId;
+    }
+
+    Mixins(boolean needAllLoad, Supplier<Boolean> config, String... modId) {
+        this.mixinName = this.name();
+        this.otherConfig = config;
         this.needAllLoad = needAllLoad;
         this.modId = modId;
     }

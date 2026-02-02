@@ -1,6 +1,10 @@
 package com.xinyihl.whimcraft.common.storage;
 
 import appeng.api.storage.data.IAEStack;
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
+import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -8,14 +12,12 @@ import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class InfinityStorageWorldData extends WorldSavedData {
     public static final String DATA_NAME = "whimcraft_infinity_storage";
 
-    Map<UUID, Map<IAEStack, Long>> storageData = new HashMap<>();
+    Object2ObjectMap<UUID, Object2LongMap<IAEStack>> storageData = new Object2ObjectOpenHashMap<>();
 
     public InfinityStorageWorldData(String name) {
         super(name);
@@ -31,8 +33,8 @@ public class InfinityStorageWorldData extends WorldSavedData {
         return data;
     }
 
-    public Map<IAEStack, Long> getStorage(UUID uuid) {
-        return storageData.computeIfAbsent(uuid, k -> new HashMap<>());
+    public Object2LongMap<IAEStack> getStorage(UUID uuid) {
+        return storageData.computeIfAbsent(uuid, k -> new Object2LongOpenHashMap<>());
     }
 
     @Override
@@ -43,7 +45,7 @@ public class InfinityStorageWorldData extends WorldSavedData {
             NBTTagCompound cellTag = cellList.getCompoundTagAt(i);
             UUID uuid = UUID.fromString(cellTag.getString("uuid"));
             NBTTagList itemList = cellTag.getTagList("items", Constants.NBT.TAG_COMPOUND);
-            Map<IAEStack, Long> items = new HashMap<>();
+            Object2LongMap<IAEStack> items = new Object2LongOpenHashMap<>();
             for (int j = 0; j < itemList.tagCount(); j++) {
                 NBTTagCompound itemTag = itemList.getCompoundTagAt(j);
                 String type = itemTag.getString("type");
@@ -62,14 +64,14 @@ public class InfinityStorageWorldData extends WorldSavedData {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         NBTTagList cellList = new NBTTagList();
-        for (Map.Entry<UUID, Map<IAEStack, Long>> cellEntry : storageData.entrySet()) {
+        for (Object2ObjectMap.Entry<UUID, Object2LongMap<IAEStack>> cellEntry : storageData.object2ObjectEntrySet()) {
             NBTTagCompound cellTag = new NBTTagCompound();
             cellTag.setString("uuid", cellEntry.getKey().toString());
             NBTTagList itemList = new NBTTagList();
-            for (Map.Entry<IAEStack, Long> itemEntry : cellEntry.getValue().entrySet()) {
+            for (Object2LongMap.Entry<IAEStack> itemEntry : cellEntry.getValue().object2LongEntrySet()) {
                 IAEStack stack = itemEntry.getKey();
-                Long count = itemEntry.getValue();
-                if (stack != null && count != null && count > 0) {
+                long count = itemEntry.getLongValue();
+                if (stack != null && count > 0) {
                     NBTTagCompound itemTag = new NBTTagCompound();
                     if (!StorageDataManager.writeExternalStack(stack, itemTag)) {
                         continue;
