@@ -1,0 +1,10 @@
+{
+  "package": "com.xinyihl.whimcraft.common.mixins.appliedenergistics2",
+  "refmap": "mixins.whimcraft.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "JEIPluginMixin"
+  ]
+}

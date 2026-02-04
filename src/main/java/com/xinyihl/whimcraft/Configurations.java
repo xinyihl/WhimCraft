@@ -127,6 +127,8 @@ public class Configurations {
         public boolean infinityStorageCellEnable = false;
         @Config.Comment("是否启用通用无限存储元件")
         public boolean infinityStorageAllCellEnable = false;
+        @Config.Comment("是否允许填充处理配方材料至合成终端")
+        public boolean craftingTerminalTransferEnable = false;
     }
 
     public static class ChunkPurgeConfig {

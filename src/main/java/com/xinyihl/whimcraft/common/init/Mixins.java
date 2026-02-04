@@ -36,7 +36,8 @@ public enum Mixins {
     InfinityListCell(true, () -> Configurations.AEMOD_CONFIG.infinityListCellEnable, "appliedenergistics2"),
     CelestialCrystals(true, () -> Configurations.ASMOD_CONFIG.celestialCrystalsEnable, "astralsorcery"),
     AltarProgression(true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
-    InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2")
+    InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2"),
+    CraftingTermTransfer(true, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2")
     ;
 
     final String mixinName;
