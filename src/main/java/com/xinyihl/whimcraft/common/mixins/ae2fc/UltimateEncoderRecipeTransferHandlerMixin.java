@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(value = UltimateEncoderRecipeTransferHandler.class, remap = false)
-public class UltimateEncoderRecipeTransferHandlerMixin {
+public abstract class UltimateEncoderRecipeTransferHandlerMixin {
     @Inject(
             method = "transferRecipe*",
             at = @At(

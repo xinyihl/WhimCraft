@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = BlockCelestialCrystals.class, remap = false)
-public class BlockCelestialCrystalsMixin {
+public abstract class BlockCelestialCrystalsMixin {
     /**
      * @author xinyihl
      * @reason 允许非玩家挖掘水晶石矿石

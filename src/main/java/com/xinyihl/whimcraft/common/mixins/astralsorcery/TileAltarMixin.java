@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = TileAltar.class, remap = false)
-public class TileAltarMixin {
+public abstract class TileAltarMixin {
     @Redirect(
             method = "findRecipe",
             at = @At(

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = TileMelter.class, remap = false)
-public class TileMelterMixin {
+public abstract class TileMelterMixin {
 
     @Inject(
             method = "<init>",

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = RequirementAspect.class, remap = false)
-public class RequirementAspectMixin {
+public abstract class RequirementAspectMixin {
     /**
      * @author xin_yi_hl
      * @reason
