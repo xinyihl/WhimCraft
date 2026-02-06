@@ -93,10 +93,12 @@ public class CommonProxy {
     }
 
     public void init() {
-        try (Jedis jedis = RedisClient.getJedis()) {
-            RedisClient.isOnline = "PONG".equals(jedis.ping());
-        } catch (Throwable ignore) {
-            //忽略 Redis 报错防止崩溃
+        if (Configurations.REDIS_IO_CONFIG.enabled) {
+            try (Jedis jedis = RedisClient.getJedis()) {
+                RedisClient.isOnline = "PONG".equals(jedis.ping());
+            } catch (Throwable ignore) {
+                //忽略 Redis 报错防止崩溃
+            }
         }
     }
 }
