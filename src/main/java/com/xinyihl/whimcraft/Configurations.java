@@ -70,10 +70,6 @@ public class Configurations {
         public boolean serverListEnable = false;
         @Config.Comment("ME源质输出最大缓存源质数量")
         public int aspectOutputHatchMaxStorage = 500;
-        @Config.Comment("是否启用Jei添加样板配方修改器")
-        public boolean JeiTransferMixinEnable = false;
-        @Config.Comment("Jei添加样板配方是否启用订单模式")
-        public boolean JeiTransferOrderEnable = false;
         @Config.Comment("是否启用群系神秘区块灵气基础值覆盖")
         public boolean generateBiomeAuraBaseEnable = false;
         @Config.Comment("是否启用订单")
@@ -172,25 +168,18 @@ public class Configurations {
     public static class RedisIOConfig {
         @Config.Comment("是否启用跨次元输入/输出接口功能")
         public boolean enabled = false;
-
         @Config.Comment("跨次元输入/输出接口更新间隔")
         public int tick = 10;
-
         @Config.Comment("Redis 地址")
         public String host = "127.0.0.1";
-
         @Config.Comment("Redis 端口")
         public int port = 6379;
-
         @Config.Comment("Redis 数据库编号")
         public int database = 0;
-
         @Config.Comment("Redis 密码(为空表示不使用 AUTH)")
         public String password = "";
-
         @Config.Comment("Redis key 前缀")
         public String keyPrefix = "whimcraft:io";
-
         @Config.Comment("Redis 中每个接口队列的最大元素数量(上限)。单位是 ItemStack 条目数，不是单个物品数量")
         public int maxEntries = 10000;
     }
