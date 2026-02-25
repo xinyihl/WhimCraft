@@ -78,16 +78,14 @@ public class ClientEventHandler {
     @Optional.Method(modid = "appliedenergistics2")
     public void jei(ItemTooltipEvent event) {
         if (!Configurations.AEMOD_CONFIG.searchInGui) return;
-        ItemStack itemStack = event.getItemStack();
         EntityPlayer player = event.getEntityPlayer();
-
         if (player == null) return;
-
         if (keyDown3) {
             keyDown3 = false;
-            String name = itemStack.getDisplayName();
             Container container = player.openContainer;
             if (container instanceof ContainerMEMonitorable) {
+                ItemStack itemStack = event.getItemStack();
+                String name = itemStack.getDisplayName().replaceAll("§[0-9a-fk-or]", "");
                 IConfigManagerHost gui = ((ContainerMEMonitorable) container).getGui();
                 if (gui instanceof GuiMEMonitorableAccessor) {
                     GuiMEMonitorableAccessor accessor = (GuiMEMonitorableAccessor) gui;
