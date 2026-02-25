@@ -34,7 +34,7 @@ public enum Mixins {
     CelestialCrystals(true, () -> Configurations.ASMOD_CONFIG.celestialCrystalsEnable, "astralsorcery"),
     AltarProgression(true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
     InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2"),
-    CraftingTermTransfer(true, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2")
+    CraftingTermTransfer(false, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2", "neenergistics")
     ;
 
     final String mixinName;

@@ -178,6 +178,7 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:endercore-231868:4671384")
     compileOnly rfg.deobf("curse.maven:ender-io-64578:4674244")
     compileOnly rfg.deobf("curse.maven:nae2-884359:5317480")
+    compileOnly rfg.deobf("curse.maven:nee-515565:6325382")
     compileOnly rfg.deobf("curse.maven:ae2fluidcraftingrework-623955:5405482")
     compileOnly rfg.deobf("curse.maven:astralsorcery-241721:3044416")
     compileOnly rfg.deobf("curse.maven:naturesaura-306626:2882138")
