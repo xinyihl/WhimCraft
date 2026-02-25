@@ -27,9 +27,9 @@ public class StorageDataManager {
             case Types.FLUID:
                 return readFluidStack(tag);
             case Types.GAS:
-                return readGasStack(tag);
+                return Loader.isModLoaded("mekeng") ? readGasStack(tag) : null;
             case Types.ESSENTIA:
-                return readEssentiaStack(tag);
+                return Loader.isModLoaded("thaumicenergistics") ? readEssentiaStack(tag) : null;
             default:
                 return null;
         }
