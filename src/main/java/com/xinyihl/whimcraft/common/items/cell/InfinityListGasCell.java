@@ -5,6 +5,7 @@ import com.mekeng.github.common.me.data.IAEGasStack;
 import com.mekeng.github.common.me.data.impl.AEGasStack;
 import com.xinyihl.whimcraft.Tags;
 import com.xinyihl.whimcraft.common.init.IB;
+import mekanism.api.gas.GasStack;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -35,6 +36,41 @@ public class InfinityListGasCell extends AEBaseItem {
             }
         }
         return records;
+    }
+
+    public static ItemStack createWithRecords(List<GasStack> records) {
+        if (IB.itemInfinityListGasCell == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack stack = new ItemStack(IB.itemInfinityListGasCell);
+        setRecords(stack, records);
+        return stack;
+    }
+
+    public static void setRecords(ItemStack stack, List<GasStack> records) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            tag = new NBTTagCompound();
+        }
+        NBTTagList list = new NBTTagList();
+        for (GasStack record : records) {
+            if (record == null || record.getGas() == null) {
+                continue;
+            }
+            IAEGasStack aeGasStack = AEGasStack.of(record);
+            if (aeGasStack != null) {
+                NBTTagCompound recTag = new NBTTagCompound();
+                aeGasStack.writeToNBT(recTag);
+                list.appendTag(recTag);
+            }
+        }
+        if (list.tagCount() > 0) {
+            tag.setTag("recs", list);
+            stack.setTagCompound(tag);
+        }
     }
 
     @Override

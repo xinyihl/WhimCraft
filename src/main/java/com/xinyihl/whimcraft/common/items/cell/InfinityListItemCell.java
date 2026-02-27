@@ -37,6 +37,41 @@ public class InfinityListItemCell extends AEBaseItem {
         return records;
     }
 
+    public static ItemStack createWithRecords(List<ItemStack> records) {
+        if (IB.itemInfinityListItemCell == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack stack = new ItemStack(IB.itemInfinityListItemCell);
+        setRecords(stack, records);
+        return stack;
+    }
+
+    public static void setRecords(ItemStack stack, List<ItemStack> records) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            tag = new NBTTagCompound();
+        }
+        NBTTagList list = new NBTTagList();
+        for (ItemStack record : records) {
+            if (record == null || record.isEmpty()) {
+                continue;
+            }
+            IAEItemStack aeItemStack = AEItemStack.fromItemStack(record);
+            if (aeItemStack != null) {
+                NBTTagCompound recTag = new NBTTagCompound();
+                aeItemStack.writeToNBT(recTag);
+                list.appendTag(recTag);
+            }
+        }
+        if (list.tagCount() > 0) {
+            tag.setTag("recs", list);
+            stack.setTagCompound(tag);
+        }
+    }
+
     @Override
     protected void addCheckedInformation(ItemStack stack, World world, List<String> lines, ITooltipFlag advancedTooltips) {
         List<IAEItemStack> records = getRecords(stack);

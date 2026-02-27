@@ -3,6 +3,7 @@ package com.xinyihl.whimcraft.common.integration.jei;
 import com.xinyihl.whimcraft.client.OrderGui;
 import com.xinyihl.whimcraft.common.init.Mods;
 import com.xinyihl.whimcraft.common.integration.adapter.tc6.AspectRequirementUtil;
+import com.xinyihl.whimcraft.common.items.cell.InfinityListItemCellRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -19,6 +20,10 @@ public class WhimcraftJeiPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
         if (Mods.TC6.isLoaded()) {
             AspectRequirementUtil.runCreateAspectsFile(new ArrayList<>(registry.getIngredientRegistry().getAllIngredients(registry.getIngredientRegistry().getIngredientType(ItemStack.class))));
+        }
+        ArrayList<ItemStack> stacks = new ArrayList<>(InfinityListItemCellRegistry.getJeiStacks());
+        if (!stacks.isEmpty()) {
+            registry.getIngredientRegistry().addIngredientsAtRuntime(registry.getIngredientRegistry().getIngredientType(ItemStack.class), stacks);
         }
         registry.addGhostIngredientHandler(OrderGui.class, new GhostJEIHandler());
     }

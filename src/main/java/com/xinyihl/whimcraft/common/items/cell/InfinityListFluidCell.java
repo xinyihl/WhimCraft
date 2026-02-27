@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,41 @@ public class InfinityListFluidCell extends AEBaseItem {
             }
         }
         return records;
+    }
+
+    public static ItemStack createWithRecords(List<FluidStack> records) {
+        if (IB.itemInfinityListFluidCell == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack stack = new ItemStack(IB.itemInfinityListFluidCell);
+        setRecords(stack, records);
+        return stack;
+    }
+
+    public static void setRecords(ItemStack stack, List<FluidStack> records) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            tag = new NBTTagCompound();
+        }
+        NBTTagList list = new NBTTagList();
+        for (FluidStack record : records) {
+            if (record == null || record.getFluid() == null) {
+                continue;
+            }
+            IAEFluidStack aeFluidStack = AEFluidStack.fromFluidStack(record);
+            if (aeFluidStack != null) {
+                NBTTagCompound recTag = new NBTTagCompound();
+                aeFluidStack.writeToNBT(recTag);
+                list.appendTag(recTag);
+            }
+        }
+        if (list.tagCount() > 0) {
+            tag.setTag("recs", list);
+            stack.setTagCompound(tag);
+        }
     }
 
     @Override

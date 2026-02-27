@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import thaumcraft.api.aspects.Aspect;
+import thaumicenergistics.api.EssentiaStack;
 import thaumicenergistics.api.storage.IAEEssentiaStack;
 import thaumicenergistics.integration.appeng.AEEssentiaStack;
 
@@ -37,6 +38,41 @@ public class InfinityListEssentiaCell extends AEBaseItem {
             }
         }
         return records;
+    }
+
+    public static ItemStack createWithRecords(List<Aspect> records) {
+        if (IB.itemInfinityListEssentiaCell == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack stack = new ItemStack(IB.itemInfinityListEssentiaCell);
+        setRecords(stack, records);
+        return stack;
+    }
+
+    public static void setRecords(ItemStack stack, List<Aspect> records) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            tag = new NBTTagCompound();
+        }
+        NBTTagList list = new NBTTagList();
+        for (Aspect record : records) {
+            if (record == null) {
+                continue;
+            }
+            IAEEssentiaStack aeStack = AEEssentiaStack.fromEssentiaStack(new EssentiaStack(record, 1));
+            if (aeStack != null) {
+                NBTTagCompound recTag = new NBTTagCompound();
+                aeStack.writeToNBT(recTag);
+                list.appendTag(recTag);
+            }
+        }
+        if (list.tagCount() > 0) {
+            tag.setTag("recs", list);
+            stack.setTagCompound(tag);
+        }
     }
 
     @Override
