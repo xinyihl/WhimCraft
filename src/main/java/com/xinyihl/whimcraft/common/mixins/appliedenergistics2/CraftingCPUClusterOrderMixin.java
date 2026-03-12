@@ -1,5 +1,7 @@
 package com.xinyihl.whimcraft.common.mixins.appliedenergistics2;
 
+import appeng.api.config.Actionable;
+import appeng.api.networking.security.IActionSource;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.me.cluster.implementations.CraftingCPUCluster;
@@ -27,7 +29,7 @@ public abstract class CraftingCPUClusterOrderMixin {
     }
 
     @Inject(method = "injectItems", at = @At("RETURN"))
-    private void autoCompleteWhenDispatched(IAEItemStack input, appeng.api.config.Actionable type, appeng.api.networking.security.IActionSource src, CallbackInfoReturnable<IAEItemStack> cir) {
+    private void autoCompleteWhenDispatched(IAEItemStack input, Actionable type, IActionSource src, CallbackInfoReturnable<IAEItemStack> cir) {
         if (IB.itemOrder == null || this.isComplete || this.finalOutput == null) {
             return;
         }

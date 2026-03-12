@@ -50,6 +50,30 @@ public class Configurations {
     @Config.Comment("跨次元输入/输出接口设置")
     public static final RedisIOConfig REDIS_IO_CONFIG = new RedisIOConfig();
 
+    @Config.Comment("EnderIO设置")
+    public static final EnderIOConfig ENDERIO_CONFIG = new EnderIOConfig();
+
+    @Config.Comment("林业设置")
+    public static final ForestryConfig FORESTRY_CONFIG = new ForestryConfig();
+
+    @Config.Comment("沉浸工程设置")
+    public static final ImmersiveEngineeringConfig IE_CONFIG = new ImmersiveEngineeringConfig();
+
+    @Config.Comment("SmelteryIO设置")
+    public static final SmelteryIOConfig SMELTERYIO_CONFIG = new SmelteryIOConfig();
+
+    @Config.Comment("通灵术设置")
+    public static final MekanismConfig MEKANISM_CONFIG = new MekanismConfig();
+
+    @Config.Comment("匠魂设置")
+    public static final TConstructConfig TCONSTRUCT_CONFIG = new TConstructConfig();
+
+    @Config.Comment("热力膨胀设置")
+    public static final ThermalExpansionConfig THERMAL_EXPANSION_CONFIG = new ThermalExpansionConfig();
+
+    @Config.Comment("热力基本设置")
+    public static final ThermalFoundationConfig THERMAL_FOUNDATION_CONFIG = new ThermalFoundationConfig();
+
     static {
         ConfigAnytime.register(Configurations.class);
     }
@@ -192,6 +216,8 @@ public class Configurations {
     public static class ExtraUtils2ModConfig {
         @Config.Comment("彩虹发电机发电量")
         public int rainbowGeneratorEnergy = 2500000;
+        @Config.Comment("是否启用ExtraUtils2其他调整(地形改造器提示、禁用粉碎机、机器容量增强、屏幕零耗能)")
+        public boolean extraUtils2TweaksEnable = false;
     }
 
     public static class BotaniaConfig {
@@ -200,6 +226,12 @@ public class Configurations {
 
         @Config.Comment("是否允许将产能花直接连接到魔力池")
         public boolean linkFlowerToPool = false;
+        @Config.Comment("是否允许地狱兰花在任何维度运作")
+        public boolean orechidIgnemEnable = false;
+        @Config.Comment("是否修复盖亚守护者II服务端崩溃(无玩家时)")
+        public boolean gaiaCrashFixEnable = false;
+        @Config.Comment("是否增加神秘酿造持续时间")
+        public boolean modBrewsDurationEnable = false;
     }
 
     public static class MobUtilsConfig {
@@ -210,6 +242,60 @@ public class Configurations {
     public static class IC2Config {
         @Config.Comment("修改电炉经验为直接给予玩家，不再掉落为经验球")
         public boolean changeXPOrb = false;
+        @Config.Comment("是否禁用UU值计算(提升性能)")
+        public boolean disableUuIndex = false;
+    }
+
+    public static class EnderIOConfig {
+        @Config.Comment("是否禁用合金冶炼炉合成配方三倍化(提升性能)")
+        public boolean disableAlloySyntheticRecipes = false;
+        @Config.Comment("是否禁用流体储罐JEI配方(减少加载时间)")
+        public boolean disableTankJEIRecipes = false;
+    }
+
+    public static class ForestryConfig {
+        @Config.Comment("是否禁用压榨机胶囊配方(减少~1500条配方)")
+        public boolean disableSqueezerCapsuleRecipes = false;
+        @Config.Comment("是否禁用无效发酵配方")
+        public boolean disableInvalidFermenterRecipes = false;
+        @Config.Comment("是否增强雨水收集器")
+        public boolean buffRainTank = false;
+        @Config.Comment("是否增强管道速度")
+        public boolean buffTubeSpeed = false;
+    }
+
+    public static class ImmersiveEngineeringConfig {
+        @Config.Comment("是否移除工程师手册中的合成配方(节省2-6秒加载时间)")
+        public boolean disableManualCraftingRecipes = false;
+    }
+
+    public static class SmelteryIOConfig {
+        @Config.Comment("是否禁用SmelteryIO的JEI类别")
+        public boolean disableJEICategories = false;
+        @Config.Comment("是否修复方块的挖掘等级和爆炸抗性")
+        public boolean fixBlockProperties = false;
+    }
+
+    public static class MekanismConfig {
+        @Config.Comment("是否禁用默认的原木=>木板配方")
+        public boolean disableLogRecipes = false;
+        @Config.Comment("是否修复损坏NBT导致的崩溃")
+        public boolean fixNBTCrash = false;
+    }
+
+    public static class TConstructConfig {
+        @Config.Comment("是否加速铸造冷却时间")
+        public boolean fasterCastingCooldown = false;
+    }
+
+    public static class ThermalExpansionConfig {
+        @Config.Comment("是否启用热力膨胀调整(货币发电机、灌装机、精炼机、冶炼炉)")
+        public boolean thermalExpansionTweaksEnable = false;
+    }
+
+    public static class ThermalFoundationConfig {
+        @Config.Comment("是否移除热力基本工具")
+        public boolean removeThermalTools = false;
     }
 
     public static class AECellConfig {

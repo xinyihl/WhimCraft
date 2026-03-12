@@ -35,7 +35,34 @@ public enum Mixins {
     AltarProgression(true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
     InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2"),
     CraftingTermTransfer(false, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2", "neenergistics"),
-    AeOrderAutoComplete(false, () -> Configurations.GENERAL_CONFIG.orderEnable, "appliedenergistics2")
+    AeOrderAutoComplete(false, () -> Configurations.GENERAL_CONFIG.orderEnable, "appliedenergistics2"),
+    // Botania
+    OrechidIgnem(true, () -> Configurations.BOTANIA_CONFIG.orechidIgnemEnable, "botania"),
+    GaiaCrashFix(true, () -> Configurations.BOTANIA_CONFIG.gaiaCrashFixEnable, "botania"),
+    ModBrewsDuration(true, () -> Configurations.BOTANIA_CONFIG.modBrewsDurationEnable, "botania"),
+    // EnderIO
+    EnderIOAlloySmelter(true, () -> Configurations.ENDERIO_CONFIG.disableAlloySyntheticRecipes, "enderio"),
+    EnderIOTankJEI(true, () -> Configurations.ENDERIO_CONFIG.disableTankJEIRecipes, "enderio"),
+    // ExtraUtils2
+    ExtraUtils2Tweaks(true, () -> Configurations.EXTRA_CONFIG.extraUtils2TweaksEnable, "extrautils2"),
+    // Forestry
+    ForestryTweaks(true, () -> Configurations.FORESTRY_CONFIG.disableSqueezerCapsuleRecipes || Configurations.FORESTRY_CONFIG.disableInvalidFermenterRecipes, "forestry"),
+    ForestryRainTank(true, () -> Configurations.FORESTRY_CONFIG.buffRainTank, "forestry"),
+    ForestryTubeSpeed(true, () -> Configurations.FORESTRY_CONFIG.buffTubeSpeed, "forestry"),
+    // IC2
+    IC2UuIndex(true, () -> Configurations.IC2_CONFIG.disableUuIndex, "ic2"),
+    // Immersive Engineering
+    IEManualRecipes(true, () -> Configurations.IE_CONFIG.disableManualCraftingRecipes, "immersiveengineering"),
+    // SmelteryIO
+    SmelteryIO(true, () -> Configurations.SMELTERYIO_CONFIG.disableJEICategories || Configurations.SMELTERYIO_CONFIG.fixBlockProperties, "mctsmelteryio"),
+    // Mekanism
+    MekanismTweaks(true, () -> Configurations.MEKANISM_CONFIG.disableLogRecipes || Configurations.MEKANISM_CONFIG.fixNBTCrash, "mekanism"),
+    // Tinkers Construct
+    TConCastingCooldown(true, () -> Configurations.TCONSTRUCT_CONFIG.fasterCastingCooldown, "tconstruct"),
+    // Thermal Expansion
+    ThermalExpansionTweaks(true, () -> Configurations.THERMAL_EXPANSION_CONFIG.thermalExpansionTweaksEnable, "thermalexpansion"),
+    // Thermal Foundation
+    ThermalFoundationTools(true, () -> Configurations.THERMAL_FOUNDATION_CONFIG.removeThermalTools, "thermalfoundation")
     ;
 
     final String mixinName;

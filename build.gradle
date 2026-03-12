@@ -194,6 +194,12 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:not-enough-energistics-515565:6325382")
     compileOnly rfg.deobf("curse.maven:thaumic-energistics-extended-life-849094:6321322")
 
+    //ported zenscript mixin dependencies
+    compileOnly rfg.deobf("curse.maven:cofhcore-69162:2920433")
+    compileOnly rfg.deobf("curse.maven:cofhworld-271384:2920434")
+    compileOnly rfg.deobf("curse.maven:thermalfoundation-222880:2926428")
+    compileOnly rfg.deobf("curse.maven:thermalexpansion-69163:2926431")
+    compileOnly rfg.deobf("curse.maven:mct-smeltery-io-326155:7641210")
 }
 
 if (project.use_access_transformer.toBoolean()) {
