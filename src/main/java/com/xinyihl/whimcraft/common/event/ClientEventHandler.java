@@ -85,7 +85,7 @@ public class ClientEventHandler {
             Container container = player.openContainer;
             if (container instanceof ContainerMEMonitorable) {
                 ItemStack itemStack = event.getItemStack();
-                String name = itemStack.getDisplayName().replaceAll("§[0-9a-fk-or]", "");
+                String name = itemStack.getDisplayName();
                 IConfigManagerHost gui = ((ContainerMEMonitorable) container).getGui();
                 if (gui instanceof GuiMEMonitorableAccessor) {
                     GuiMEMonitorableAccessor accessor = (GuiMEMonitorableAccessor) gui;
