@@ -40,6 +40,7 @@ public enum Mixins {
     OrechidIgnem(true, () -> Configurations.BOTANIA_CONFIG.orechidIgnemEnable, "botania"),
     GaiaCrashFix(true, () -> Configurations.BOTANIA_CONFIG.gaiaCrashFixEnable, "botania"),
     ModBrewsDuration(true, () -> Configurations.BOTANIA_CONFIG.modBrewsDurationEnable, "botania"),
+    ExtraBotanyPureDaisyPendant(true, () -> Configurations.EXTRABOTANY_CONFIG.pureDaisyPendantBlacklistEnable, "extrabotany"),
     // EnderIO
     EnderIOAlloySmelter(true, () -> Configurations.ENDERIO_CONFIG.disableAlloySyntheticRecipes, "enderio"),
     EnderIOTankJEI(true, () -> Configurations.ENDERIO_CONFIG.disableTankJEIRecipes, "enderio"),

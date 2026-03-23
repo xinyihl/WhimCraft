@@ -35,6 +35,9 @@ public class Configurations {
     @Config.Comment("植物魔法设置")
     public static final BotaniaConfig BOTANIA_CONFIG = new BotaniaConfig();
 
+    @Config.Comment("额外植物学设置")
+    public static final ExtraBotanyConfig EXTRABOTANY_CONFIG = new ExtraBotanyConfig();
+
     @Config.Comment("区块清除配置")
     public static final ChunkPurgeConfig CHUNCK_CONFIG = new ChunkPurgeConfig();
 
@@ -232,6 +235,14 @@ public class Configurations {
         public boolean gaiaCrashFixEnable = false;
         @Config.Comment("是否增加神秘酿造持续时间")
         public boolean modBrewsDurationEnable = false;
+    }
+
+    public static class ExtraBotanyConfig {
+        @Config.Comment("是否启用白雏菊项链产物黑名单")
+        public boolean pureDaisyPendantBlacklistEnable = false;
+
+        @Config.Comment("白雏菊项链产物黑名单，填写方块注册名，例如 botania:livingrock")
+        public String[] pureDaisyPendantOutputBlacklist = {};
     }
 
     public static class MobUtilsConfig {
