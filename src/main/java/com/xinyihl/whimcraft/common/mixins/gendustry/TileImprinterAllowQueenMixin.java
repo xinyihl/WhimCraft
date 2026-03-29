@@ -19,9 +19,7 @@ public abstract class TileImprinterAllowQueenMixin {
     @Inject(
             method = "isItemValidForSlot",
             at = @At("HEAD"),
-            cancellable = true,
-            require = 1,
-            remap = true
+            cancellable = true
     )
     private void whimCraft$allowQueenImprinting(int index, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (index != 2 || stack == null || stack.isEmpty()) {

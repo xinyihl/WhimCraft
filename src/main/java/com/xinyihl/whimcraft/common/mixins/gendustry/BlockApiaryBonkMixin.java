@@ -30,7 +30,6 @@ public abstract class BlockApiaryBonkMixin extends BaseBlock {
                 TileEntity tile = worldIn.getTileEntity(pos);
                 if (tile instanceof TileApiary) {
                     ((TileApiary) tile).getBeekeepingLogic().clearCachedValues();
-
                 }
             }
         }

@@ -246,6 +246,9 @@ public class Configurations {
 
         @Config.Comment("白雏菊项链产物黑名单，填写方块注册名，例如 botania:livingrock")
         public String[] pureDaisyPendantOutputBlacklist = {};
+
+        @Config.Comment("是否修复盖亚III在附近玩家列表为空时的崩溃")
+        public boolean gaiaIIIEmptyPlayersCrashFixEnable = false;
     }
 
     public static class GendustryConfig {
