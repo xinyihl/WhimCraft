@@ -194,6 +194,8 @@ dependencies {
     compileOnly rfg.deobf("curse.maven:modtweaker-220954:3840577")
     compileOnly rfg.deobf("curse.maven:not-enough-energistics-515565:6325382")
     compileOnly rfg.deobf("curse.maven:thaumic-energistics-extended-life-849094:6321322")
+    compileOnly rfg.deobf("curse.maven:bdlib-70496:4675629")
+    compileOnly rfg.deobf("curse.maven:gendustry-70492:2516215")
 
     //ported zenscript mixin dependencies
     compileOnly rfg.deobf("curse.maven:cofhcore-69162:2920433")

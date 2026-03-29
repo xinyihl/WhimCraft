@@ -41,6 +41,9 @@ public enum Mixins {
     GaiaCrashFix(true, () -> Configurations.BOTANIA_CONFIG.gaiaCrashFixEnable, "botania"),
     ModBrewsDuration(true, () -> Configurations.BOTANIA_CONFIG.modBrewsDurationEnable, "botania"),
     ExtraBotanyPureDaisyPendant(true, () -> Configurations.EXTRABOTANY_CONFIG.pureDaisyPendantBlacklistEnable, "extrabotany"),
+    GendustryQueenImprinting(true, () -> Configurations.GENDUSTRY_CONFIG.allowQueenImprinting, "gendustry"),
+    GendustryQueenMateGenome(true, () -> Configurations.GENDUSTRY_CONFIG.ensureQueenMateGenome, "gendustry"),
+    GendustryApiaryBonk(true, () -> Configurations.GENDUSTRY_CONFIG.apiaryBonkEnable, "gendustry"),
     // EnderIO
     EnderIOAlloySmelter(true, () -> Configurations.ENDERIO_CONFIG.disableAlloySyntheticRecipes, "enderio"),
     EnderIOTankJEI(true, () -> Configurations.ENDERIO_CONFIG.disableTankJEIRecipes, "enderio"),

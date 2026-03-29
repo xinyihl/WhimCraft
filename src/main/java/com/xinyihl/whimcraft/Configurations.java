@@ -38,6 +38,9 @@ public class Configurations {
     @Config.Comment("额外植物学设置")
     public static final ExtraBotanyConfig EXTRABOTANY_CONFIG = new ExtraBotanyConfig();
 
+    @Config.Comment("基因工业设置")
+    public static final GendustryConfig GENDUSTRY_CONFIG = new GendustryConfig();
+
     @Config.Comment("区块清除配置")
     public static final ChunkPurgeConfig CHUNCK_CONFIG = new ChunkPurgeConfig();
 
@@ -243,6 +246,17 @@ public class Configurations {
 
         @Config.Comment("白雏菊项链产物黑名单，填写方块注册名，例如 botania:livingrock")
         public String[] pureDaisyPendantOutputBlacklist = {};
+    }
+
+    public static class GendustryConfig {
+        @Config.Comment("是否允许压印机接受蜂后进行基因压印")
+        public boolean allowQueenImprinting = false;
+
+        @Config.Comment("是否在压印蜂后时补齐Mate基因，避免只保留单侧基因")
+        public boolean ensureQueenMateGenome = false;
+
+        @Config.Comment("是否启用工业蜂箱木棍敲击刷新缓存")
+        public boolean apiaryBonkEnable = false;
     }
 
     public static class MobUtilsConfig {
