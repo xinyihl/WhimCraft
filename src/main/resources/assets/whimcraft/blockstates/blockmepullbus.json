@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "model": "whimcraft:blockmepullbus"
+  },
+  "variants": {
+    "inventory": {
+      "model": "whimcraft:blockmepullbus"
+    },
+    "normal": {
+      "model": "whimcraft:blockmepullbus"
+    }
+  }
+}

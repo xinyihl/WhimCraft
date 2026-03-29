@@ -55,6 +55,8 @@ tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME Mechanical Essentia Input 
 tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME Mechanical Essentia Output Bus
 tile.whimcraft.redis_input_interface.name=Redis Input Interface
 tile.whimcraft.redis_output_interface.name=Redis Output Interface
+tile.whimcraft.blockmepullbus.name=ME Pull Bus
+gui.whimcraft.me_pull_bus.return=Return
 
 message.whimcraft.linkgard.clear=§aCoordinates cleared successfully
 message.whimcraft.linkgard.save=§aCoordinates saved successfully

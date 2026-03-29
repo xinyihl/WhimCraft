@@ -53,6 +53,8 @@ tile.whimcraft.blockmeaspectinputbusmmce.name=MMCE-ME机械源质输入总线
 tile.whimcraft.blockmeaspectoutputbusmmce.name=MMCE-ME机械源质输出总线
 tile.whimcraft.redis_input_interface.name=跨次元输入接口
 tile.whimcraft.redis_output_interface.name=跨次元输出接口
+tile.whimcraft.blockmepullbus.name=ME拉取总线
+gui.whimcraft.me_pull_bus.return=返还
 
 message.whimcraft.linkgard.clear=§a清除坐标成功
 message.whimcraft.linkgard.save=§a保存坐标成功

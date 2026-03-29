@@ -53,6 +53,8 @@ public final class IB {
     public static Item itemInfinityStorageAllCell;
     public static Item itemInfinityListEssentiaCell;
     public static Item itemInfinityStorageEssentiaCell;
+    public static Block blockMEPullBus;
+    public static Item itemMEPullBus;
 
     static {
         initTab();
@@ -83,7 +85,7 @@ public final class IB {
     }
 
     private static void initTab() {
-        if (Configurations.GENERAL_CONFIG.placerEnable || Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded())) {
+        if (Configurations.GENERAL_CONFIG.placerEnable || Configurations.GENERAL_CONFIG.elgoogEnable || Configurations.GENERAL_CONFIG.orderEnable || Configurations.REDIS_IO_CONFIG.enabled || (Mods.MMCE.isLoaded() && Configurations.MMCE_CONFIG.useShareInfHandler) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) || (Mods.MMCE.isLoaded() && Mods.AE2.isLoaded() && Configurations.AEMOD_CONFIG.mePullBusEnable)) {
             CREATIVE_TAB = new CreativeTabs(Tags.MOD_ID + "_tab") {
                 public ItemStack createIcon() {
                     return new ItemStack(items.isEmpty() ? Items.AIR : items.get(0));
@@ -150,6 +152,10 @@ public final class IB {
             itemMEAspectInputBus = registerItemBlock(blockMEAspectInputBus);
             blockMEAspectOutputBus = registerBlock(new BlockMEAspectOutputBus());
             itemMEAspectOutputBus = registerItemBlock(blockMEAspectOutputBus);
+        }
+        if (Mods.AE2.isLoaded() && Configurations.AEMOD_CONFIG.mePullBusEnable) {
+            blockMEPullBus = registerBlock(new BlockMEPullBus());
+            itemMEPullBus = registerItemBlock(blockMEPullBus);
         }
     }
 

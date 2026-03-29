@@ -155,6 +155,10 @@ public class Configurations {
         public boolean infinityStorageAllCellEnable = false;
         @Config.Comment("是否允许填充处理配方材料至合成终端")
         public boolean craftingTerminalTransferEnable = false;
+        @Config.Comment("是否启用ME拉取总线")
+        public boolean mePullBusEnable = false;
+        @Config.Comment("ME拉取总线拉取间隔(tick)")
+        public int mePullBusInterval = 10;
     }
 
     public static class ChunkPurgeConfig {
@@ -229,7 +233,6 @@ public class Configurations {
     public static class BotaniaConfig {
         @Config.Comment("jei配方是否显示具体魔力消耗")
         public boolean showMana = false;
-
         @Config.Comment("是否允许将产能花直接连接到魔力池")
         public boolean linkFlowerToPool = false;
         @Config.Comment("是否允许地狱兰花在任何维度运作")

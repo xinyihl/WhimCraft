@@ -1,0 +1,130 @@
+{
+  "parent": "block/block",
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#bg_all",
+          "cullface": "down",
+          "tintindex": 1
+        },
+        "up": {
+          "texture": "#bg_all",
+          "cullface": "up",
+          "tintindex": 1
+        },
+        "north": {
+          "texture": "#bg_all",
+          "cullface": "north",
+          "tintindex": 1
+        },
+        "south": {
+          "texture": "#bg_all",
+          "cullface": "south",
+          "tintindex": 1
+        },
+        "west": {
+          "texture": "#bg_all",
+          "cullface": "west",
+          "tintindex": 1
+        },
+        "east": {
+          "texture": "#bg_all",
+          "cullface": "east",
+          "tintindex": 1
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#ov_all1",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#ov_all1",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#ov_all1",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#ov_all1",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#ov_all1",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#ov_all1",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#ov_all2",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#ov_all2",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#ov_all2",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#ov_all2",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#ov_all2",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#ov_all2",
+          "cullface": "east"
+        }
+      }
+    }
+  ],
+  "textures": {
+    "bg_all": "modularmachinery:blocks/blockcasing_plain",
+    "ov_all1": "whimcraft:blocks/mepullbus",
+    "ov_all2": "whimcraft:blocks/overlay_mepullbus"
+  }
+}
