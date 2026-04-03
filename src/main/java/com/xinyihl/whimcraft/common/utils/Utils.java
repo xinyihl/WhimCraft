@@ -1,8 +1,11 @@
 package com.xinyihl.whimcraft.common.utils;
 
 import com.xinyihl.whimcraft.Configurations;
+import com.xinyihl.whimcraft.WhimCraft;
+import com.xinyihl.whimcraft.common.network.PacketClientToServer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import javax.swing.*;
@@ -54,5 +57,16 @@ public final class Utils {
         } catch (Exception e) {
             return "0B";
         }
+    }
+
+    public static void sendAction(String type) {
+        sendAction(type, null);
+    }
+
+    public static void sendAction(String type, NBTTagCompound compound) {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("type", type);
+        tag.setTag("data", compound == null ? new NBTTagCompound() : compound);
+        WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
     }
 }

@@ -1,8 +1,6 @@
 package com.xinyihl.whimcraft.common.network;
 
-import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
-import com.xinyihl.whimcraft.common.container.ContainerMEPullBus;
-import com.xinyihl.whimcraft.common.container.ContainerOrder;
+import com.xinyihl.whimcraft.api.IActionHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,18 +41,8 @@ public class PacketClientToServer implements IMessage, IMessageHandler<PacketCli
         player.server.addScheduledTask(() -> {
             switch (ClientToServer.valueOf(message.type)) {
                 case CLICK_ACTION: {
-                    if (message.compound == null) {
-                        break;
-                    }
-                    String type = message.compound.getString("type");
-                    if (player.openContainer instanceof ContainerOrder) {
-                        ((ContainerOrder) player.openContainer).onAction(type, message.compound);
-                    }
-                    if (player.openContainer instanceof ContainerCablePlacer) {
-                        ((ContainerCablePlacer) player.openContainer).onAction(type, message.compound);
-                    }
-                    if (player.openContainer instanceof ContainerMEPullBus) {
-                        ((ContainerMEPullBus) player.openContainer).onAction(type, message.compound);
+                    if (player.openContainer instanceof IActionHandler && message.compound != null) {
+                        ((IActionHandler) player.openContainer).onAction(message.compound.getString("type"), message.compound.getCompoundTag("data"));
                     }
                     break;
                 }

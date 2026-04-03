@@ -1,14 +1,12 @@
 package com.xinyihl.whimcraft.client;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.WhimCraft;
 import com.xinyihl.whimcraft.common.container.ContainerMEPullBus;
-import com.xinyihl.whimcraft.common.network.PacketClientToServer;
+import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,11 +33,7 @@ public class GuiMEPullBus extends GuiContainer {
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setString("type", "return_items");
-            WhimCraft.instance.networkWrapper.sendToServer(
-                    new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag)
-            );
+            Utils.sendAction("return_items");
         }
     }
 

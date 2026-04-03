@@ -1,11 +1,10 @@
 package com.xinyihl.whimcraft.client;
 
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.WhimCraft;
 import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacerData;
-import com.xinyihl.whimcraft.common.network.PacketClientToServer;
+import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -77,25 +76,18 @@ public class GuiCablePlacer extends GuiContainer {
         }
         if (button.id == 2) {
             boolean next = !CablePlacerData.getOptAllowReplace(getTool());
-            sendToggle("toggle_allow_replace", next);
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setBoolean("value", next);
+            Utils.sendAction("toggle_allow_replace", tag);
             CablePlacerData.setOptAllowReplace(getTool(), next);
             refreshButtons();
             return;
         }
         if (button.id == 3) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setString("type", "clear_points");
-            WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
+            Utils.sendAction("clear_points");
             CablePlacerData.clearAll(getTool());
             refreshButtons();
         }
-    }
-
-    private void sendToggle(String type, boolean value) {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setString("type", type);
-        tag.setBoolean("value", value);
-        WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
     }
 
     @Override

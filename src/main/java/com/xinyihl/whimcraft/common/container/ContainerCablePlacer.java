@@ -1,6 +1,7 @@
 package com.xinyihl.whimcraft.common.container;
 
 import com.xinyihl.whimcraft.api.CableCompatManager;
+import com.xinyihl.whimcraft.api.IActionHandler;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacerData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class ContainerCablePlacer extends Container {
+public class ContainerCablePlacer extends Container implements IActionHandler {
 
     private final EntityPlayer player;
 
@@ -55,6 +56,7 @@ public class ContainerCablePlacer extends Container {
         return super.slotClick(slotId, dragType, clickType, player);
     }
 
+    @Override
     public void onAction(String type, NBTTagCompound compound) {
         ItemStack tool = player.getHeldItemMainhand();
         if (!(tool.getItem() instanceof CablePlacer)) {
@@ -63,8 +65,7 @@ public class ContainerCablePlacer extends Container {
 
         switch (type) {
             case "set_cable": {
-                NBTTagCompound nbt = compound.getCompoundTag("nbt");
-                ItemStack clickedStack = new ItemStack(nbt);
+                ItemStack clickedStack = new ItemStack(compound);
                 if (!clickedStack.isEmpty()) {
                     if (CableCompatManager.canSelect(clickedStack)) {
                         CablePlacerData.setCableStack(tool, clickedStack);

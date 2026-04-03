@@ -1,5 +1,6 @@
 package com.xinyihl.whimcraft.common.container;
 
+import com.xinyihl.whimcraft.api.IActionHandler;
 import com.xinyihl.whimcraft.common.tile.TileMEPullBus;
 import hellfirepvp.modularmachinery.common.util.IOInventory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ContainerMEPullBus extends Container {
+public class ContainerMEPullBus extends Container implements IActionHandler {
 
     private final TileMEPullBus tile;
 
@@ -52,6 +53,7 @@ public class ContainerMEPullBus extends Container {
         return ItemStack.EMPTY;
     }
 
+    @Override
     public void onAction(String type, NBTTagCompound compound) {
         if ("return_items".equals(type)) {
             tile.returnItemsToAE();

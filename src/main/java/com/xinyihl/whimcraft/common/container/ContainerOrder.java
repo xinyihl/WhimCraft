@@ -1,9 +1,9 @@
 package com.xinyihl.whimcraft.common.container;
 
-import com.xinyihl.whimcraft.WhimCraft;
+import com.xinyihl.whimcraft.api.IActionHandler;
 import com.xinyihl.whimcraft.client.GhostItemSlot;
 import com.xinyihl.whimcraft.common.items.Order;
-import com.xinyihl.whimcraft.common.network.PacketClientToServer;
+import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -11,7 +11,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ContainerOrder extends Container {
+public class ContainerOrder extends Container implements IActionHandler {
 
     private final EntityPlayer player;
 
@@ -40,23 +40,22 @@ public class ContainerOrder extends Container {
             ItemStack clickedStack = slot.getStack();
             ItemStack order = player.getHeldItemMainhand();
             if (!clickedStack.isEmpty() && !(clickedStack.getItem() instanceof Order) && order.getItem() instanceof Order) {
-                NBTTagCompound tag = new NBTTagCompound();
-                tag.setString("type", "click");
-                tag.setTag("nbt", clickedStack.writeToNBT(new NBTTagCompound()));
-                WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
+                Utils.sendAction("order_set_marked", clickedStack.writeToNBT(new NBTTagCompound()));
                 return clickedStack;
             }
         }
         return ItemStack.EMPTY;
     }
 
+    @Override
     public void onAction(String type, NBTTagCompound compound) {
-        NBTTagCompound nbt = compound.getCompoundTag("nbt");
-        ItemStack clickedStack = new ItemStack(nbt);
-        ItemStack order = player.getHeldItemMainhand();
-        if (!clickedStack.isEmpty() && !(clickedStack.getItem() instanceof Order) && order.getItem() instanceof Order) {
-            Order.setMarkedItem(order, clickedStack.copy());
-            player.closeScreen();
+        if ("order_set_marked".equals(type)) {
+            ItemStack clickedStack = new ItemStack(compound);
+            ItemStack order = player.getHeldItemMainhand();
+            if (!clickedStack.isEmpty() && !(clickedStack.getItem() instanceof Order) && order.getItem() instanceof Order) {
+                Order.setMarkedItem(order, clickedStack.copy());
+                player.closeScreen();
+            }
         }
     }
 }

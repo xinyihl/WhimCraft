@@ -1,8 +1,7 @@
 package com.xinyihl.whimcraft.client;
 
-import com.xinyihl.whimcraft.WhimCraft;
 import com.xinyihl.whimcraft.common.items.Order;
-import com.xinyihl.whimcraft.common.network.PacketClientToServer;
+import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
@@ -26,10 +25,7 @@ public class GhostItemSlot extends Slot {
     public void putStack(@Nonnull ItemStack stack) {
         ItemStack order = player.getHeldItemMainhand();
         if (!stack.isEmpty() && !(stack.getItem() instanceof Order) && order.getItem() instanceof Order) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setString("type", "click");
-            tag.setTag("nbt", stack.writeToNBT(new NBTTagCompound()));
-            WhimCraft.instance.networkWrapper.sendToServer(new PacketClientToServer(PacketClientToServer.ClientToServer.CLICK_ACTION, tag));
+            Utils.sendAction("order_set_marked", stack.writeToNBT(new NBTTagCompound()));
         }
     }
 }
