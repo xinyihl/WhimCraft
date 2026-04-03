@@ -28,7 +28,7 @@ import java.util.List;
 
 public class TileMEPullBus extends MEMachineComponent implements IGridTickable {
 
-    private static final int SLOT_COUNT = 18;
+    private static final int SLOT_COUNT = 16;
 
     private final IItemStorageChannel channel =
             AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class);

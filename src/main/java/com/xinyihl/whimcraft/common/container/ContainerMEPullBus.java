@@ -9,6 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -21,23 +22,24 @@ public class ContainerMEPullBus extends Container implements IActionHandler {
         this.tile = tile;
         IOInventory inv = tile.getInternalInventory();
 
-        // 16 slots: 2 rows x 8 columns
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 9; col++) {
-                int slot = col + row * 9;
-                addSlotToContainer(new ViewOnlySlot(inv, slot, 8 + col * 18, 18 + row * 18));
+        // Left 4x4 grid: internal inventory slots
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                int slot = row * 4 + col;
+                addSlotToContainer(new ViewOnlySlot(inv, slot, 98 + col * 18, 35 + row * 18));
             }
         }
 
         // Player inventory (3 rows)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 68 + row * 18));
+                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 123 + row * 18));
             }
         }
+
         // Player hotbar
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 126));
+            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 181));
         }
     }
 
@@ -49,7 +51,6 @@ public class ContainerMEPullBus extends Container implements IActionHandler {
     @Nonnull
     @Override
     public ItemStack transferStackInSlot(@Nonnull EntityPlayer playerIn, int index) {
-        // Disallow all shift-click transfers
         return ItemStack.EMPTY;
     }
 
@@ -61,7 +62,7 @@ public class ContainerMEPullBus extends Container implements IActionHandler {
     }
 
     private static final class ViewOnlySlot extends SlotItemHandler {
-        private ViewOnlySlot(IOInventory itemHandler, int index, int xPosition, int yPosition) {
+        private ViewOnlySlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
 
