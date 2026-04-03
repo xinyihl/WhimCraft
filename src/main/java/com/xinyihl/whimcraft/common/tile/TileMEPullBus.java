@@ -30,8 +30,7 @@ public class TileMEPullBus extends MEMachineComponent implements IGridTickable {
 
     private static final int SLOT_COUNT = 16;
 
-    private final IItemStorageChannel channel =
-            AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class);
+    private final IItemStorageChannel channel = AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class);
 
     private IOInventory inventory = buildInventory();
 
@@ -85,54 +84,71 @@ public class TileMEPullBus extends MEMachineComponent implements IGridTickable {
 
             boolean extracted = false;
 
+            // First, keep pulling already tracked item types in inventory.
+            for (int slot = 0; slot < SLOT_COUNT; slot++) {
+                ItemStack existing = inventory.getStackInSlot(slot);
+                if (existing.isEmpty()) {
+                    continue;
+                }
+
+                int spaceLeft = Integer.MAX_VALUE - existing.getCount();
+                if (spaceLeft <= 0) {
+                    continue;
+                }
+
+                IAEItemStack toExtract = AEItemStack.fromItemStack(existing.copy());
+                if (toExtract == null) {
+                    continue;
+                }
+                toExtract.setStackSize(spaceLeft);
+
+                IAEItemStack result = Platform.poweredExtraction(proxy.getEnergy(), inv, toExtract, source);
+                if (result != null && result.getStackSize() > 0) {
+                    existing.grow((int) result.getStackSize());
+                    inventory.setStackInSlot(slot, existing);
+                    extracted = true;
+                }
+            }
+
+            // Then, if inventory has empty slots, randomly pull new item types until 16 are tracked.
             for (IAEItemStack aeStack : snapshot) {
                 if (aeStack.getStackSize() <= 0) {
                     continue;
                 }
 
-                // Find a matching slot to stack into, or an empty slot
-                int targetSlot = -1;
-                int emptySlot = -1;
                 ItemStack aeItemStack = aeStack.createItemStack();
+                if (aeItemStack.isEmpty()) {
+                    continue;
+                }
+
+                boolean alreadyTracked = false;
+                int emptySlot = -1;
                 for (int i = 0; i < SLOT_COUNT; i++) {
                     ItemStack existing = inventory.getStackInSlot(i);
                     if (existing.isEmpty()) {
                         if (emptySlot == -1) {
                             emptySlot = i;
                         }
-                    } else if (ItemStack.areItemsEqual(existing, aeItemStack)
-                            && ItemStack.areItemStackTagsEqual(existing, aeItemStack)
-                            && existing.getCount() < existing.getMaxStackSize()) {
-                        targetSlot = i;
+                    } else if (ItemStack.areItemsEqual(existing, aeItemStack) && ItemStack.areItemStackTagsEqual(existing, aeItemStack)) {
+                        alreadyTracked = true;
                         break;
                     }
                 }
 
-                if (targetSlot == -1) {
-                    targetSlot = emptySlot;
-                }
-                if (targetSlot == -1) {
-                    break; // No available slot
-                }
-
-                ItemStack existing = inventory.getStackInSlot(targetSlot);
-                int spaceLeft = existing.isEmpty() ? Integer.MAX_VALUE : Integer.MAX_VALUE - existing.getCount();
-                if (spaceLeft <= 0) {
+                if (alreadyTracked) {
                     continue;
                 }
+                if (emptySlot == -1) {
+                    break;
+                }
 
-                // Extract up to the available space from AE
+                // Pull a new random item type into the first empty slot.
                 IAEItemStack toExtract = aeStack.copy();
-                toExtract.setStackSize(spaceLeft);
+                toExtract.setStackSize(Integer.MAX_VALUE);
 
                 IAEItemStack result = Platform.poweredExtraction(proxy.getEnergy(), inv, toExtract, source);
-                if (result != null) {
-                    if (existing.isEmpty()) {
-                        inventory.setStackInSlot(targetSlot, result.createItemStack());
-                    } else {
-                        existing.grow((int) result.getStackSize());
-                        inventory.setStackInSlot(targetSlot, existing);
-                    }
+                if (result != null && result.getStackSize() > 0) {
+                    inventory.setStackInSlot(emptySlot, result.createItemStack());
                     extracted = true;
                 }
             }
