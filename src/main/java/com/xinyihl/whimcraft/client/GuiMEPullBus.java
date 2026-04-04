@@ -55,8 +55,8 @@ public class GuiMEPullBus extends GuiContainer {
                 Slot slot = container.getSlot(slotIndex);
                 ItemStack stack = slot.getStack();
                 if (stack.isEmpty()) continue;
-                int rx = 8 + col * 18 + 1;
-                int ry = 35 + row * 18 + 1;
+                int rx = 7 + col * 18 + 1;
+                int ry = 34 + row * 18 + 1;
                 ItemStack display = stack.copy();
                 display.setCount(1);
                 this.itemRender.renderItemAndEffectIntoGUI(display, rx, ry);
