@@ -37,6 +37,7 @@ public enum Mixins {
     CraftingTermTransfer(false, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2", "neenergistics"),
     AeOrderAutoComplete(false, () -> Configurations.GENERAL_CONFIG.orderEnable, "appliedenergistics2"),
     // Botania
+    GaiaSkill(false, () -> Configurations.BOTANIA_CONFIG.gaiaSkillEnable, "botania", "extrabotany"),
     OrechidIgnem(true, () -> Configurations.BOTANIA_CONFIG.orechidIgnemEnable, "botania"),
     GaiaCrashFix(true, () -> Configurations.BOTANIA_CONFIG.gaiaCrashFixEnable, "botania"),
     ModBrewsDuration(true, () -> Configurations.BOTANIA_CONFIG.modBrewsDurationEnable, "botania"),

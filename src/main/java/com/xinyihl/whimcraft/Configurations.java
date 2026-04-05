@@ -237,6 +237,8 @@ public class Configurations {
         public boolean linkFlowerToPool = false;
         @Config.Comment("是否允许地狱兰花在任何维度运作")
         public boolean orechidIgnemEnable = false;
+        @Config.Comment("是否移除盖亚/空律锁伤机制")
+        public boolean gaiaSkillEnable = false;
         @Config.Comment("是否修复盖亚守护者II服务端崩溃(无玩家时)")
         public boolean gaiaCrashFixEnable = false;
         @Config.Comment("是否增加神秘酿造持续时间")
