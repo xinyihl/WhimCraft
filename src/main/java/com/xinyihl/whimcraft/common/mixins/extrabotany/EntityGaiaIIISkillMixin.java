@@ -15,4 +15,12 @@ public abstract class EntityGaiaIIISkillMixin {
     private float whimCraft$removeDamageCap(float cap, float amount) {
         return amount;
     }
+
+    @Redirect(
+            method = "setHealth",
+            at = @At(value = "INVOKE", target = "Ljava/lang/Math;max(FF)F", remap = false)
+    )
+    public float whimCraft$removeSetHealthCap(float a, float b) {
+        return a;
+    }
 }
