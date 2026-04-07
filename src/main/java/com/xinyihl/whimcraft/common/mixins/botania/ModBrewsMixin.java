@@ -10,6 +10,6 @@ public abstract class ModBrewsMixin {
 
     @ModifyConstant(method = "initTC", constant = @Constant(intValue = 12000))
     private static int increaseDuration(int value) {
-        return 1728000;
+        return Configurations.BOTANIA_CONFIG.modBrewsDuration;
     }
 }

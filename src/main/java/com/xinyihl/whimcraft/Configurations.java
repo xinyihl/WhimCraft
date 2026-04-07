@@ -68,7 +68,7 @@ public class Configurations {
     @Config.Comment("SmelteryIO设置")
     public static final SmelteryIOConfig SMELTERYIO_CONFIG = new SmelteryIOConfig();
 
-    @Config.Comment("通灵术设置")
+    @Config.Comment("通用机械设置")
     public static final MekanismConfig MEKANISM_CONFIG = new MekanismConfig();
 
     @Config.Comment("匠魂设置")
@@ -235,23 +235,23 @@ public class Configurations {
         public boolean showMana = false;
         @Config.Comment("是否允许将产能花直接连接到魔力池")
         public boolean linkFlowerToPool = false;
-        @Config.Comment("是否允许地狱兰花在任何维度运作")
+        @Config.Comment("是否允许炎矿兰在任何维度运作")
         public boolean orechidIgnemEnable = false;
         @Config.Comment("是否移除盖亚/空律锁伤机制")
         public boolean gaiaSkillEnable = false;
         @Config.Comment("是否修复盖亚守护者II服务端崩溃(无玩家时)")
         public boolean gaiaCrashFixEnable = false;
-        @Config.Comment("是否增加神秘酿造持续时间")
+        @Config.Comment("是否修改神秘酿造持续时间")
         public boolean modBrewsDurationEnable = false;
+        @Config.Comment("神秘酿造持续时间")
+        public int modBrewsDuration = 12000;
     }
 
     public static class ExtraBotanyConfig {
         @Config.Comment("是否启用白雏菊项链产物黑名单")
         public boolean pureDaisyPendantBlacklistEnable = false;
-
         @Config.Comment("白雏菊项链产物黑名单，填写方块注册名，例如 botania:livingrock")
         public String[] pureDaisyPendantOutputBlacklist = {};
-
         @Config.Comment("是否修复盖亚III在附近玩家列表为空时的崩溃")
         public boolean gaiaIIIEmptyPlayersCrashFixEnable = false;
     }
@@ -259,10 +259,8 @@ public class Configurations {
     public static class GendustryConfig {
         @Config.Comment("是否允许压印机接受蜂后进行基因压印")
         public boolean allowQueenImprinting = false;
-
         @Config.Comment("是否在压印蜂后时补齐Mate基因，避免只保留单侧基因")
         public boolean ensureQueenMateGenome = false;
-
         @Config.Comment("是否启用工业蜂箱木棍敲击刷新缓存")
         public boolean apiaryBonkEnable = false;
     }
