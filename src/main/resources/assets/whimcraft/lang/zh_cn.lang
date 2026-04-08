@@ -21,6 +21,9 @@ key.whimcraft.desc=奇思妙想
 key.whimcraft.getItemId=获取物品ID
 key.whimcraft.getItemIdList=获取物品ID列表
 key.whimcraft.getItemIdListOut=导出物品ID列表
+key.whimcraft.getItemDisplayName=获取物品中文名
+key.whimcraft.getItemIdWithDisplayName=获取物品ID和中文名
+key.whimcraft.getInventoryItemIdWithDisplayName=获取整个背包物品ID和中文名
 key.whimcraft.foundItemAe=在AE中搜索物品
 
 item.whimcraft.link_card.name=闪存卡

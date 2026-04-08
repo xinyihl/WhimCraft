@@ -21,6 +21,9 @@ key.whimcraft.desc=WhimCraft
 key.whimcraft.getItemId=Get Item ID
 key.whimcraft.getItemIdList=Get Item ID List
 key.whimcraft.getItemIdListOut=Export Item ID List
+key.whimcraft.getItemDisplayName=Get Item Display Name
+key.whimcraft.getItemIdWithDisplayName=Get Item ID And Display Name
+key.whimcraft.getInventoryItemIdWithDisplayName=Get Inventory Item ID And Display Name
 key.whimcraft.foundItemAe=Search Item in AE
 
 item.whimcraft.link_card.name=Link Card

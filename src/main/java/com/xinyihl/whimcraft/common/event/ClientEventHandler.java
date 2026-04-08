@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -31,9 +32,14 @@ public class ClientEventHandler {
     public static KeyBinding KEY_GET_ITEM_ID;
     public static KeyBinding KEY_GET_ITEM_ID_LIST;
     public static KeyBinding KEY_GET_ITEM_ID_LIST_OUT;
+    public static KeyBinding KEY_GET_ITEM_DISPLAY_NAME;
+    public static KeyBinding KEY_GET_ITEM_ID_WITH_DISPLAY_NAME;
+    public static KeyBinding KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME;
     private static boolean keyDown1 = false;
     private static boolean keyDown2 = false;
     private static boolean keyDown3 = false;
+    private static boolean keyDown4 = false;
+    private static boolean keyDown5 = false;
 
     public ClientEventHandler() {
         KEY_GET_ITEM_ID = new KeyBinding("key.whimcraft.getItemId", Keyboard.KEY_K, "key.whimcraft.desc");
@@ -42,6 +48,12 @@ public class ClientEventHandler {
         ClientRegistry.registerKeyBinding(KEY_GET_ITEM_ID_LIST);
         KEY_GET_ITEM_ID_LIST_OUT = new KeyBinding("key.whimcraft.getItemIdListOut", Keyboard.KEY_J, "key.whimcraft.desc");
         ClientRegistry.registerKeyBinding(KEY_GET_ITEM_ID_LIST_OUT);
+        KEY_GET_ITEM_DISPLAY_NAME = new KeyBinding("key.whimcraft.getItemDisplayName", Keyboard.KEY_V, "key.whimcraft.desc");
+        ClientRegistry.registerKeyBinding(KEY_GET_ITEM_DISPLAY_NAME);
+        KEY_GET_ITEM_ID_WITH_DISPLAY_NAME = new KeyBinding("key.whimcraft.getItemIdWithDisplayName", Keyboard.KEY_N, "key.whimcraft.desc");
+        ClientRegistry.registerKeyBinding(KEY_GET_ITEM_ID_WITH_DISPLAY_NAME);
+        KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME = new KeyBinding("key.whimcraft.getInventoryItemIdWithDisplayName", Keyboard.KEY_M, "key.whimcraft.desc");
+        ClientRegistry.registerKeyBinding(KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME);
         if (Configurations.AEMOD_CONFIG.searchInGui) {
             KEY_FOUND_ITEM_AE = new KeyBinding("key.whimcraft.foundItemAe", Keyboard.KEY_F, "key.whimcraft.desc");
             ClientRegistry.registerKeyBinding(KEY_FOUND_ITEM_AE);
@@ -50,6 +62,26 @@ public class ClientEventHandler {
 
     public static void setSysClipboardText(String writeMe) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(writeMe), null);
+    }
+
+    private static String getDisplayName(ItemStack itemStack) {
+        String displayName = itemStack.getDisplayName();
+        String formattedName = TextFormatting.getTextWithoutFormattingCodes(displayName);
+        return formattedName == null ? displayName : formattedName;
+    }
+
+    private static String getItemIdWithDisplayName(ItemStack itemStack) {
+        return Utils.getItemId(itemStack) + " | " + getDisplayName(itemStack);
+    }
+
+    private static List<String> getInventoryItemIdWithDisplayNames(EntityPlayer player) {
+        List<String> itemInfos = new ArrayList<>();
+        for (ItemStack itemStack : player.inventory.mainInventory) {
+            if (!itemStack.isEmpty()) {
+                itemInfos.add(getItemIdWithDisplayName(itemStack));
+            }
+        }
+        return itemInfos;
     }
 
     @SubscribeEvent
@@ -71,6 +103,20 @@ public class ClientEventHandler {
             String item = Utils.getItemId(itemStack);
             itemList.add(item);
             player.sendMessage(new TextComponentString("ItemList Add: " + item));
+        }
+
+        if (keyDown4) {
+            keyDown4 = false;
+            String displayName = getDisplayName(itemStack);
+            player.sendMessage(new TextComponentString("Item Name: " + displayName));
+            setSysClipboardText(displayName);
+        }
+
+        if (keyDown5) {
+            keyDown5 = false;
+            String itemInfo = getItemIdWithDisplayName(itemStack);
+            player.sendMessage(new TextComponentString("Item Info: " + itemInfo));
+            setSysClipboardText(itemInfo);
         }
     }
 
@@ -114,6 +160,25 @@ public class ClientEventHandler {
                 if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
                     keyDown3 = true;
                 }
+                if (keyCode == KEY_GET_ITEM_DISPLAY_NAME.getKeyCode()) {
+                    keyDown4 = true;
+                }
+                if (keyCode == KEY_GET_ITEM_ID_WITH_DISPLAY_NAME.getKeyCode()) {
+                    keyDown5 = true;
+                }
+                if (keyCode == KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME.getKeyCode()) {
+                    EntityPlayerSP player = Minecraft.getMinecraft().player;
+                    if (player != null) {
+                        List<String> itemInfos = getInventoryItemIdWithDisplayNames(player);
+                        if (itemInfos.isEmpty()) {
+                            player.sendMessage(new TextComponentString("Inventory: empty"));
+                            setSysClipboardText("");
+                        } else {
+                            setSysClipboardText(String.join(System.lineSeparator(), itemInfos));
+                            player.sendMessage(new TextComponentString("Inventory copied: " + itemInfos.size() + " items"));
+                        }
+                    }
+                }
                 if (keyCode == KEY_GET_ITEM_ID_LIST_OUT.getKeyCode()) {
                     EntityPlayerSP player = Minecraft.getMinecraft().player;
                     if (player != null) {
@@ -132,6 +197,12 @@ public class ClientEventHandler {
                 }
                 if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
                     keyDown3 = false;
+                }
+                if (keyCode == KEY_GET_ITEM_DISPLAY_NAME.getKeyCode()) {
+                    keyDown4 = false;
+                }
+                if (keyCode == KEY_GET_ITEM_ID_WITH_DISPLAY_NAME.getKeyCode()) {
+                    keyDown5 = false;
                 }
             }
         }
