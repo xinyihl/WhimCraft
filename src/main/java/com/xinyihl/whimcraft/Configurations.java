@@ -98,8 +98,6 @@ public class Configurations {
         public String loginCheckName = "skinName";
         @Config.Comment("多人页面优化")
         public boolean serverListEnable = false;
-        @Config.Comment("ME源质输出最大缓存源质数量")
-        public int aspectOutputHatchMaxStorage = 500;
         @Config.Comment("是否启用群系神秘区块灵气基础值覆盖")
         public boolean generateBiomeAuraBaseEnable = false;
         @Config.Comment("是否启用订单")
@@ -115,8 +113,6 @@ public class Configurations {
     public static class MmceConfig {
         @Config.Comment("额外的并行控制器\n启动一次后前往 MMCE 配置文件修改并行数\n需要自行处理模型&贴图(modularmachinery:blockparallelcontroller_whimcraft_[x])\n添加格式可打开 jar 文件查看 assets/modularmachinery")
         public int otherParallelController = 0;
-        @Config.Comment("样板供应器允许忽略并行处理单元")
-        public boolean isIgnoreParallel = false;
         @Config.Comment("是否启用 ME 机械样板供应器库存共享总线")
         public boolean useShareInfHandler = false;
     }
@@ -139,22 +135,6 @@ public class Configurations {
     }
 
     public static class AEModConfig {
-        @Config.Comment("存储元件存储种类上限(生成世界后不要修改)")
-        public int aeTotalTypes = 63;
-        @Config.Comment("编码样板显示由谁编码")
-        public boolean patternEncoder = false;
-        @Config.Comment("存储种类(设置值应小于等于 aeTotalTypes)")
-        public AECellConfig AECellConfig = new AECellConfig();
-        @Config.Comment("在Gui中按键搜索物品")
-        public boolean searchInGui = false;
-        @Config.Comment("是否启用无限元件")
-        public boolean infinityListCellEnable = false;
-        @Config.Comment("是否启用无限存储元件")
-        public boolean infinityStorageCellEnable = false;
-        @Config.Comment("是否启用通用无限存储元件")
-        public boolean infinityStorageAllCellEnable = false;
-        @Config.Comment("是否允许填充处理配方材料至合成终端")
-        public boolean craftingTerminalTransferEnable = false;
         @Config.Comment("是否启用ME拉取总线")
         public boolean mePullBusEnable = false;
         @Config.Comment("ME拉取总线拉取间隔(tick)")
@@ -327,28 +307,5 @@ public class Configurations {
     public static class ThermalFoundationConfig {
         @Config.Comment("是否移除热力基本工具")
         public boolean removeThermalTools = false;
-    }
-
-    public static class AECellConfig {
-        public int cell1K = 63;
-        public int cell4K = 63;
-        public int cell16K = 63;
-        public int cell64K = 63;
-        public int cell256K = 63;
-        public int cell1024K = 63;
-        public int cell4096K = 63;
-        public int cell16384K = 63;
-        public int fluidCell1K = 5;
-        public int fluidCell4K = 5;
-        public int fluidCell16K = 5;
-        public int fluidCell64K = 5;
-        public int fluidCell256K = 5;
-        public int fluidCell1024K = 5;
-        public int fluidCell4096K = 5;
-        public int fluidCell16384K = 5;
-        public int gasCell1K = 15;
-        public int gasCell4K = 15;
-        public int gasCell16K = 15;
-        public int gasCell64K = 15;
     }
 }

@@ -1,5 +1,6 @@
 package com.xinyihl.whimcraft.common.mixins.enderio;
 
+import crazypants.enderio.base.recipe.Recipe;
 import crazypants.enderio.base.recipe.alloysmelter.AlloyRecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,13 +17,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class AlloyRecipeManagerMixin {
 
     @Redirect(
-            method = "addRecipe",
+            method = "addRecipe(ZLcom/enderio/core/common/util/NNList;Lnet/minecraft/item/ItemStack;IFLcrazypants/enderio/base/recipe/RecipeLevel;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lcrazypants/enderio/base/recipe/alloysmelter/AlloyRecipeManager;needsSynthetics(Lcrazypants/enderio/base/recipe/Recipe;)Z"
             )
     )
-    private boolean noSyntheticRecipe(Object instance, Object recipe) {
+    private boolean noSyntheticRecipe(AlloyRecipeManager instance, Recipe recipe) {
         return false;
     }
 }

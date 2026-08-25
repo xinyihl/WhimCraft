@@ -1,22 +1,16 @@
 package com.xinyihl.whimcraft.common.event;
 
-import appeng.container.implementations.ContainerMEMonitorable;
-import appeng.util.IConfigManagerHost;
-import com.xinyihl.whimcraft.Configurations;
-import com.xinyihl.whimcraft.common.mixins.appliedenergistics2.accessor.GuiMEMonitorableAccessor;
 import com.xinyihl.whimcraft.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 
@@ -28,7 +22,6 @@ import java.util.List;
 public class ClientEventHandler {
 
     private static final List<String> itemList = new ArrayList<>();
-    public static KeyBinding KEY_FOUND_ITEM_AE;
     public static KeyBinding KEY_GET_ITEM_ID;
     public static KeyBinding KEY_GET_ITEM_ID_LIST;
     public static KeyBinding KEY_GET_ITEM_ID_LIST_OUT;
@@ -37,7 +30,6 @@ public class ClientEventHandler {
     public static KeyBinding KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME;
     private static boolean keyDown1 = false;
     private static boolean keyDown2 = false;
-    private static boolean keyDown3 = false;
     private static boolean keyDown4 = false;
     private static boolean keyDown5 = false;
 
@@ -54,10 +46,6 @@ public class ClientEventHandler {
         ClientRegistry.registerKeyBinding(KEY_GET_ITEM_ID_WITH_DISPLAY_NAME);
         KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME = new KeyBinding("key.whimcraft.getInventoryItemIdWithDisplayName", Keyboard.KEY_M, "key.whimcraft.desc");
         ClientRegistry.registerKeyBinding(KEY_GET_INVENTORY_ITEM_ID_WITH_DISPLAY_NAME);
-        if (Configurations.AEMOD_CONFIG.searchInGui) {
-            KEY_FOUND_ITEM_AE = new KeyBinding("key.whimcraft.foundItemAe", Keyboard.KEY_F, "key.whimcraft.desc");
-            ClientRegistry.registerKeyBinding(KEY_FOUND_ITEM_AE);
-        }
     }
 
     public static void setSysClipboardText(String writeMe) {
@@ -121,30 +109,6 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    @Optional.Method(modid = "appliedenergistics2")
-    public void jei(ItemTooltipEvent event) {
-        if (!Configurations.AEMOD_CONFIG.searchInGui) return;
-        EntityPlayer player = event.getEntityPlayer();
-        if (player == null) return;
-        if (keyDown3) {
-            keyDown3 = false;
-            Container container = player.openContainer;
-            if (container instanceof ContainerMEMonitorable) {
-                ItemStack itemStack = event.getItemStack();
-                String name = itemStack.getDisplayName();
-                IConfigManagerHost gui = ((ContainerMEMonitorable) container).getGui();
-                if (gui instanceof GuiMEMonitorableAccessor) {
-                    GuiMEMonitorableAccessor accessor = (GuiMEMonitorableAccessor) gui;
-                    accessor.getSearchField().setText(name);
-                    accessor.getSearchField().selectAll();
-                    accessor.getRepo().setSearchString(name);
-                    accessor.invokeSetScrollBar();
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public void onKeyPressed(GuiScreenEvent.KeyboardInputEvent.Post event) {
         //char typedChar = Keyboard.getEventCharacter();
         int keyCode = Keyboard.getEventKey();
@@ -156,9 +120,6 @@ public class ClientEventHandler {
                 }
                 if (keyCode == KEY_GET_ITEM_ID_LIST.getKeyCode()) {
                     keyDown2 = true;
-                }
-                if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
-                    keyDown3 = true;
                 }
                 if (keyCode == KEY_GET_ITEM_DISPLAY_NAME.getKeyCode()) {
                     keyDown4 = true;
@@ -194,9 +155,6 @@ public class ClientEventHandler {
                 }
                 if (keyCode == KEY_GET_ITEM_ID_LIST.getKeyCode()) {
                     keyDown2 = false;
-                }
-                if (Configurations.AEMOD_CONFIG.searchInGui && keyCode == KEY_FOUND_ITEM_AE.getKeyCode()) {
-                    keyDown3 = false;
                 }
                 if (keyCode == KEY_GET_ITEM_DISPLAY_NAME.getKeyCode()) {
                     keyDown4 = false;

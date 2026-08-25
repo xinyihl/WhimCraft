@@ -10,16 +10,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum Mixins {
-    PatternEncoder(false, () -> Configurations.AEMOD_CONFIG.patternEncoder, "ae2fc", "appliedenergistics2"),
-    CellTotalTypes(false, null, "appliedenergistics2", "mekeng", "nae2"),
-    IgnoreParallel(true, () -> Configurations.MMCE_CONFIG.isIgnoreParallel, "appliedenergistics2", "modularmachinery"),
     PerkLevelManager(true, null, "astralsorcery"),
     ManaRecipeWrapper(true, () -> Configurations.BOTANIA_CONFIG.showMana, "botania"),
     LinkFlowerPool(true, () -> Configurations.BOTANIA_CONFIG.linkFlowerToPool, "botania"),
     FixItemIngredientsCrash(true, null, "extrautils2"),
     RainbowGenerator(true, null, "extrautils2"),
-    GuguMEAspectBus(true, null, "gugu-utils", "modularmachinery", "appliedenergistics2", "thaumcraft"),
-    MmceMEAspectBus(true, null, "modularmachinery", "appliedenergistics2", "thaumcraft"),
     FurnaceXp(true, () -> Configurations.IC2_CONFIG.changeXPOrb, "ic2"),
     MmceMain(true, null, "modularmachinery"),
     MobUtilsXpSupport(true, () -> Configurations.MOBUTILS_CONFIG.otherXpSupport, "mob_grinding_utils"),
@@ -27,15 +22,11 @@ public enum Mixins {
     AuraChunkUpdate(true, () -> !Configurations.NATURE_CONFIG.auraChunkUpdateEnable, "naturesaura"),
     FixTileMelterCrash(true, null, "tcomplement"),
     EntityMobFarmDrop(true, null, "tinymobfarm"),
-    PassKeyToSearchInAeGui(true, () -> Configurations.AEMOD_CONFIG.searchInGui, "appliedenergistics2"),
     GenerateBiomeAuraBase(true, () -> Configurations.GENERAL_CONFIG.generateBiomeAuraBaseEnable, "thaumcraft"),
     GuguStarlight(true, () -> Configurations.ASMOD_CONFIG.starLightHatchFix, "gugu-utils", "astralsorcery"),
-    InfinityListCell(true, () -> Configurations.AEMOD_CONFIG.infinityListCellEnable, "appliedenergistics2"),
     CelestialCrystals(true, () -> Configurations.ASMOD_CONFIG.celestialCrystalsEnable, "astralsorcery"),
     AltarProgression(true, () -> Configurations.ASMOD_CONFIG.altarProgressionEnable, "astralsorcery"),
-    InfinityStorageAllCell(true, () -> Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable, "appliedenergistics2"),
-    CraftingTermTransfer(false, () -> Configurations.AEMOD_CONFIG.craftingTerminalTransferEnable, "appliedenergistics2", "neenergistics"),
-    AeOrderAutoComplete(false, () -> Configurations.GENERAL_CONFIG.orderEnable, "appliedenergistics2"),
+    //AeOrderAutoComplete(false, () -> Configurations.GENERAL_CONFIG.orderEnable, "appliedenergistics2"),
     GaiaSkill(false, () -> Configurations.BOTANIA_CONFIG.gaiaSkillEnable, "botania", "extrabotany"),
     OrechidIgnem(true, () -> Configurations.BOTANIA_CONFIG.orechidIgnemEnable, "botania"),
     GaiaCrashFix(true, () -> Configurations.BOTANIA_CONFIG.gaiaCrashFixEnable, "botania"),
@@ -57,8 +48,7 @@ public enum Mixins {
     MekanismTweaks(true, () -> Configurations.MEKANISM_CONFIG.disableLogRecipes || Configurations.MEKANISM_CONFIG.fixNBTCrash, "mekanism"),
     TConCastingCooldown(true, () -> Configurations.TCONSTRUCT_CONFIG.fasterCastingCooldown, "tconstruct"),
     ThermalExpansionTweaks(true, () -> Configurations.THERMAL_EXPANSION_CONFIG.thermalExpansionTweaksEnable, "thermalexpansion"),
-    ThermalFoundationTools(true, () -> Configurations.THERMAL_FOUNDATION_CONFIG.removeThermalTools, "thermalfoundation")
-    ;
+    ThermalFoundationTools(true, () -> Configurations.THERMAL_FOUNDATION_CONFIG.removeThermalTools, "thermalfoundation");
 
     final String mixinName;
     final String[] modId;

@@ -2,12 +2,13 @@ package com.xinyihl.whimcraft.common.init;
 
 import com.xinyihl.whimcraft.Configurations;
 import com.xinyihl.whimcraft.Tags;
-import com.xinyihl.whimcraft.common.blocks.*;
+import com.xinyihl.whimcraft.common.blocks.BlockRedisInputInterface;
+import com.xinyihl.whimcraft.common.blocks.BlockRedisOutputInterface;
+import com.xinyihl.whimcraft.common.blocks.BlockShareInfHandler;
 import com.xinyihl.whimcraft.common.items.Elgoog;
 import com.xinyihl.whimcraft.common.items.LinkCard;
 import com.xinyihl.whimcraft.common.items.MyItemBlock;
 import com.xinyihl.whimcraft.common.items.Order;
-import com.xinyihl.whimcraft.common.items.cell.*;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -76,9 +77,6 @@ public final class IB {
             blockRedisOutputInterface = registerBlock(new BlockRedisOutputInterface());
             itemRedisOutputInterface = registerItemBlock(blockRedisOutputInterface);
         }
-        if (Mods.AE2.isLoaded()) {
-            initAE2();
-        }
         if (Mods.MMCE.isLoaded()) {
             initMmce();
         }
@@ -94,68 +92,11 @@ public final class IB {
         }
     }
 
-    @Optional.Method(modid = "appliedenergistics2")
-    private static void initAE2() {
-        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
-            itemInfinityListFluidCell = registerItem(new InfinityListFluidCell());
-            itemInfinityListItemCell = registerItem(new InfinityListItemCell());
-        }
-        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
-            itemInfinityStorageFluidCell = registerItem(new InfinityStorageFluidCell());
-            itemInfinityStorageItemCell = registerItem(new InfinityStorageItemCell());
-        }
-        if (Configurations.AEMOD_CONFIG.infinityStorageAllCellEnable) {
-            itemInfinityStorageAllCell = registerItem(new InfinityStorageAllCell());
-        }
-        if (Mods.TCENERG.isLoaded()) {
-            initThaumicEnergistics();
-        }
-        if (Mods.MEKENG.isLoaded()) {
-            initMEKENG();
-        }
-    }
-
-    @Optional.Method(modid = "thaumicenergistics")
-    private static void initThaumicEnergistics() {
-        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
-            itemInfinityListEssentiaCell = registerItem(new InfinityListEssentiaCell());
-        }
-        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
-            itemInfinityStorageEssentiaCell = registerItem(new InfinityStorageEssentiaCell());
-        }
-    }
-
-    @Optional.Method(modid = "mekeng")
-    private static void initMEKENG() {
-        if (Configurations.AEMOD_CONFIG.infinityListCellEnable) {
-            itemInfinityListGasCell = registerItem(new InfinityListGasCell());
-        }
-        if (Configurations.AEMOD_CONFIG.infinityStorageCellEnable) {
-            itemInfinityStorageGasCell = registerItem(new InfinityStorageGasCell());
-        }
-    }
-
     @Optional.Method(modid = "modularmachinery")
     private static void initMmce() {
         if (Configurations.MMCE_CONFIG.useShareInfHandler) {
             blockShareInfHandler = registerBlock(new BlockShareInfHandler());
             itemShareInfHandler = registerItemBlock(blockShareInfHandler);
-        }
-        if (Mods.AE2.isLoaded() && Mods.TC6.isLoaded()) {
-            blockMEAspectInputBusMMCE = registerBlock(new BlockMEAspectInputBusMMCE());
-            itemMEAspectInputBusMMCE = registerItemBlock(blockMEAspectInputBusMMCE);
-            blockMEAspectOutputBusMMCE = registerBlock(new BlockMEAspectOutputBusMMCE());
-            itemMEAspectOutputBusMMCE = registerItemBlock(blockMEAspectOutputBusMMCE);
-        }
-        if (Mods.AE2.isLoaded() && Mods.TC6.isLoaded() && Mods.GUGU.isLoaded()) {
-            blockMEAspectInputBus = registerBlock(new BlockMEAspectInputBus());
-            itemMEAspectInputBus = registerItemBlock(blockMEAspectInputBus);
-            blockMEAspectOutputBus = registerBlock(new BlockMEAspectOutputBus());
-            itemMEAspectOutputBus = registerItemBlock(blockMEAspectOutputBus);
-        }
-        if (Mods.AE2.isLoaded() && Configurations.AEMOD_CONFIG.mePullBusEnable) {
-            blockMEPullBus = registerBlock(new BlockMEPullBus());
-            itemMEPullBus = registerItemBlock(blockMEPullBus);
         }
     }
 

@@ -1,16 +1,13 @@
 package com.xinyihl.whimcraft.common.event;
 
 import com.xinyihl.whimcraft.client.GuiCablePlacer;
-import com.xinyihl.whimcraft.client.GuiMEPullBus;
 import com.xinyihl.whimcraft.client.GuiRedisInterface;
 import com.xinyihl.whimcraft.client.OrderGui;
 import com.xinyihl.whimcraft.common.container.ContainerCablePlacer;
-import com.xinyihl.whimcraft.common.container.ContainerMEPullBus;
 import com.xinyihl.whimcraft.common.container.ContainerOrder;
 import com.xinyihl.whimcraft.common.container.ContainerRedisInterface;
 import com.xinyihl.whimcraft.common.items.Order;
 import com.xinyihl.whimcraft.common.items.placer.CablePlacer;
-import com.xinyihl.whimcraft.common.tile.TileMEPullBus;
 import com.xinyihl.whimcraft.common.tile.TileRedisInputInterface;
 import com.xinyihl.whimcraft.common.tile.TileRedisOutputInterface;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,12 +52,6 @@ public class GuiHandler implements IGuiHandler {
                 return new ContainerRedisInterface(player.inventory, (TileRedisOutputInterface) te, false);
             }
         }
-        if (ID == ME_PULL_BUS_GUI) {
-            TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-            if (te instanceof TileMEPullBus) {
-                return new ContainerMEPullBus(player.inventory, (TileMEPullBus) te);
-            }
-        }
         return null;
     }
 
@@ -88,12 +79,6 @@ public class GuiHandler implements IGuiHandler {
             TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
             if (te instanceof TileRedisOutputInterface) {
                 return new GuiRedisInterface(new ContainerRedisInterface(player.inventory, (TileRedisOutputInterface) te, false), false);
-            }
-        }
-        if (ID == ME_PULL_BUS_GUI) {
-            TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-            if (te instanceof TileMEPullBus) {
-                return new GuiMEPullBus(new ContainerMEPullBus(player.inventory, (TileMEPullBus) te));
             }
         }
         return null;

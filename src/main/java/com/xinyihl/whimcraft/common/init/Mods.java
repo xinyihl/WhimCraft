@@ -26,8 +26,7 @@ public enum Mods {
     MMADDONS("modularmachineryaddons"),
     MODTW("modtweaker"),
     EXTENDEDAE("extendedae"),
-    ENDIO("enderio")
-    ;
+    ENDIO("enderio");
 
     public final String modid;
 
